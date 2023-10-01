@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+          <li><a href="{% url 'login' %}" class="login-button">Login</a></li>
+          <!-- Add this line -->
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+          <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a>
+        </div>
+      </section>
+      <div class="navigation-bar">
+        <ul class="nav-list">
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+          <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+          <li><a href="{% url 'landslide' %}">Landslide</a></li>
+          <li><a href="{% url 'weathersit' %}">Weather Situation</a></li>
+          <li><a href="{% url 'reports' %}">Reports</a></li>
+        </ul>
+      </div>
+      <section class="preparedness">
+        <h2>Emergency Preparedness</h2>
+        <p>
+          Learn how to prepare for disasters and emergencies. Get tips,
+          checklists, and resources to keep you and your family safe.
+        </p>
+        <a href="{% url 'preparedness' %}" class="learn-more">Learn More</a>
+      </section>
+      <section class="emergency-contacts">
+        <h2>Emergency Contacts</h2>
+        <p>
+          Find important contact information for local emergency services,
+          shelters, and support organizations in your area.
+        </p>
+        <a href="{% url 'emergency_contacts' %}" class="view-contacts"
+          >View Contacts</a
+        >
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2023 Disaster Risk Management</p>
+    </footer>
+  </body>
+</html>

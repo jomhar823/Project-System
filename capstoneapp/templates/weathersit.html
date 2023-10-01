@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="{% static 'weathersit.css' %}" />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+
+      <div class="navigation-bar">
+        <ul class="nav-list">
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+          <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+          <li><a href="{% url 'landslide' %}">Landslide</a></li>
+          <li><a href="{% url 'weathersit' %}">Weather Report</a></li>
+          <li><a href="{% url 'reports' %}">Reports</a></li>
+        </ul>
+      </div>
+      <!-- Weather Situation Information Section -->
+      <section class="weather-situation">
+        <h2>Current Weather Situation</h2>
+        <div class="weather-details">
+          <div class="weather-info">
+            <h3>Temperature</h3>
+            <p>25°C</p>
+          </div>
+          <div class="weather-info">
+            <h3>Humidity</h3>
+            <p>65%</p>
+          </div>
+          <div class="weather-info">
+            <h3>Wind Speed</h3>
+            <p>15 km/h</p>
+          </div>
+          <div class="weather-info">
+            <h3>Conditions</h3>
+            <p>Partly Cloudy</p>
+          </div>
+        </div>
+        <p>
+          Stay informed about the current weather conditions in your area and
+          how they may impact disaster risk management efforts.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+
+      <!-- Weather Forecast Section -->
+      <section class="weather-forecast">
+        <h2>Weather Forecast</h2>
+        <div class="forecast-details">
+          <div class="forecast-info">
+            <h3>Tomorrow</h3>
+            <p>High: 28°C / Low: 18°C</p>
+            <p>Partly Cloudy</p>
+          </div>
+          <div class="forecast-info">
+            <h3>Next 7 Days</h3>
+            <p>See the detailed weather forecast for the upcoming week.</p>
+          </div>
+        </div>
+        <p>
+          Plan your disaster preparedness activities based on the weather
+          forecast for the next few days.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+    </main>
+    <footer>
+      <!-- Footer content -->
+    </footer>
+  </body>
+</html>

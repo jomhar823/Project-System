@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="{% static 'typhoon.css' %}" />
+    <title>Typhoon Information</title>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Typhoon Information</h1>
+          <p>Stay prepared and safe during typhoons.</p>
+        </div>
+      </section>
+
+      <div class="navigation-bar">
+        <ul class="nav-list">
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+          <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+          <li><a href="{% url 'landslide' %}">Landslide</a></li>
+          <li><a href="{% url 'weathersit' %}">Weather Report</a></li>
+          <li><a href="{% url 'reports' %}">Reports</a></li>
+        </ul>
+      </div>
+
+      <!-- Typhoon Information Section -->
+      <section class="typhoon-info">
+        <h2>Typhoon Basics</h2>
+        <p>
+          Learn about typhoons, their formation, and how to stay informed during
+          typhoon seasons.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+
+      <!-- Safety Measures Section -->
+      <section class="safety-measures">
+        <h2>Typhoon Safety Measures</h2>
+        <p>
+          Discover essential safety measures to protect yourself and your
+          community during a typhoon.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+
+      <!-- Typhoon Alerts Section -->
+      <section class="typhoon-alerts">
+        <h2>Typhoon Alerts</h2>
+        <p>
+          Get real-time typhoon alerts and updates in your area. Stay informed
+          to take necessary precautions.
+        </p>
+        <a href="#" class="learn-more">Check Alerts</a>
+      </section>
+    </main>
+
+    <footer>
+      <!-- Footer content -->
+    </footer>
+  </body>
+</html>

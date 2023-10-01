@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="{% static 'calendar.css' %}" />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+
+      <div class="navigation-bar">
+        <ul class="nav-list">
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+          <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+          <li><a href="{% url 'landslide' %}">Landslide</a></li>
+          <li><a href="{% url 'weathersit' %}">Weather Report</a></li>
+          <li><a href="{% url 'reports' %}">Reports</a></li>
+        </ul>
+      </div>
+
+      <!-- Calendar Section -->
+      <section class="calendar">
+        <h2>Event Calendar</h2>
+        <p>
+          Stay informed about upcoming events, drills, and disaster preparedness
+          activities in your area.
+        </p>
+        <iframe
+          src="https://www.example.com/calendar"
+          width="100%"
+          height="600"
+          frameborder="0"
+          scrolling="no"
+        ></iframe>
+      </section>
+
+      <!-- Situational Reports Container -->
+      <section class="situational-reports">
+        <h2>Situational Reports</h2>
+        <div class="report">
+          <h3>Report Title 1</h3>
+          <p>Description of the first situational report.</p>
+          <a href="#">Read More</a>
+        </div>
+        <div class="report">
+          <h3>Report Title 2</h3>
+          <p>Description of the second situational report.</p>
+          <a href="#">Read More</a>
+        </div>
+        <!-- Add more reports as needed -->
+      </section>
+    </main>
+    <footer>
+      <!-- Footer content -->
+    </footer>
+  </body>
+</html>

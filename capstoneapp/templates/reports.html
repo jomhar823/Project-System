@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="{% static 'reports.css' %}" />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+
+      <div class="navigation-bar">
+        <ul class="nav-list">
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+          <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+          <li><a href="{% url 'landslide' %}">Landslide</a></li>
+          <li><a href="{% url 'weathersit' %}">Weather Report</a></li>
+          <li><a href="{% url 'reports' %}">Reports</a></li>
+        </ul>
+      </div>
+      <!-- Report Situation Section -->
+      <section class="report-situation">
+        <h2>Current Situation Report</h2>
+        <p>
+          Stay updated with the latest disaster-related reports and information
+          in your area.
+        </p>
+        <div class="report-item">
+          <h3>Report Title 1</h3>
+          <p>
+            Description of the first situation report. Include details about the
+            incident, location, and impact.
+          </p>
+          <a href="#" class="learn-more">Read More</a>
+        </div>
+        <div class="report-item">
+          <h3>Report Title 2</h3>
+          <p>
+            Description of the second situation report. Provide essential
+            information to keep users informed.
+          </p>
+          <a href="#" class="learn-more">Read More</a>
+        </div>
+        <!-- Add more reports as needed -->
+      </section>
+    </main>
+    <footer>
+      <!-- Footer content -->
+    </footer>
+  </body>
+</html>

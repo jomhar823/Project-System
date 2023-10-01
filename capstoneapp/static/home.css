@@ -1,0 +1,58 @@
+/* CSS for the sidebar */
+.sidebar {
+  width: 0;
+  background-color: #333;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.sidebar.open {
+  width: 250px;
+}
+
+/* Adjust the position of the list */
+.sidebar ul {
+  list-style-type: none;
+  margin-top: 20px; /* Add margin-top to move the list downwards */
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+}
+
+/* Style for the links in the sidebar */
+.sidebar a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Style for the main content */
+.content {
+  margin-left: 0;
+  padding: 20px;
+  transition: 0.5s;
+}
+
+.content.open {
+  margin-left: 250px;
+}
+
+/* Button to open/close the sidebar */
+.open-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 999;
+}

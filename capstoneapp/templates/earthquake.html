@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="{% static 'earthquake.css' %}" />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+
+      <div class="navigation-bar">
+        <ul class="nav-list">
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+          <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+          <li><a href="{% url 'landslide' %}">Landslide</a></li>
+          <li><a href="{% url 'weathersit' %}">Weather Report</a></li>
+          <li><a href="{% url 'reports' %}">Reports</a></li>
+        </ul>
+      </div>
+      <!-- Earthquake Information Section -->
+      <section class="earthquake-info">
+        <h2>Earthquake Basics</h2>
+        <p>
+          Learn about earthquakes, their causes, and how to stay safe during and
+          after an earthquake.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+
+      <!-- Earthquake Preparedness Section -->
+      <section class="earthquake-preparedness">
+        <h2>Earthquake Preparedness</h2>
+        <p>
+          Discover essential earthquake preparedness measures for your family
+          and community.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+
+      <!-- Earthquake Safety Tips Section -->
+      <section class="earthquake-safety-tips">
+        <h2>Earthquake Safety Tips</h2>
+        <ul>
+          <li>
+            <p>Secure heavy objects that could fall during an earthquake.</p>
+          </li>
+          <li>
+            <p>Create an emergency plan and designate meeting places.</p>
+          </li>
+          <li>
+            <p>Prepare an earthquake emergency kit with essential supplies.</p>
+          </li>
+          <li>
+            <p>Know how to "Drop, Cover, and Hold On" during shaking.</p>
+          </li>
+        </ul>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+    </main>
+    <footer>
+      <!-- Footer content -->
+    </footer>
+  </body>
+</html>

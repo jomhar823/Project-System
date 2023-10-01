@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="{% static 'landslide.css' %}" />
+    <title>Disaster Risk Management</title>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+          <!-- Add more navigation links as needed -->
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+
+      <div class="navigation-bar">
+        <ul class="nav-list">
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+          <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+          <li><a href="{% url 'landslide' %}">Landslide</a></li>
+          <li><a href="{% url 'weathersit' %}">Weather Report</a></li>
+          <li><a href="{% url 'reports' %}">Reports</a></li>
+        </ul>
+      </div>
+      <section class="landslide-info">
+        <h2>Landslide Basics</h2>
+        <p>
+          Learn about landslides, their causes, and how to recognize warning
+          signs.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+
+      <!-- Landslide Preparedness Section -->
+      <section class="landslide-preparedness">
+        <h2>Landslide Preparedness</h2>
+        <p>
+          Discover essential landslide preparedness measures for your safety and
+          community.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+
+      <!-- Landslide Safety Tips Section -->
+      <section class="landslide-safety-tips">
+        <h2>Landslide Safety Tips</h2>
+        <ul>
+          <li>
+            <p>Identify landslide-prone areas near your location.</p>
+          </li>
+          <li>
+            <p>Stay alert to heavy rainfall and ground movement.</p>
+          </li>
+          <li>
+            <p>Evacuate immediately if landslide warnings are issued.</p>
+          </li>
+          <li>
+            <p>Build retaining walls or protective barriers where necessary.</p>
+          </li>
+        </ul>
+        <a href="#" class="learn-more">Learn More</a>
+      </section>
+    </main>
+    <footer>
+      <!-- Footer content -->
+    </footer>
+  </body>
+</html>
