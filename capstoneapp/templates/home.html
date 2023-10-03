@@ -16,9 +16,21 @@
           <li>
             <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
           </li>
-          <li><a href="{% url 'login' %}" class="login-button">Login</a></li>
-          <!-- Add this line -->
-          <!-- Add more navigation links as needed -->
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <img
+                src="{% static 'menu.png' %}"
+                alt="Image Button"
+                class="image-button"
+              />
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
         </ul>
       </nav>
     </header>
@@ -32,7 +44,7 @@
       </section>
       <div class="navigation-bar">
         <ul class="nav-list">
-          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'climate' %}">Climate</a></li>
           <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
           <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
           <li><a href="{% url 'landslide' %}">Landslide</a></li>
@@ -62,5 +74,6 @@
     <footer>
       <p>&copy; 2023 Disaster Risk Management</p>
     </footer>
+    <script src="home.js"></script>
   </body>
 </html>

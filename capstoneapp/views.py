@@ -14,8 +14,8 @@ def preparedness(request):
 def emergency_contacts(request):
     return render(request, 'emergency_contacts.html')
 
-def calendar (request):
-    return render(request, 'calendar.html')
+def climate (request):
+    return render(request, 'climate.html')
 
 def earthquake(request):
     return render(request, 'earthquake.html')

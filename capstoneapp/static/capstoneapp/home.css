@@ -39,11 +39,11 @@ header {
 }
 
 .nav-list li {
-  margin-right: 20px;
+  margin-left: 40px;
 }
 
 .nav-list li:last-child {
-  margin-right: 0;
+  margin-left: 0;
 }
 
 .nav-list a {
@@ -55,6 +55,54 @@ header {
 
 .nav-list a:hover {
   color: #ff5733;
+}
+
+.image-button {
+  width: 30px; /* Set the width of the image */
+  height: auto; /* Maintain the aspect ratio */
+  cursor: pointer; /* Add a pointer cursor to indicate interactivity */
+  /* Add more styles as needed */
+}
+/* Dropdown button styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.image-button {
+  width: 30px;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 35px;
+  nav-left: 20px;
+
+  background-color: #a7a7a7;
+  min-width: 160px;
+  box-shadow: 10px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Dropdown links */
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 /* Hero Section Styles */
