@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,6 +19,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+
+# Your API key (replace 'YOUR_API_KEY' with your actual API key)
+OPENWEATHERMAP_API_KEY = os.environ.get('OPENWEATHERMAP_API_KEY')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -71,7 +75,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -110,7 +113,8 @@ STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'capstoneapp/static/capstoneapp'),  # Add the path to your static directory
+    # Add the path to your static directory
+    os.path.join(BASE_DIR, 'capstoneapp/static/capstoneapp'),
 ]
 
 

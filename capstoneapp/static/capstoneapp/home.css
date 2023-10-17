@@ -7,7 +7,7 @@ ul {
 
 /* Global Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: system-ui, sans-serif;
   background-color: #f7f7f7;
   color: #333;
   line-height: 1.6;
@@ -17,25 +17,28 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Header Styles */
 header {
-  background-color: #333;
+  background-color: #afc019;
   color: #fff;
   padding: 10px 0;
 }
 
 .nav-container {
+  background-color: #afc019;
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  justify-content: start;
   align-items: center;
 }
 
 .nav-list {
   list-style: none;
   display: flex;
-  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav-list li {
@@ -46,27 +49,46 @@ header {
   margin-left: 0;
 }
 
-.nav-list a {
+.nav-list1 {
+  list-style: none;
+  display: flex;
+  margin-right: 60px;
+}
+
+.nav-list1 li {
+  margin-right: 50px;
+}
+
+.nav-list1 li:last-child {
+  margin-right: 0;
+}
+
+.nav-list1 a {
   text-decoration: none;
-  color: #fff;
+  color: #9d9d9d;
   font-weight: bold;
   transition: color 0.3s;
 }
 
-.nav-list a:hover {
-  color: #ff5733;
+.nav-list1 a:hover {
+  color: #ff5700;
 }
 
 .image-button {
-  width: 30px; /* Set the width of the image */
-  height: auto; /* Maintain the aspect ratio */
-  cursor: pointer; /* Add a pointer cursor to indicate interactivity */
-  /* Add more styles as needed */
+  width: 30px;
 }
+
 /* Dropdown button styles */
 .dropdown {
   position: relative;
   display: inline-block;
+}
+
+.dropdown-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .dropbtn {
@@ -83,13 +105,10 @@ header {
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 35px;
-  nav-left: 20px;
-
-  background-color: #a7a7a7;
-  min-width: 160px;
-  box-shadow: 10px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  background-color: #252525;
+  min-width: 1%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 3;
 }
 
 /* Dropdown links */
@@ -103,6 +122,20 @@ header {
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+/* Climate info styles (hidden by default) */
+.climate-info {
+  display: none;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+.climate-info h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
 /* Hero Section Styles */
@@ -128,7 +161,7 @@ header {
 .cta-button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #ff5733;
+  background-color: #afc019;
   color: #fff;
   text-decoration: none;
   font-weight: bold;
@@ -137,12 +170,12 @@ header {
 }
 
 .cta-button:hover {
-  background-color: #333;
+  background-color: #e5e5e5;
 }
 
 /* Navigation Bar Styles */
 .navigation-bar {
-  background-color: #ff5733;
+  background-color: #afc019;
   color: #fff;
   padding: 10px 0;
 }
@@ -166,7 +199,7 @@ header {
 }
 
 .nav-list a:hover {
-  color: #333;
+  color: #d1d1d1;
 }
 
 /* Section Styles */
@@ -189,7 +222,7 @@ p {
 .view-contacts {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #ff5733;
+  background-color: #afc019;
   color: #fff;
   text-decoration: none;
   font-weight: bold;
@@ -212,12 +245,42 @@ footer {
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
-  .nav-list {
+  .nav-list,
+  .nav-list1 {
     flex-direction: column;
     align-items: center;
   }
 
-  .nav-list li {
+  .nav-list li,
+  .nav-list1 li {
     margin: 10px 0;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .hero {
+    padding: 60px 0;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  section {
+    padding: 20px 0;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1rem;
   }
 }

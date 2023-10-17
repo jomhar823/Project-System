@@ -1,5 +1,9 @@
 {
   "emmet.useInlineCompletions": true,
   "emmet.triggerExpansionOnTab": true,
-  "codegpt.apiKey": "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"
+  "codegpt.apiKey": "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",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "python.formatting.provider": "none"
 }

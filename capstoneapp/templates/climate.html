@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Disaster Risk Management</title>
     <link rel="stylesheet" href="{% static 'home.css' %}" />
-    <link rel="stylesheet" href="{% static 'climate.css' %}" />
   </head>
   <body>
     <header>
@@ -17,6 +16,8 @@
           <li>
             <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
           </li>
+        </ul>
+        <ul class="nav-list1">
           <li class="dropdown">
             <button onclick="toggleDropdown()" class="dropbtn">
               <img
@@ -40,19 +41,97 @@
         <div class="hero-content">
           <h1>Welcome to Disaster Risk Management</h1>
           <p>Preparing for a safer future.</p>
+          <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a>
         </div>
       </section>
-
-      <div class="navigation-bar">
+      <nav class="navigation-bar">
         <ul class="nav-list">
-          <li><a href="{% url 'climate' %}">Climate</a></li>
-          <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
-          <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
-          <li><a href="{% url 'landslide' %}">Landslide</a></li>
-          <li><a href="{% url 'weathersit' %}">Weather Report</a></li>
-          <li><a href="{% url 'reports' %}">Reports</a></li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'climate' %}">Climate</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+            <div id= "imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'landslide' %}">Landslide</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'weathersit' %}">Weather Situation</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'reports' %}">Reports</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('Situational Reports')"
+                >Situational Reports</a
+              >
+              <a href="#" onclick="changeImage('Incident Reports')"
+                >Incident Reports</a
+              >
+              <a href="#" onclick="changeImage('Reports')">Reports</a>
+            </div>
+          </li>
         </ul>
-      </div>
+      </nav>
+
+      <!-- Calendar Section -->
+      <section class="calendar">
+        <h2>Event Calendar</h2>
+        <p>
+          Stay informed about upcoming events, drills, and disaster preparedness
+          activities in your area.
+        </p>
+        <iframe
+          src="https://www.example.com/calendar"
+          width="100%"
+          height="600"
+          frameborder="0"
+          scrolling="no"
+        ></iframe>
+      </section>
 
       <!-- Calendar Section -->
       <section class="calendar">
@@ -85,9 +164,25 @@
         </div>
         <!-- Add more reports as needed -->
       </section>
+
+      <section class="situational-reports">
+        <h2>Situational Reports</h2>
+        <div class="report">
+          <h3>Report Title 1</h3>
+          <p>Description of the first situational report.</p>
+          <a href="#">Read More</a>
+        </div>
+        <div class="report">
+          <h3>Report Title 2</h3>
+          <p>Description of the second situational report.</p>
+          <a href="#">Read More</a>
+        </div>
+        <!-- Add more reports as needed -->
+      </section>
     </main>
     <footer>
       <!-- Footer content -->
     </footer>
+    <script src="{% static 'home.js' %}"></script>
   </body>
 </html>
