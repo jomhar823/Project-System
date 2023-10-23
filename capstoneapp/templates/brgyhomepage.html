@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+        </ul>
+        <ul class="nav-list1">
+          
+          <li class="dropdown">
+            <div class="email-div d-flex flex-row justify-content-center align-items-center" onclick="toggleDropdown()" class="dropbtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+              </svg> {{user.email}} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" style="vertical-align: middle;" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </div>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="{% url 'logout' %}" onclick="changeImage('logout')">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+          <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a>
+        </div>
+      </section>
+      <nav class="navigation-bar">
+        <ul class="nav-list">
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'climate' %}">Climate</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+            <div id= "imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'landslide' %}">Landslide</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'weathersit' %}">Weather Situation</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'reports' %}">Reports</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('Situational Reports')"
+                >Situational Reports</a
+              >
+              <a href="#" onclick="changeImage('Incident Reports')"
+                >Incident Reports</a
+              >
+              <a href="#" onclick="changeImage('Reports')">Reports</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <section class="preparedness">
+        <h2>Emergency Preparedness</h2>
+        <p>
+          Learn how to prepare for disasters and emergencies. Get tips,
+          checklists, and resources to keep you and your family safe.
+        </p>
+        <a href="{% url 'preparedness' %}" class="learn-more">Learn More</a>
+      </section>
+      <section class="emergency-contacts">
+        <h2>Emergency Contacts</h2>
+        <p>
+          Find important contact information for local emergency services,
+          shelters, and support organizations in your area.
+        </p>
+        <a href="{% url 'emergency_contacts' %}" class="view-contacts"
+          >View Contacts</a
+        >
+      </section>
+    </main>
+    <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer>
+  </body>
+</html>

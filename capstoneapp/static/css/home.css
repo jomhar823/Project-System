@@ -91,6 +91,14 @@ footer {
   padding: 10px 0;
 }
 
+section {
+  background-image: url("{% static '/capstoneapp/ibaan.jpg' %}");
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  height: 100vh; 
+}
+
 /* Media queries for responsive design */
 @media (max-width: 768px) {
   header h1 {

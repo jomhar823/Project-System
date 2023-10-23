@@ -4,10 +4,13 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('login', auth_views.LoginView.as_view(
-        template_name='login.html'), name='login'),
+    path('index', views.index, name='mainpage'),
+    path('login', views.login_view, name='login'),
     path('accounts/profile/', views.profile, name='profile'),
-    path('', views.home, name='home'),
+    path('register', views.register, name='register'),
+    path('adminhomepage', views.adminhomepage, name='adminhomepage'),
+    path('brgyhomepage', views.brgyhomepage, name='brgyhomepage'),
+    path('', views.index, name='index'),
     path('preparedness', views.preparedness, name='preparedness'),
     path('emergency_contacts', views.emergency_contacts, name='emergency_contacts'),
     path('climate', views.climate, name="climate"),
@@ -16,4 +19,7 @@ urlpatterns = [
     path('typhoon', views.typhoon, name="typhoon"),
     path('reports', views.reports, name="reports"),
     path('weather_situation', views.weathersit, name="weathersit"),
+    path('home', views.home, name="home"),
+    path('logout/', auth_views.LogoutView.as_view(next_page='mainpage'), name='logout'),
+
 ]
