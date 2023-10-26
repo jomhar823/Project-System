@@ -1,0 +1,376 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'brgyhomepage' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+        </ul>
+        <ul class="nav-list1">
+          
+          <li class="dropdown">
+            <div class="email-div d-flex flex-row justify-content-center align-items-center" onclick="toggleDropdown()" class="dropbtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+              </svg> {{user.barangay}} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" style="vertical-align: middle;" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </div>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="{% url 'logout' %}" onclick="changeImage('logout')">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+          <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a>
+        </div>
+      </section>
+      <nav class="navigation-bar">
+        <ul class="nav-list">
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'climate' %}">Climate</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
+            <div id= "imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'landslide' %}">Landslide</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'weathersit' %}">Weather Situation</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" onclick="changeImage('login')">sample</a>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <li><a href="{% url 'incident-reports' %}">Reports</a></li>
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="#" style="font-size: 16px;" onclick="changeImage('Situational Reports')"
+                >Situational Reports</a
+              >
+              <a href="{% url 'incident-reports'%}" style="font-size: 16px;" onclick="changeImage('Incident Reports')"
+                >Incident Reports</a
+              >
+              <a href="{% url 'add-reports'%}" style="font-size: 16px;" onclick="changeImage('Reports')">Add Report</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <section class="preparedness">
+        <h2>Incident Reports</h2>
+          <div class="filter-section d-flex justify-content-between align-items-center mb-4 mt-3">
+            <div class="select-date d-flex flex-row justify-content-between w-100 mr-3">
+              <input type="date" class="form-control" id="filter-date" name="filter-date">
+            </div>
+            <div class="select-brgy w-100 d-flex flex-row justify-content-between  mr-3">
+              <select class="form-control select-brgy-input" id="filter-barangay" name="filter-barangay">
+                <option value="" disabled selected>SELECT BARANGAY</option>
+                <!-- <option value="">All Barangays</option> -->
+              </select>
+            </div>
+            <div class="button-div w-100">
+              <button class="btn btn-primary" id="apply-filter">Apply Filter</button>
+            </div>
+        </div>
+        <table class="table table-bordered" id="mainTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>SUBJECT</th>
+                    <th style="width: 20%;">DATE REPORTED</th>
+                    <th style="width: 20%;">TIME REPORTED</th>
+                    <th style="width: 20%;">BARANGAY</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for report in reports %}
+              <tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="{{ report.subject }}" data-description="{{ report.description }}" data-attachment="{{ report.attachment }}" data-date-reported="{{ report.date_reported|date:'F j, Y' }}" data-time-reported="{{ report.time_reported|date:'H:i' }}" data-barangay="{{ report.barangay }}">
+                  <td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg></td>
+                  <td>{{ report.subject }}</td>
+                  <td>{{ report.date_reported|date:'F j, Y' }}</td>
+                  <td>{{ report.time_reported|date:'H:i' }}</td>
+                  <td>{{ report.barangay }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item {% if not reports.has_previous %}disabled{% endif %}">
+                    <a class="page-link" href="{% if reports.has_previous %}?page=1{% else %}#{% endif %}" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item {% if not reports.has_previous %}disabled{% endif %}">
+                    <a class="page-link" href="{% if reports.has_previous %}?page={{ reports.previous_page_number }}{% else %}#{% endif %}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+        
+                {% for i in reports.paginator.page_range %}
+                    <li class="page-item {% if i == reports.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+        
+                <li class="page-item {% if not reports.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{% if reports.has_next %}?page={{ reports.next_page_number }}{% else %}#{% endif %}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item {% if not reports.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{% if reports.has_next %}?page={{ reports.paginator.num_pages }}{% else %}#{% endif %}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>        
+        <div class="modal fade bd-example-modal-lg" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                      <h5 class="modal-title" id="reportModalLabel">Report Details</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <table class="table table-bordered">
+                          <tbody>
+                              <tr>
+                                  <th>SUBJECT</th>
+                                  <td><span id="modalSubject"></span></td>
+                              </tr>
+                              <tr>
+                                  <th>DATE REPORTED</th>
+                                  <td><span id="modalDateReported"></span></td>
+                              </tr>
+                              <tr>
+                                  <th>TIME REPORTED</th>
+                                  <td><span id="modalTimeReported"></span></td>
+                              </tr>
+                              <tr>
+                                  <th>BARANGAY</th>
+                                  <td><span id="modalBarangay"></span></td>
+                              </tr>
+                              <tr>
+                                <th>DESCRIPTION</th>
+                                <td><span id="modalDescription"></span></td>
+                            </tr>
+                            <tr>
+                              <th>ATTACHMENT</th>
+                              <td><span id="modalAttachment"></span></td>
+                          </tr>
+                          </tbody>
+                      </table>
+                      <!-- <a href="#" id="exportPdfButton" class="btn btn-primary">Export to PDF</a> -->
+
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                  </div>
+              </div>
+          </div>
+        </div>
+
+      </section>
+      
+    </main>
+
+    <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer>
+    <script>
+      $(document).ready(function () {
+        var modalData = null;
+        var selectedReport = null;
+    
+        function updateModalContent(report) {
+          $("#modalSubject").text(report.subject);
+          $("#modalDescription").text(report.description);
+          $("#modalAttachment").html("");
+    
+          if (report.attachment) {
+            var attachmentLink = $("<a>")
+              .attr("href", report.attachment)
+              .attr("target", "_blank")
+              .text("View Attachment");
+            $("#modalAttachment").append(attachmentLink);
+          } else {
+            $("#modalAttachment").text("No attachment available");
+          }
+    
+          $("#modalDateReported").text(report.date_reported);
+          $("#modalTimeReported").text(report.time_reported);
+          $("#modalBarangay").text(report.barangay);
+        }
+    
+        function openReportModal(reportData) {
+          updateModalContent(reportData);
+          $('#reportModal').modal('show');
+        }
+    
+        $("table").on("click", ".report-row", function () {
+          var report = {
+            subject: $(this).data("subject"),
+            description: $(this).data("description"),
+            attachment: $(this).data("attachment"),
+            date_reported: $(this).data("date-reported"),
+            time_reported: $(this).data("time-reported"),
+            barangay: $(this).data("barangay"),
+          };
+          openReportModal(report);
+        });
+    
+        function clearClickedRows() {
+          $(".report-row").removeClass("clicked");
+        }
+    
+        $("#reportModal").on("hidden.bs.modal", function () {
+          clearClickedRows();
+        });
+    
+        $("#apply-filter").on("click", function () {
+          console.log("Apply filter button clicked");
+          var selectedDate = $("#filter-date").val();
+          var selectedBarangay = $("#filter-barangay").val();
+          console.log("Selected Date: " + selectedDate);
+          console.log("Selected Barangay: " + selectedBarangay);
+    
+          $.ajax({
+            url: "{% url 'get_filtered_reports' %}",
+            type: "GET",
+            data: {
+              date: selectedDate,
+              barangay: selectedBarangay,
+            },
+            success: function (data) {
+              console.log("Received filtered reports data: ", data);
+              
+              $("#mainTable tbody").empty();
+
+    
+              if (data.length === 0) {
+                var noReportRow = '<tr><td colspan="5">No incident report found</td></tr>';
+                $("#mainTable tbody").append(noReportRow);
+              } else {
+                for (var i = 0; i < data.length; i++) {
+                  var report = data[i];
+    
+                  var jsDate = new Date(report.date_reported);
+                  var formattedDate = jsDate.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  });
+    
+                  var newRow = '<tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="' + report.subject + '" data-description="' + report.description + '" data-attachment="' + report.attachment + '" data-date-reported="' + report.date_reported + '" data-time-reported="' + report.time_reported + '" data-barangay="' + report.barangay + '">';
+                  newRow += '<td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg></td>';
+                  newRow += '<td>' + report.subject + '</td>';
+                  newRow += '<td>' + formattedDate + '</td>';
+                  newRow += '<td>' + report.time_reported + '</td>';
+                  newRow += '<td>' + report.barangay + '</td>';
+                  newRow += '</tr>';
+                  $("#mainTable tbody").append(newRow);
+                }
+              }
+            },
+          });
+        });
+    
+        $.ajax({
+          url: "{% url 'get_barangays' %}",
+          type: "GET",
+          success: function (data) {
+            console.log("Received barangays data: ", data);
+            var dropdown = $("#filter-barangay");
+            dropdown.empty();
+            dropdown.append('<option value="" disabled selected>SELECT BARANGAY</option>');
+    
+            for (var i = 0; i < data.length; i++) {
+              dropdown.append(
+                '<option value="' + data[i].barangay + '">' + data[i].barangay + "</option>"
+              );
+            }
+          },
+        });
+      });
+
+      
+    
+    </script>
+    
+  
+  </body>
+</html>

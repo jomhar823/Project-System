@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700;800&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  </head>
+  <body>
+    <header>
+
+      <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-light" href="{% url 'index' %}">Home </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'preparedness' %}">Preparedness</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+            </li>
+          </ul>
+          <span class="navbar-text ">
+            <a class="nav-link text-light" href="{% url 'login' %}" >Login</a>
+          </span>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+          <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a>
+        </div>
+      </section>
+      <nav class="navigation-bar">
+        <ul class="nav-list">
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Flood              
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'flood' %}" href="#">Flood Reports</a>
+                <a class="dropdown-item" href="#">Flood Basics</a>
+                </div>
+            </div>
+        </li>
+          <li class="dropdown">
+            <a class="btn btn-custom text-light" href="{% url 'weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
+              Weather Situation              
+            </a>
+            <div id="imageDropdown" class="dropdown-content">
+              
+            </div>
+
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Typhoon              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_typhoon_reports' %}" href="#">Typhoon Reports</a>
+                <a class="dropdown-item" href="#">Typhoon Basics</a>
+                <a class="dropdown-item" href="#">Typhoon Safety Measures</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Earthquake              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'earthquake' %}" href="#">Earthquake Reports</a>
+                <a class="dropdown-item" href="#">Earthquake Basics</a>
+                <a class="dropdown-item" href="#">Earthquake Preparedness</a>
+                <a class="dropdown-item" href="#">Earthquake Safety Tips</a>
+
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Landslide              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'landslide' %}">Landslide Reports</a>
+                <a class="dropdown-item" href="#">Landslide Basics</a>
+                <a class="dropdown-item" href="#">Landslide Preparedness</a>
+                <a class="dropdown-item" href="#">Landslide Safety Tips</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reports              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_sit_reports'%}" href="#">Situational Reports</a>
+                <a class="dropdown-item" href="{% url 'home_incident_reports'%}">Incident Reports</a>
+              </div>
+            </div>
+            
+          </li>
+        </ul>
+      </nav>
+
+      <section class="calendar">
+        <h1 class="weather-text fw-bold">Weather in Ibaan, Batangas</h1>
+        <div id="weather-forecast" class="forecast-container">
+          {% for day in forecast %}
+              <div class="forecast-card">
+                  <div class="temp-div">
+                    <p class="temperature">{{ day.temperature }}°C</p>
+                    <h2>{{ day.date }}</h2>
+                    <p>Weather: {{ day.description }}</p>
+                  </div>
+                  <div class="image">
+                    <img src="{{ day.weatherIcon }}" alt="Weather Icon">
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+      </section>
+
+      <script>
+        $(document).ready(function () {
+          $.get("{% url 'get-weather' %}", function (data) {
+              if (data.list) {
+                  var forecastContainer = $('#weather-forecast');
+                  forecastContainer.empty();
+
+                  data.list.forEach(function (dayData) {
+                      var date = new Date(dayData.dt * 1000);
+                      var temperature = dayData.main.temp;
+                      var weatherDescription = dayData.weather[0].description;
+                      var weatherIconClass  = getWeatherIconClass(dayData.weather[0].id);
+                      var hour = date.getHours();
+                      var timeOfDay = hour < 12 ? 'am' : 'pm';
+
+                      var forecastCard = $('<div class="forecast-card">');
+                      var tempDiv = $('<div class="temp-div">');
+                      var imageDiv = $('<div class="image">');
+
+                      var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                      var dateFormatted = date.toLocaleDateString('en-US', options);
+                      var timeFormatted = date.toLocaleTimeString('en-US', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                      });
+                      var dateTimeString = `${dateFormatted}, ${timeFormatted}`;
+
+                      tempDiv.append($('<h3>').text(dateTimeString));
+
+                      tempDiv.append($('<h1 class="temperature">').text(temperature + '°C'));
+                      tempDiv.append($('<p>').text(weatherDescription));
+
+                      imageDiv.append($('<p>').html(`<img src="/capstoneapp/static/weather_icons_dovora_interactive/PNG/128/${weatherIconClass}.png"></img>`));
+
+                      forecastCard.append(tempDiv);
+                      forecastCard.append(imageDiv);
+
+                      forecastContainer.append(forecastCard);
+                  });
+              } else {
+                  $('#weather-forecast').text('Failed to fetch weather data.');
+              }
+          });
+      });
+
+
+      function getWeatherIconClass(weatherCode) {
+        console.log(weatherCode)
+
+        switch (weatherCode) {
+          case 200:
+          case 201:
+          case 202:
+          case 210:
+          case 211:
+          case 212:
+          case 221:
+          case 230:
+          case 231:
+          case 232:
+            return 'rain_thunder'; 
+          case 300:
+          case 301:
+          case 302:
+          case 310:
+          case 311:
+          case 312:
+          case 313:
+          case 314:
+          case 321:
+            return 'rain'; 
+          case 500:
+          case 501:
+          case 502:
+          case 503:
+          case 504:
+          case 511:
+          case 520:
+          case 521:
+          case 522:
+          case 531:
+            return 'rain'; 
+          case 600:
+          case 601:
+          case 602:
+          case 611:
+          case 612:
+          case 613:
+          case 615:
+          case 616:
+          case 620:
+          case 621:
+          case 622:
+            return 'snow'; 
+          case 701:
+          case 711:
+          case 721:
+          case 731:
+          case 741:
+          case 751:
+          case 761:
+          case 762:
+          case 771:
+          case 781:
+            return 'cloudy'; 
+          case 800:
+            return 'day_clear'; 
+          case 801:
+          case 802:
+          case 803:
+          case 804:
+            return 'cloudy'; 
+          default:
+            return 'cloudy'; 
+        }
+      }
+
+    </script>
+  
+    </main>
+    <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer>
+  </body>
+</html>

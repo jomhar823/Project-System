@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <ul class="nav-list">
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
+          <li>
+            <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+        </ul>
+        <ul class="nav-list1">
+          <li class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+              <img
+                src="{% static 'menu.png' %}"
+                alt="Image Button"
+                class="image-button"
+              />
+            </button>
+            <div id="imageDropdown" class="dropdown-content">
+              <a href="{% url 'login' %}" >Login</a>
+              <a href="#" onclick="changeImage('header')">Header</a>
+              <a href="#" onclick="changeImage('content')">Content</a>
+              <a href="#" onclick="changeImage('footer')">Footer</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </body>
+</html>

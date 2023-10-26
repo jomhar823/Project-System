@@ -215,7 +215,7 @@ section {
 }
 section {
   background-image: url("ibaan.jpg");
-  filter: brightness(80%);
+  filter: brightness(100%);
   background-size: cover; 
   background-repeat: no-repeat; 
   background-position: center; 
@@ -263,6 +263,10 @@ h2 {
 p {
   font-size: 1.1rem;
   margin-bottom: 20px;
+}
+.nav-link {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /* Learn More Button Styles */

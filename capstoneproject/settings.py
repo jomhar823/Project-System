@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'capstoneapp',
+    'corsheaders'
 
 ]
 
@@ -42,6 +43,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -79,8 +81,12 @@ WSGI_APPLICATION = 'capstoneproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mdrrmc_ibaan',
+        'USER': 'postgres',
+        'PASSWORD': 'theaclarisse',
+        'HOST': 'localhost',  
+        'PORT': '5432',
     }
 }
 
@@ -136,3 +142,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'capstoneapp.CustomUser'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+# EMAIL_HOST_USER = 'thelipagraceacademytlga@gmail.com'  
+# EMAIL_HOST_PASSWORD = 'goda kvzz ghbp uoel'  
+
+
+OPENWEATHERMAP_API_KEY = '074b9e9f93888d463d148580ff82b8dd'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",  
+]

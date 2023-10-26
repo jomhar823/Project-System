@@ -11,7 +11,7 @@
     <header>
       <nav class="nav-container">
         <ul class="nav-list">
-          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'index' %}">Home</a></li>
           <li><a href="{% url 'preparedness' %}">Preparedness</a></li>
           <li>
             <a href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
@@ -27,10 +27,8 @@
               />
             </button>
             <div id="imageDropdown" class="dropdown-content">
-              <a href="#" onclick="changeImage('login')">Login</a>
-              <a href="#" onclick="changeImage('header')">Header</a>
-              <a href="#" onclick="changeImage('content')">Content</a>
-              <a href="#" onclick="changeImage('footer')">Footer</a>
+              <a href="{% url 'login' %}" >Login</a>
+
             </div>
           </li>
         </ul>
@@ -48,13 +46,10 @@
         <ul class="nav-list">
           <li class="dropdown">
             <button onclick="toggleDropdown()" class="dropbtn">
-              <li><a href="{% url 'climate' %}">Climate</a></li>
+              <li><a href="{% url 'weather' %}">Weather Situation</a></li>
             </button>
             <div id="imageDropdown" class="dropdown-content">
-              <a href="#" onclick="changeImage('login')">Login</a>
-              <a href="#" onclick="changeImage('header')">Header</a>
-              <a href="#" onclick="changeImage('content')">Content</a>
-              <a href="#" onclick="changeImage('footer')">Footer</a>
+             
             </div>
           </li>
           <li class="dropdown">
@@ -62,18 +57,14 @@
               <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
             </button>
             <div id="imageDropdown" class="dropdown-content">
-              <a href="#" onclick="changeImage('login')">Login</a>
-              <a href="#" onclick="changeImage('header')">Header</a>
-              <a href="#" onclick="changeImage('content')">Content</a>
-              <a href="#" onclick="changeImage('footer')">Footer</a>
+
             </div>
           </li>
           <li class="dropdown">
             <button onclick="toggleDropdown()" class="dropbtn">
               <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
             <div id= "imageDropdown" class="dropdown-content">
-              <a href="#" onclick="changeImage('login')">Login</a>
-              <a href="#" onclick="changeImage('header')">Header</a>
+
             </div>
           </li>
           <li class="dropdown">
@@ -81,24 +72,11 @@
               <li><a href="{% url 'landslide' %}">Landslide</a></li>
             </button>
             <div id="imageDropdown" class="dropdown-content">
-              <a href="#" onclick="changeImage('login')">Login</a>
-              <a href="#" onclick="changeImage('header')">Header</a>
-              <a href="#" onclick="changeImage('content')">Content</a>
-              <a href="#" onclick="changeImage('footer')">Footer</a>
+             
             </div>
           </li>
 
-          <li class="dropdown">
-            <button onclick="toggleDropdown()" class="dropbtn">
-              <li><a href="{% url 'weathersit' %}">Weather Situation</a></li>
-            </button>
-            <div id="imageDropdown" class="dropdown-content">
-              <a href="#" onclick="changeImage('login')">Login</a>
-              <a href="#" onclick="changeImage('header')">Header</a>
-              <a href="#" onclick="changeImage('content')">Content</a>
-              <a href="#" onclick="changeImage('footer')">Footer</a>
-            </div>
-          </li>
+          
 
           <li class="dropdown">
             <button onclick="toggleDropdown()" class="dropbtn">
@@ -108,10 +86,9 @@
               <a href="#" onclick="changeImage('Situational Reports')"
                 >Situational Reports</a
               >
-              <a href="#" onclick="changeImage('Incident Reports')"
+              <a href="{% url 'home_incident_reports' %}" onclick="changeImage('Incident Reports')"
                 >Incident Reports</a
               >
-              <a href="#" onclick="changeImage('Reports')">Reports</a>
             </div>
           </li>
         </ul>
