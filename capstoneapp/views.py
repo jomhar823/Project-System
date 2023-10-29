@@ -18,6 +18,8 @@ from django.conf.urls.static import static
 from django.http import JsonResponse
 from django.conf import settings
 import requests
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # INITIAL HOMEPAGE
 
@@ -237,7 +239,7 @@ def register(request):
                 user.is_staff = True
                 user.save()
 
-            return redirect('mainpage')
+            return redirect('register')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'GET':
@@ -281,7 +283,92 @@ def login_view(request):
     return render(request, 'login.html')
 
 
+# def admin_sit_reports(request):
+#     return render(request, 'admin_sit_reports.html')
 
+def admin_sit_reports(request):
+    subjects = ["Situational Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'admin/admin_sit_reports.html', context)
+
+
+def admin_typhoon_reports(request):
+    subjects = ["Typhoon Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'admin/admin_typhoon_reports.html', context)
+
+def admin_earthquake_reports(request):
+    subjects = ["Earthquake Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'admin/admin_earthquake_reports.html', context)
+
+def admin_landslide_reports(request):
+    subjects = ["Landslide Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'admin/admin_landslide_reports.html', context)
+
+def admin_flood_reports(request):
+    subjects = ["Flood Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'admin/admin_flood_reports.html', context)
+
+def view_barangay(request):
+    return render(request, 'admin/view_barangay.html')
 
 def download_attachment(request, file_name):
     report = get_object_or_404(Report, attachment__iexact=file_name)
@@ -290,8 +377,54 @@ def download_attachment(request, file_name):
 
 def get_barangays(request):
     barangays = CustomUser.objects.filter(user_type='barangay').values('barangay').distinct()
-    
     return JsonResponse(list(barangays), safe=False)
+
+def list_of_barangays(request):
+    barangays = CustomUser.objects.filter(user_type='barangay').values('id','barangay', 'email', 'contact_number').distinct()
+    
+    context = {
+        'barangays': barangays,
+    }
+
+    return render(request, 'admin/view_barangay.html', context)
+
+@csrf_exempt
+def update_barangay(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            print(data)  
+            barangay_id = data['id']
+            new_barangay_name = data['barangay']
+            new_email = data['email']
+            new_contact_number = data['contact_number']
+
+            barangay = CustomUser.objects.get(id=barangay_id)
+            barangay.barangay = new_barangay_name
+            barangay.email = new_email
+            barangay.contact_number = new_contact_number
+            barangay.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+@csrf_exempt
+def delete_barangay(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            barangay_id = data.get('id')
+            
+            if barangay_id:
+                barangay = CustomUser.objects.get(id=barangay_id)
+                barangay.delete()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Barangay ID is missing from the request.'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+
+
+
 
 def get_filtered_reports(request):
     selected_date = request.GET.get('date')

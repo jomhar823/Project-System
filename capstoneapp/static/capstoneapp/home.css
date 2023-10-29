@@ -47,7 +47,6 @@ header {
   font-size: 18px;
   font-weight: bold;
 }
-
 .nav-list {
   list-style: none;
   display: flex;
@@ -55,6 +54,7 @@ header {
 
   margin-right: auto;
 }
+
 
 .nav-list li {
   margin-left: 40px;
@@ -97,6 +97,7 @@ header {
 .dropdown {
   position: relative;
   display: inline-block;
+  color: white;
 }
 
 .dropdown-button {
@@ -380,6 +381,19 @@ footer {
   margin-left: 80px;
   margin-bottom: 30px;
 }
+
+.report-container h1{
+  font-weight: 700;
+  margin-left: 80px;
+  margin-top: 10px;
+  margin-top: 30px;
+
+}
+
+
+.users-dropdown{
+  margin-right: 80px;
+}
 .desc-div{
   background-color: rgb(242, 242, 242);
   padding: 30px 30px 10px 30px;
@@ -387,6 +401,9 @@ footer {
 }
 form{
   width: 90% !important;
+}
+#editForm{
+  width: 100% !important;
 }
 .parent-container{
   margin-top: 20px;
@@ -431,9 +448,41 @@ label{
   background-color: #f5f5f5; 
 }
 
+.table-div{
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.thead-user{
+  background-color: #f5fcb9;
+}
+.tablee {
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+.tablee th, .tablee td {
+  padding: 10px; 
+  text-align: center;
+  border: 1px solid #ccc; 
+}
+.tablee tr:hover {
+  cursor: pointer; 
+  background-color: #f5f5f5; 
+}
+
+
+
+
 /* Responsive Styles */
 
 @media screen and (max-width: 768px) {
+  .users-dropdown{
+    margin-right: 60px;
+  }
   .nav-container{
     display: flex !important;
     justify-content: center !important;

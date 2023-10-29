@@ -54,15 +54,15 @@
         <ul class="nav-list">
           <li class="dropdown">
             <div class="dropdown show custom-dropdown no-focus-outline">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Flood              
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'flood' %}" href="#">Flood Reports</a>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_typhoon_reports' %}" href="#">Flood Reports</a>
                 <a class="dropdown-item" href="#">Flood Basics</a>
-                </div>
+              </div>
             </div>
-        </li>
+          </li>
           <li class="dropdown">
             <a class="btn btn-custom text-light" href="{% url 'weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
               Weather Situation              
@@ -80,7 +80,6 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{% url 'home_typhoon_reports' %}" href="#">Typhoon Reports</a>
                 <a class="dropdown-item" href="#">Typhoon Basics</a>
-                <a class="dropdown-item" href="#">Typhoon Safety Measures</a>
               </div>
             </div>
           </li>
@@ -92,8 +91,6 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{% url 'earthquake' %}" href="#">Earthquake Reports</a>
                 <a class="dropdown-item" href="#">Earthquake Basics</a>
-                <a class="dropdown-item" href="#">Earthquake Preparedness</a>
-                <a class="dropdown-item" href="#">Earthquake Safety Tips</a>
 
               </div>
             </div>
@@ -106,8 +103,6 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{% url 'landslide' %}">Landslide Reports</a>
                 <a class="dropdown-item" href="#">Landslide Basics</a>
-                <a class="dropdown-item" href="#">Landslide Preparedness</a>
-                <a class="dropdown-item" href="#">Landslide Safety Tips</a>
               </div>
             </div>
           </li>

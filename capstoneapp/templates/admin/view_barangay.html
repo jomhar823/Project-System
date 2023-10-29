@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MDRRMC Ibaan</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link text-light" href="{% url 'adminhomepage' %}">Home </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'preparedness' %}">Preparedness</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+          </li>
+        </ul>
+        <span class="navbar-text ">
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg> {{user.email}}           
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
+                <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
+              </div>
+            </div>
+          </li>
+        </span>
+      </div>
+    </nav>
+    </header>
+    <section>
+        <div class="report-container">
+            <h1>LIST OF BARANGAY</h1>
+            <div class="table-div">
+                <table class="tablee">
+                    <thead class="thead-user">
+                        <tr>
+                            <th>#</th>
+                            <th>Barangay Name</th>
+                            <th>Email</th>
+                            <th>Contact Number</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for barangay in barangays %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{ barangay.barangay }}</td>
+                            <td>{{ barangay.email }}</td>
+                            <td>{{ barangay.contact_number }}</td>
+                            <td>
+                                <button class="btn btn-primary edit-button" data-id="{{ barangay.id }}" data-barangay="{{ barangay.barangay }}" data-email="{{ barangay.email }}" data-contact-number="{{ barangay.contact_number }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                      </svg>
+                                </button>
+                                <button class="btn btn-danger delete-button" data-id="{{barangay.id}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                      </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Edit Barangay Information</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editForm">
+                                    <div class="form-group">
+                                        <label for="editBarangay"><b>Barangay Name</b></label>
+                                        <input type="text" class="form-control" id="editBarangay" name="editBarangay">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editEmail"><b>Email</b></label>
+                                        <input type="email" class="form-control" id="editEmail" name="editEmail">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editContactNumber"><b>Contact Number</b></label>
+                                        <input type="text" class="form-control" id="editContactNumber" name="editContactNumber">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="saveChanges">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+    $(document).ready(function () {
+            var id;
+            $(".edit-button").click(function () {
+                var barangay = $(this).data("barangay");
+                var email = $(this).data("email");
+                var contactNumber = $(this).data("contact-number");
+                id = $(this).data("id");
+
+                console.log('id',id)
+                $("#editBarangay").val(barangay);
+                $("#editEmail").val(email);
+                $("#editContactNumber").val(contactNumber);
+        
+                $("#editModal").modal("show");
+            });
+
+            $("#saveChanges").click(function () {
+            var barangay = $("#editBarangay").val();
+            var email = $("#editEmail").val();
+            var contactNumber = $("#editContactNumber").val();
+
+            var data = {
+                'id': id,
+                'barangay': barangay,
+                'email': email,
+                'contact_number': contactNumber
+            };
+            
+            var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+            $.ajax({
+                url: "{% url 'update_barangay' %}",
+                method: "POST",
+                data: JSON.stringify(data), 
+                contentType: "application/json",
+                success: function (response) {
+                    alert("Barangay updated successfully");
+                    location.reload();
+                    $("#editModal").modal("hide");
+                },
+                error: function (xhr, status, error) {
+                    alert("Error: " + error);
+                }
+            });
+        });
+        $(".delete-button").click(function () {
+            var id = $(this).data("id");
+
+            if (confirm("Are you sure you want to delete this barangay?")) {
+                $.ajax({
+                    url: "{% url 'delete_barangay' %}",
+                    method: "POST",
+                    data: JSON.stringify({ 'id': id }),
+                    contentType: "application/json",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Barangay deleted successfully.");
+                            location.reload(); 
+                        } else {
+                            alert("Error deleting barangay: " + response.error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error: " + error);
+                    }
+                });
+            }
+        });
+
+
+    });
+    </script>
+    
+    
+</body>
+</html>

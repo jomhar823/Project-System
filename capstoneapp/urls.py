@@ -22,10 +22,20 @@ urlpatterns = [
 
     path('admin_incident_reports', views.admin_incident_reports, name='admin_incident_reports'),
     path('admin_weather', views.admin_weather, name='admin_weather'),
-    
+    path('admin_sit_reports', views.admin_sit_reports, name='admin_sit_reports'),
+    path('admin_typhoon_reports', views.admin_typhoon_reports, name='admin_typhoon_reports'),
+    path('admin_earthquake_reports', views.admin_earthquake_reports, name='admin_earthquake_reports'),
+    path('admin_landslide_reports', views.admin_landslide_reports, name='admin_landslide_reports'),
+    path('admin_flood_reports', views.admin_flood_reports, name='admin_flood_reports'),
+    path('view_barangay', views.view_barangay, name="view_barangay"),
+    path('list-of-barangays', views.list_of_barangays, name='list_of_barangays'),
+    path('update-barangay/', views.update_barangay, name='update_barangay'),
+    path('delete_barangay/', views.delete_barangay, name='delete_barangay'),
+
+
+
     path('home_incident_reports', views.home_incident_reports, name='home_incident_reports'),
     path('home_sit_reports', views.home_sit_reports, name='home_sit_reports'),
-
     path('home_typhoon_reports', views.home_typhoon_reports, name='home_typhoon_reports'),
     path('home_typhoon_reports', views.home_typhoon_reports, name='home_typhoon_reports'),
     path('flood', views.flood, name="flood"),

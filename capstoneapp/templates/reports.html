@@ -45,51 +45,71 @@
       <nav class="navigation-bar">
         <ul class="nav-list">
           <li class="dropdown">
-            <button onclick="toggleDropdown()" class="dropbtn">
-              <li><a href="{% url 'weather' %}">Weather Situation</a></li>
-            </button>
-            <div id="imageDropdown" class="dropdown-content">
-             
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Flood              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_typhoon_reports' %}" href="#">Flood Reports</a>
+                <a class="dropdown-item" href="#">Flood Basics</a>
+              </div>
             </div>
           </li>
           <li class="dropdown">
-            <button onclick="toggleDropdown()" class="dropbtn">
-              <li><a href="{% url 'typhoon' %}">Typhoon</a></li>
-            </button>
+            <a class="btn btn-custom text-light" href="{% url 'weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
+              Weather Situation              
+            </a>
             <div id="imageDropdown" class="dropdown-content">
+              
+            </div>
 
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Typhoon              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_typhoon_reports' %}" href="#">Typhoon Reports</a>
+                <a class="dropdown-item" href="#">Typhoon Basics</a>
+              </div>
             </div>
           </li>
           <li class="dropdown">
-            <button onclick="toggleDropdown()" class="dropbtn">
-              <li><a href="{% url 'earthquake' %}">Earthquake</a></li>
-            <div id= "imageDropdown" class="dropdown-content">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Earthquake              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'earthquake' %}" href="#">Earthquake Reports</a>
+                <a class="dropdown-item" href="#">Earthquake Basics</a>
 
+              </div>
             </div>
           </li>
           <li class="dropdown">
-            <button onclick="toggleDropdown()" class="dropbtn">
-              <li><a href="{% url 'landslide' %}">Landslide</a></li>
-            </button>
-            <div id="imageDropdown" class="dropdown-content">
-             
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Landslide              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'landslide' %}">Landslide Reports</a>
+                <a class="dropdown-item" href="#">Landslide Basics</a>
+              </div>
             </div>
           </li>
 
-          
-
           <li class="dropdown">
-            <button onclick="toggleDropdown()" class="dropbtn">
-              <li><a href="{% url 'reports' %}">Reports</a></li>
-            </button>
-            <div id="imageDropdown" class="dropdown-content">
-              <a href="#" onclick="changeImage('Situational Reports')"
-                >Situational Reports</a
-              >
-              <a href="{% url 'home_incident_reports' %}" onclick="changeImage('Incident Reports')"
-                >Incident Reports</a
-              >
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reports              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_sit_reports'%}" href="#">Situational Reports</a>
+                <a class="dropdown-item" href="{% url 'home_incident_reports'%}">Incident Reports</a>
+              </div>
             </div>
+            
           </li>
         </ul>
       </nav>
