@@ -1,0 +1,300 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-light" href="{% url 'adminhomepage' %}">Home </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'preparedness' %}">Preparedness</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+            </li>
+          </ul>
+          <span class="navbar-text ">
+            <li class="dropdown">
+              <div class="dropdown show custom-dropdown no-focus-outline">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg> {{user.email}}           
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
+                </div>
+              </div>
+            </li>
+          </span>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Disaster Risk Management</h1>
+          <p>Preparing for a safer future.</p>
+          <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a>
+        </div>
+      </section>
+      <nav class="navigation-bar">
+        <ul class="nav-list">
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Flood              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_flood_reports' %}" href="#">Flood Reports</a>
+                <a class="dropdown-item" href="#">Flood Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a class="btn btn-custom text-light" href="{% url 'admin_weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
+              Weather Situation              
+            </a>
+            <div id="imageDropdown" class="dropdown-content">
+              
+            </div>
+
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Typhoon              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_typhoon_reports' %}" href="#">Typhoon Reports</a>
+                <a class="dropdown-item" href="#">Typhoon Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Earthquake              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_earthquake_reports' %}" href="#">Earthquake Reports</a>
+                <a class="dropdown-item" href="#">Earthquake Basics</a>
+
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Landslide              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_landslide_reports' %}">Landslide Reports</a>
+                <a class="dropdown-item" href="#">Landslide Basics</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reports              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_sit_reports'%}" href="#">Situational Reports</a>
+                <a class="dropdown-item" href="{% url 'admin_incident_reports'%}">Incident Reports</a>
+              </div>
+            </div>
+            
+          </li>
+        </ul>
+      </nav>
+      <section class="preparedness">
+        <h2>Announcements</h2>
+          <!-- <div class="filter-section d-flex justify-content-between align-items-center mb-4 mt-3">
+            <div class="select-date d-flex flex-row justify-content-between w-100 mr-3">
+              <input type="date" class="form-control" id="filter-date" name="filter-date">
+            </div>
+            <div class="select-brgy w-100 d-flex flex-row justify-content-between  mr-3">
+              <select class="form-control select-brgy-input" id="filter-barangay" name="filter-barangay">
+                <option value="" disabled selected>SELECT BARANGAY</option>
+                <option value="">All Barangays</option>
+              </select>
+            </div>
+            <div class="button-div w-100">
+              <button class="btn btn-primary" id="apply-filter">Apply Filter</button>
+            </div>
+        </div> -->
+        <table class="table table-bordered" id="mainTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>SUBJECT</th>
+                    <th>ANNOUNCEMENT</th>
+                    <th style="width: 20%;">DATE REPORTED</th>
+                </tr>
+            </thead>
+            
+            <tbody id="announcement-table">
+                {% for announcement in announcements %}
+
+                <!-- <tr class="report-row" data-toggle="modal" data-target="#announcementModal" data-subject="{{ announcement.subject }}" data-description="{{ announcement.description }}" data-date-reported="{{ announcement.date|date:'F j, Y' }}">
+                  <td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg></td>
+                  <td>{{ announcement.subject }}</td>
+                  <td>{{ announcement.description }}</td>
+                  <td>{{ announcement.date|date:'F j, Y' }}</td>
+                </tr> -->
+                {% endfor %}
+
+          </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item {% if not reports.has_previous %}disabled{% endif %}">
+                    <a class="page-link" href="{% if reports.has_previous %}?page=1{% else %}#{% endif %}" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item {% if not reports.has_previous %}disabled{% endif %}">
+                    <a class="page-link" href="{% if reports.has_previous %}?page={{ reports.previous_page_number }}{% else %}#{% endif %}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+        
+                {% for i in reports.paginator.page_range %}
+                    <li class="page-item {% if i == reports.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+        
+                <li class="page-item {% if not reports.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{% if reports.has_next %}?page={{ reports.next_page_number }}{% else %}#{% endif %}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item {% if not reports.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{% if reports.has_next %}?page={{ reports.paginator.num_pages }}{% else %}#{% endif %}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>        
+        <div class="modal fade" id="announcement-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="announcement-subject"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>ID:</strong> <span id="announcement-id"></span></p>
+                        <p><strong>Description:</strong> <span id="announcement-description"></span></p>
+                        <p><strong>Date:</strong> <span id="announcement-date"></span></p>
+                        <p><strong>Barangays:</strong></p>
+                        <div id="barangay-checkboxes">
+                            <!-- Selected barangays will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      </section>
+
+
+    </main>
+    <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer>
+    <script>
+        $(document).ready(function () {
+            // Fetch announcements via the API endpoint
+            $.ajax({
+            url: "{% url 'get_announcements' %}",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                var tableRows = "";
+
+                data.forEach(function (announcement) {
+                    tableRows += `<tr class="report-row" data-toggle="modal" data-target="#announcementModal" data-announcement-id="{{ announcement.id }}" data-subject="{{ announcement.subject }}" data-description="{{ announcement.description }}" data-date-reported="{{ announcement.date|date:'F j, Y' }}">
+                        <td></td>
+                        <td>${announcement.subject}</td>
+                        <td>${announcement.description}</td>
+                        <td>${announcement.date}</td>
+                    </tr>`;
+                });
+
+                $("#announcement-table").html(tableRows);
+                $(".report-row").click(function () {
+                    var announcementId = $(this).data("announcement-id");
+                    showAnnouncementDetails(announcementId);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching announcements: " + error);
+                console.log(xhr.responseText);
+            }
+        });
+        });
+
+        function showAnnouncementDetails(announcementId) {
+            $.ajax({
+                url: "{% url 'get_announcements' %}", 
+                method: "GET",
+                dataType: "json",
+                success: function (announcement) {
+                    $("#announcement-subject").text(announcement.subject);
+                    $("#announcement-description").text(announcement.description);
+                    $("#announcement-date").text(announcement.date);
+
+                    var checkboxes = "";
+                    announcement.barangays.forEach(function (barangay) {
+                        checkboxes += `<input type="checkbox" name="barangays" value="${barangay.id}" id="barangay${barangay.id}" checked>
+                            <label for="barangay${barangay.id}">${barangay.name}</label><br>`;
+                    });
+
+                    $("#barangay-checkboxes").html(checkboxes);
+
+                    $('#announcement-modal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching announcement details: " + error);
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+    </script>
+  </body>
+</html>

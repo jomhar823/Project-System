@@ -20,6 +20,7 @@ from django.conf import settings
 import requests
 from django.views.decorators.csrf import csrf_exempt
 import json
+from rest_framework import viewsets
 
 # INITIAL HOMEPAGE
 
@@ -367,6 +368,43 @@ def admin_flood_reports(request):
 
     return render(request, 'admin/admin_flood_reports.html', context)
 
+def add_announcement(request):
+    return render(request, 'admin/add-announcement.html')
+
+def submit_announcement(request):
+    if request.method == 'POST':
+        serializer = AnnouncementSerializer(data=request.POST)
+        if serializer.is_valid():
+            print("Form is valid. Submitting announcement.")
+            announcement = serializer.save()
+            
+            selected_barangay_ids = request.POST.getlist('barangay')
+            selected_barangays = CustomUser.objects.filter(pk__in=selected_barangay_ids, user_type='barangay')
+            
+            announcement.barangay.set(selected_barangays)
+            messages.success(request, 'Announcement submitted successfully.')
+            return redirect('add_announcement')
+        else:
+            print("Form is not valid. Errors:", serializer.errors)
+            messages.error(request, 'Announcement submission failed. Please check your data.')
+            return render(request, 'admin/add-announcement.html', {'form': serializer})
+    else:
+        form = AnnouncementSerializer()
+        return render(request, 'admin/add-announcement.html', {'form': form})
+
+def get_announcement(request):
+    return render(request, 'admin/admin-announcement.html')
+
+def get_announcements(request):
+    announcements = Announcement.objects.all()
+    data = [{"id": announcement.id,"subject": announcement.subject, "description": announcement.description, "date": announcement.date} for announcement in announcements]
+    return JsonResponse(data, safe=False)
+
+class AnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Announcement.objects.all()
+    serializer_class = AnnouncementSerializer
+
+
 def view_barangay(request):
     return render(request, 'admin/view_barangay.html')
 
@@ -376,8 +414,17 @@ def download_attachment(request, file_name):
     return response
 
 def get_barangays(request):
-    barangays = CustomUser.objects.filter(user_type='barangay').values('barangay').distinct()
+    barangays = CustomUser.objects.filter(user_type='barangay').values('barangay', 'id').distinct()
     return JsonResponse(list(barangays), safe=False)
+
+def list_of_admin(request):
+    barangays = CustomUser.objects.filter(user_type='mdrrmc').values('id','barangay', 'email', 'contact_number').distinct()
+    
+    context = {
+        'barangays': barangays,
+    }
+
+    return render(request, 'admin/view_admin.html', context)
 
 def list_of_barangays(request):
     barangays = CustomUser.objects.filter(user_type='barangay').values('id','barangay', 'email', 'contact_number').distinct()

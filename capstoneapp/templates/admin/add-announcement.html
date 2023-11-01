@@ -50,16 +50,8 @@
   </header>
       <section>
         <div class="report-container mt-3 d-flex flex-row justify-content-between align-items-center">
-              <h1>ADD ACCOUNT</h1>
-            <div class="dropdown show users-dropdown no-focus-outline">
-              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                View Users
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'list_of_barangays' %}">Barangay</a>
-                <a class="dropdown-item" href="{% url 'list_of_admin' %}">Admin</a>
-              </div>
-            </div>
+              <h1>ADD ANNOUNCEMENT</h1>
+            
         </div>
         {% for msg in messages %}
             <div class="alert alert-success alert-dismissible fade show alert-fixed" role="alert">
@@ -73,34 +65,45 @@
         
         
         <div class="container-form align-items-center d-flex justify-content-center flex-column">
-            <form method="POST" action="{% url 'register' %}">
+            <form method="POST" action="{% url 'submit_announcement' %}">
                 {% csrf_token %}
                 <div class="desc-div">
-                    <div class="row">
-                      <div class="col">
-                        <label for="barangay">Name/Barangay Name:</label>
-                        <input class="form-control" type="text" name="barangay" required><br>
-                      </div>
-                      <div class="col">
-                        <label for="email">Contact Number:</label>
-                        <input class="form-control" type="text" maxlength="11" name="contact_number" required><br>
-                      </div>
+                    <div class="col">
+                      <label for="subject">Subject:</label>
+                      <input class="form-control" type="text" name="subject" required><br>
                     </div>
-                    <label for="email">Email:</label>
-                    <input class="form-control" type="email" name="email" required><br>
-                    <label for="password">Password:</label>
-                    <input class="form-control" type="password" name="password" required><br>
-                    <label for="user_type">User Type:</label>
-                    <select class="form-control" name="user_type" required>
-                        <option value="mdrrmc">MDRRMC Admin</option>
-                        <option value="barangay">Barangay Admin</option>
-                    </select><br>
+                    <div class="col">
+                      <label for="description">Description:</label>
+                      <textarea class="form-control" name="description" required></textarea><br>
+                    </div>
+                    <label for="barangays">Barangay:</label><br>
+                    <div id="barangay-checkboxes" class="checkbox-grid">
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-warning text-light btn-submit mt-3">Add Account</button>
+                <button type="submit" class="btn btn-warning text-light btn-submit mt-3">Send Announcement</button>
             </form>
         </div>
       </section>
-    
+      <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "{% url 'get_barangays' %}",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var checkboxes = "";
+                    data.forEach(function (barangay) {
+                      checkboxes += `<input type="checkbox" name="barangay" value="${barangay.id}" id="barangay${barangay.id}">
+                        <label for="barangay${barangay.id}">${barangay.barangay}</label><br>`;
+                    });
+                    $("#barangay-checkboxes").html(checkboxes);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching barangays: " + error);
+                }
+            });
+        });
+        </script>
     
     
 </body>

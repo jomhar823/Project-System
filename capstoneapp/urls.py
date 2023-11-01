@@ -31,6 +31,14 @@ urlpatterns = [
     path('list-of-barangays', views.list_of_barangays, name='list_of_barangays'),
     path('update-barangay/', views.update_barangay, name='update_barangay'),
     path('delete_barangay/', views.delete_barangay, name='delete_barangay'),
+    path('add_announcement', views.add_announcement, name='add_announcement'),
+    path('get_announcement', views.get_announcement, name='get_announcement'),
+    path('get_announcements', views.get_announcements, name='get_announcements'),
+
+
+    path('submit_announcement/', views.submit_announcement, name='submit_announcement'),
+    path('announcement/<int:pk>/', views.AnnouncementDetailView.as_view(), name='announcement-detail'),
+
 
 
 

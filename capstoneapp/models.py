@@ -66,3 +66,12 @@ class Report(models.Model):
 
     def __str__(self):
         return self.subject
+    
+class Announcement(models.Model):
+    subject = models.CharField(max_length=255)
+    description = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    barangay = models.ManyToManyField(CustomUser, related_name='announcements')
+
+    def __str__(self):
+        return self.subject
