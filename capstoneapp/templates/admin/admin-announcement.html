@@ -297,7 +297,7 @@
 
           $("#announcementModal").modal("hide");
       });
-      
+
       $(document).on("click", "#delete-announcement", function () {
           const announcementId = $(this).data("announcement-id");
 
@@ -320,8 +320,6 @@
                       headers: { "X-CSRFToken": csrfToken },
                       success: function (data) {
                           console.log("Announcement deleted:", data);
-                          // You can add code to update your UI or reload the list of announcements here.
-                          // For example, you can remove the deleted announcement from the table.
                           $(`tr[data-announcement-id="${announcementId}"]`).remove();
                       },
                       error: function (xhr, status, error) {
