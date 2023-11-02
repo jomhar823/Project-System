@@ -52,84 +52,7 @@
       </nav>
     </header>
     <main>
-      <section class="hero">
-        <div class="hero-content">
-          <h1>Welcome to Disaster Risk Management</h1>
-          <p>Preparing for a safer future.</p>
-          <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a>
-        </div>
-      </section>
-      <nav class="navigation-bar">
-        <ul class="nav-list">
-          <li class="dropdown">
-            <div class="dropdown show custom-dropdown no-focus-outline">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Flood              
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'admin_flood_reports' %}" href="#">Flood Reports</a>
-                <a class="dropdown-item" href="#">Flood Basics</a>
-              </div>
-            </div>
-          </li>
-          <li class="dropdown">
-            <a class="btn btn-custom text-light" href="{% url 'admin_weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
-              Weather Situation              
-            </a>
-            <div id="imageDropdown" class="dropdown-content">
-              
-            </div>
-
-          </li>
-          <li class="dropdown">
-            <div class="dropdown show custom-dropdown no-focus-outline">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Typhoon              
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'admin_typhoon_reports' %}" href="#">Typhoon Reports</a>
-                <a class="dropdown-item" href="#">Typhoon Basics</a>
-              </div>
-            </div>
-          </li>
-          <li class="dropdown">
-            <div class="dropdown show custom-dropdown no-focus-outline">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Earthquake              
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'admin_earthquake_reports' %}" href="#">Earthquake Reports</a>
-                <a class="dropdown-item" href="#">Earthquake Basics</a>
-
-              </div>
-            </div>
-          </li>
-          <li class="dropdown">
-            <div class="dropdown show custom-dropdown no-focus-outline">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Landslide              
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'admin_landslide_reports' %}">Landslide Reports</a>
-                <a class="dropdown-item" href="#">Landslide Basics</a>
-              </div>
-            </div>
-          </li>
-
-          <li class="dropdown">
-            <div class="dropdown show custom-dropdown no-focus-outline">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Reports              
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'admin_sit_reports'%}" href="#">Situational Reports</a>
-                <a class="dropdown-item" href="{% url 'admin_incident_reports'%}">Incident Reports</a>
-              </div>
-            </div>
-            
-          </li>
-        </ul>
-      </nav>
+      
       <section class="preparedness">
         <h2>Announcements</h2>
           <!-- <div class="filter-section d-flex justify-content-between align-items-center mb-4 mt-3">
@@ -157,18 +80,7 @@
             </thead>
             
             <tbody id="announcement-table">
-                {% for announcement in announcements %}
 
-                <!-- <tr class="report-row" data-toggle="modal" data-target="#announcementModal" data-subject="{{ announcement.subject }}" data-description="{{ announcement.description }}" data-date-reported="{{ announcement.date|date:'F j, Y' }}">
-                  <td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                  </svg></td>
-                  <td>{{ announcement.subject }}</td>
-                  <td>{{ announcement.description }}</td>
-                  <td>{{ announcement.date|date:'F j, Y' }}</td>
-                </tr> -->
-                {% endfor %}
 
           </tbody>
         </table>
@@ -203,43 +115,67 @@
                 </li>
             </ul>
         </nav>        
-        <div class="modal fade" id="announcement-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="announcement-subject"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>ID:</strong> <span id="announcement-id"></span></p>
-                        <p><strong>Description:</strong> <span id="announcement-description"></span></p>
-                        <p><strong>Date:</strong> <span id="announcement-date"></span></p>
-                        <p><strong>Barangays:</strong></p>
-                        <div id="barangay-checkboxes">
-                            <!-- Selected barangays will be inserted here -->
+        <div class="modal fade" id="announcementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="announcement-subject"></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                          <label for="edit-announcement-subject"><strong>Subject:</strong></label>
+                          <input type="text" class="form-control" id="edit-announcement-subject" />
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-announcement-description"><strong>Description:</strong></label>
+                          <textarea class="form-control" id="edit-announcement-description" rows="4"></textarea>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-announcement-date"><strong>Date:</strong></label>
+                          <input type="date" class="form-control" id="edit-announcement-date" min="your-minimum-date" />
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+                      <p><strong>Barangays:</strong></p>
+                      <div id="barangay-checkboxes">
+                      </div>
+                  </div>
+                  <div class="modal-footer d-flex">
+                      <button type="button" class="btn btn-primary" id="edit-announcement">Edit</button>
+                      <button type="button" class="btn btn-danger" id="delete-announcement">Delete</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
       </section>
 
 
     </main>
-    <footer>
+    <!-- <footer>
       <nav class="footer">
         <p>&copy; 2023 Disaster Risk Management</p>
       </nav>
-    </footer>
+    </footer> -->
     <script>
+        var allBarangays = [];
         $(document).ready(function () {
-            // Fetch announcements via the API endpoint
+              $.ajax({
+                url: "{% url 'get_barangays' %}",
+                method: "GET",
+                dataType: "json",
+                success: function (barangays) {
+                    allBarangays = barangays;
+                    console.log(barangays)
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching barangays: " + error);
+                    console.log(xhr.responseText);
+                }
+            });
+
             $.ajax({
             url: "{% url 'get_announcements' %}",
             method: "GET",
@@ -247,14 +183,16 @@
             success: function (data) {
                 var tableRows = "";
 
-                data.forEach(function (announcement) {
-                    tableRows += `<tr class="report-row" data-toggle="modal" data-target="#announcementModal" data-announcement-id="{{ announcement.id }}" data-subject="{{ announcement.subject }}" data-description="{{ announcement.description }}" data-date-reported="{{ announcement.date|date:'F j, Y' }}">
-                        <td></td>
-                        <td>${announcement.subject}</td>
-                        <td>${announcement.description}</td>
-                        <td>${announcement.date}</td>
-                    </tr>`;
-                });
+            data.forEach(function (announcement) {
+                const formattedDate = announcement.date;  
+                console.log(announcement)
+                tableRows += `<tr class="report-row" data-toggle="modal" data-target="#announcementModal" data-announcement-id="${announcement.id}" data-subject="${announcement.subject}" data-description="${announcement.description}" data-date-reported="${formattedDate}">
+                    <td>${announcement.id}</td>
+                    <td>${announcement.subject}</td>
+                    <td>${announcement.description}</td>
+                    <td>${announcement.date}</td>
+                </tr>`;
+            });
 
                 $("#announcement-table").html(tableRows);
                 $(".report-row").click(function () {
@@ -268,33 +206,137 @@
             }
         });
         });
+        
 
         function showAnnouncementDetails(announcementId) {
-            $.ajax({
-                url: "{% url 'get_announcements' %}", 
-                method: "GET",
-                dataType: "json",
-                success: function (announcement) {
-                    $("#announcement-subject").text(announcement.subject);
-                    $("#announcement-description").text(announcement.description);
-                    $("#announcement-date").text(announcement.date);
+          $.ajax({
+              url: `/announcement/${announcementId}/`,
+              method: "GET",
+              dataType: "json",
+              success: function (announcement) {
+                  console.log("Announcement data:", announcement);
 
-                    var checkboxes = "";
-                    announcement.barangays.forEach(function (barangay) {
-                        checkboxes += `<input type="checkbox" name="barangays" value="${barangay.id}" id="barangay${barangay.id}" checked>
-                            <label for="barangay${barangay.id}">${barangay.name}</label><br>`;
-                    });
+                  $("#edit-announcement").data("announcement-id", announcementId);
+                  $("#delete-announcement").data("announcement-id", announcementId);
 
-                    $("#barangay-checkboxes").html(checkboxes);
+                  $("#announcement-subject").text(announcement.subject);
+                  $("#announcement-subject-text").text(announcement.subject);
+                  $("#edit-announcement-subject").val(announcement.subject);
+                  $("#edit-announcement-description").val(announcement.description);
 
-                    $('#announcement-modal').modal('show');
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error fetching announcement details: " + error);
-                    console.log(xhr.responseText);
-                }
-            });
-        }
+                  const date = new Date(announcement.date);
+                  const formattedDate = date.toISOString().split('T')[0];
+
+                  $("#edit-announcement-date").val(formattedDate);
+
+                  var checkboxes = "";
+
+                  allBarangays.forEach(function (barangay) {
+                      var isChecked = announcement.barangay.includes(barangay.id);
+                      checkboxes += `<input type="checkbox" name="barangays" value="${barangay.id}" id="barangay${barangay.id}" ${
+                          isChecked ? "checked" : ""
+                      }>
+                      <label for="barangay${barangay.id}">${barangay.barangay}</label><br>`;
+                  });
+
+                  $("#barangay-checkboxes").html(checkboxes);
+
+                  $('#announcementModal').modal('show');
+              },
+              error: function (xhr, status, error) {
+                  console.error("Error fetching announcement details: " + error);
+                  console.log(xhr.responseText);
+              }
+          });
+      }
+
+
+      $(document).on("click", "#edit-announcement", function () {
+          const announcementId = $(this).data("announcement-id");
+
+          function getCSRFToken() {
+              const csrfToken = document.cookie.match(/csrftoken=([a-zA-Z0-9]+)/);
+              if (csrfToken) {
+                  return csrfToken[1];
+              } else {
+                  return null;
+              }
+          }
+
+          const updatedAnnouncement = {
+              subject: $("#edit-announcement-subject").val(),
+              description: $("#edit-announcement-description").val(),
+              date: $("#edit-announcement-date").val(),
+              barangay: $("input[name='barangays']:checked")
+                  .map(function () {
+                      return $(this).val();
+                  })
+                  .get(),
+          };
+
+          const csrfToken = getCSRFToken();
+
+          if (csrfToken) {
+              $.ajax({
+                  url: `/announcement/${announcementId}/`,
+                  method: "PUT",
+                  headers: { "X-CSRFToken": csrfToken }, 
+                  contentType: "application/json",
+                  data: JSON.stringify(updatedAnnouncement),
+                  success: function (data) {
+                      console.log("Announcement updated:", data);
+                  },
+                  error: function (xhr, status, error) {
+                      console.error("Error updating announcement: " + error);
+                      console.log(xhr.responseText);
+                  },
+              });
+          } else {
+              console.error("CSRF token not found in cookies.");
+          }
+
+          $("#announcementModal").modal("hide");
+      });
+      
+      $(document).on("click", "#delete-announcement", function () {
+          const announcementId = $(this).data("announcement-id");
+
+          function getCSRFToken() {
+              const csrfToken = document.cookie.match(/csrftoken=([a-zA-Z0-9]+)/);
+              if (csrfToken) {
+                  return csrfToken[1];
+              } else {
+                  return null;
+              }
+          }
+
+          const csrfToken = getCSRFToken();
+
+          if (csrfToken) {
+              if (confirm("Are you sure you want to delete this announcement?")) {
+                  $.ajax({
+                      url: `/announcement/${announcementId}/`,
+                      method: "DELETE",
+                      headers: { "X-CSRFToken": csrfToken },
+                      success: function (data) {
+                          console.log("Announcement deleted:", data);
+                          // You can add code to update your UI or reload the list of announcements here.
+                          // For example, you can remove the deleted announcement from the table.
+                          $(`tr[data-announcement-id="${announcementId}"]`).remove();
+                      },
+                      error: function (xhr, status, error) {
+                          console.error("Error deleting announcement: " + error);
+                          console.log(xhr.responseText);
+                      },
+                  });
+              }
+          } else {
+              console.error("CSRF token not found in cookies.");
+          }
+
+          $("#announcementModal").modal("hide");
+      });
+
     </script>
   </body>
 </html>

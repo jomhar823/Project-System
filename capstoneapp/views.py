@@ -397,8 +397,24 @@ def get_announcement(request):
 
 def get_announcements(request):
     announcements = Announcement.objects.all()
-    data = [{"id": announcement.id,"subject": announcement.subject, "description": announcement.description, "date": announcement.date} for announcement in announcements]
+    data = []
+
+    for announcement in announcements:
+        barangays = announcement.barangay.all()  
+        barangay_names = [barangay.barangay for barangay in barangays]
+
+        announcement_data = {
+            "id": announcement.id,
+            "subject": announcement.subject,
+            "description": announcement.description,
+            "date": announcement.date,
+            "barangays": barangay_names,
+        }
+
+        data.append(announcement_data)
+
     return JsonResponse(data, safe=False)
+
 
 class AnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Announcement.objects.all()
