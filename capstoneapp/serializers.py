@@ -22,9 +22,11 @@ class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
         fields = '__all__'
-
+        
 class AnnouncementSerializer(serializers.ModelSerializer):
+    date = serializers.DateTimeField(format='%Y-%m-%d', input_formats=['%Y-%m-%d'])
+
     class Meta:
         model = Announcement
-        fields = '__all__'
+        fields = ['subject', 'description', 'date', 'barangay']
 

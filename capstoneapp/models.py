@@ -70,7 +70,7 @@ class Report(models.Model):
 class Announcement(models.Model):
     subject = models.CharField(max_length=255)
     description = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(null=True, blank=True)  
     barangay = models.ManyToManyField(CustomUser, related_name='announcements')
 
     def __str__(self):

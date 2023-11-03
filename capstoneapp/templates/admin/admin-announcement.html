@@ -54,25 +54,48 @@
     <main>
       
       <section class="preparedness">
-        <h2>Announcements</h2>
-          <!-- <div class="filter-section d-flex justify-content-between align-items-center mb-4 mt-3">
-            <div class="select-date d-flex flex-row justify-content-between w-100 mr-3">
-              <input type="date" class="form-control" id="filter-date" name="filter-date">
+        <div>
+            <h2>Announcements</h2>
+        </div>
+            <div class="select-date mb-3">
+                <div class="d-flex flex-row w-100">
+                    <div class="p-1">
+                        <input type="date" class="form-control" id="filter-date" name="filter-date">
+                    </div>
+                    <div class="p-1 w-50">
+                        <form id="subject-search-form" class="input-group">
+                            <input class="form-control" type="search" placeholder="Search by Subject" aria-label="Search" id="subject-search-input">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                      </svg>                                
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    
+                    <div class="ml-auto p-1">
+                        <a href="{% url 'add_announcement' %}" class="btn btn-primary ml-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>                        
+                            Add Announcement
+                        </a>
+                    </div>
+                    
+                </div>
+                
+                <div>
+                    
             </div>
-            <div class="select-brgy w-100 d-flex flex-row justify-content-between  mr-3">
-              <select class="form-control select-brgy-input" id="filter-barangay" name="filter-barangay">
-                <option value="" disabled selected>SELECT BARANGAY</option>
-                <option value="">All Barangays</option>
-              </select>
-            </div>
-            <div class="button-div w-100">
-              <button class="btn btn-primary" id="apply-filter">Apply Filter</button>
-            </div>
-        </div> -->
+
+        </div> 
         <table class="table table-bordered" id="mainTable">
             <thead>
                 <tr>
-                    <th></th>
                     <th>SUBJECT</th>
                     <th>ANNOUNCEMENT</th>
                     <th style="width: 20%;">DATE REPORTED</th>
@@ -81,40 +104,30 @@
             
             <tbody id="announcement-table">
 
-
+ 
           </tbody>
         </table>
         <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item {% if not reports.has_previous %}disabled{% endif %}">
-                    <a class="page-link" href="{% if reports.has_previous %}?page=1{% else %}#{% endif %}" aria-label="First">
-                        <span aria-hidden="true">&laquo;&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item {% if not reports.has_previous %}disabled{% endif %}">
-                    <a class="page-link" href="{% if reports.has_previous %}?page={{ reports.previous_page_number }}{% else %}#{% endif %}" aria-label="Previous">
+            <ul class="pagination  justify-content-center" id="pagination">
+                <li id="previous-page" class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
                     </a>
                 </li>
-        
-                {% for i in reports.paginator.page_range %}
-                    <li class="page-item {% if i == reports.number %}active{% endif %}">
-                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                    </li>
-                {% endfor %}
-        
-                <li class="page-item {% if not reports.has_next %}disabled{% endif %}">
-                    <a class="page-link" href="{% if reports.has_next %}?page={{ reports.next_page_number }}{% else %}#{% endif %}" aria-label="Next">
+
+                <li id="next-page" class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-                <li class="page-item {% if not reports.has_next %}disabled{% endif %}">
-                    <a class="page-link" href="{% if reports.has_next %}?page={{ reports.paginator.num_pages }}{% else %}#{% endif %}" aria-label="Last">
-                        <span aria-hidden="true">&raquo;&raquo;</span>
+                        <span class="sr-only">Next</span>
                     </a>
                 </li>
             </ul>
-        </nav>        
+        </nav>
+        
+        
+        
+                
         <div class="modal fade" id="announcementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -161,50 +174,246 @@
     </footer> -->
     <script>
         var allBarangays = [];
+
         $(document).ready(function () {
-              $.ajax({
+            var currentPage = 1; 
+            var paginationData = null;
+            
+            $.ajax({
                 url: "{% url 'get_barangays' %}",
                 method: "GET",
                 dataType: "json",
                 success: function (barangays) {
                     allBarangays = barangays;
-                    console.log(barangays)
+                    console.log(barangays);
                 },
                 error: function (xhr, status, error) {
                     console.error("Error fetching barangays: " + error);
                     console.log(xhr.responseText);
                 }
             });
+            function generatePagination(page, totalPages) {
+                console.log('pages',page)
+                var pagination = $("#pagination");
+                pagination.empty();
 
-            $.ajax({
-            url: "{% url 'get_announcements' %}",
-            method: "GET",
-            dataType: "json",
-            success: function (data) {
-                var tableRows = "";
+                if (totalPages <= 1) {
+                    return;
+                }
+                console.log("Current Page:", currentPage);
+                var prevPage = page - 1;
+                console.log("Previous Page:", prevPage);
+                var nextPage = page + 1;
+                console.log("Next Page:", nextPage);
 
-            data.forEach(function (announcement) {
-                const formattedDate = announcement.date;  
-                console.log(announcement)
-                tableRows += `<tr class="report-row" data-toggle="modal" data-target="#announcementModal" data-announcement-id="${announcement.id}" data-subject="${announcement.subject}" data-description="${announcement.description}" data-date-reported="${formattedDate}">
-                    <td>${announcement.id}</td>
-                    <td>${announcement.subject}</td>
-                    <td>${announcement.description}</td>
-                    <td>${announcement.date}</td>
-                </tr>`;
+
+                console.log("Page generation logic:");
+                var prevButton = $("<li/>", { class: "page-item" });
+                var prevLink = $("<a/>", {
+                    class: "page-link",
+                    href: "#",
+                    "aria-label": "Previous",
+                }).append(
+                    $("<span/>", {
+                        ariaHidden: "true",
+                        text: "Previous",
+                    })
+                );
+                if (prevPage <= 0) {
+                    prevButton.addClass("disabled");
+                } else {
+                    prevLink.click(function () {
+                        loadAnnouncements(prevPage);
+                    });
+                }
+                prevButton.append(prevLink);
+                pagination.append(prevButton);
+
+                for (var i = 1; i <= totalPages; i++) {
+                    var pageButton = $("<li/>", { class: "page-item" });
+                    var pageLink = $("<a/>", {
+                        class: "page-link",
+                        href: "#",
+                    }).text(i);
+                    if (i === page) {
+                        pageButton.addClass("active");
+                    }
+                    pageLink.click(function () {
+                        loadAnnouncements($(this).text());
+                    });
+                    pageButton.append(pageLink);
+                    pagination.append(pageButton);
+                }
+
+                var nextButton = $("<li/>", { class: "page-item" });
+                var nextLink = $("<a/>", {
+                    class: "page-link",
+                    href: "#",
+                    "aria-label": "Next",
+                }).append(
+                    $("<span/>", {
+                        ariaHidden: "true",
+                        text: "Next",
+                    })
+                );
+                if (nextPage > totalPages) {
+                    nextButton.addClass("disabled");
+                } else {
+                    nextLink.click(function () {
+                        loadAnnouncements(nextPage);
+                    });
+                }
+                nextButton.append(nextLink);
+                pagination.append(nextButton);
+            }
+
+
+            function loadAnnouncements(page) {
+                $.ajax({
+                    url: "{% url 'get_announcements' %}?page=" + page,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        var tableRows = "";
+                        data.announcements.forEach(function (announcement) {
+                            const formattedDate = formatDateString(announcement.date);
+                            console.log(announcement);
+                            tableRows += `<tr class="report-row" data-toggle="modal" data-target="#announcementModal" data-announcement-id="${announcement.id}" data-subject="${announcement.subject}" data-description="${announcement.description}" data-date-reported="${formattedDate}">
+                                <td>${announcement.subject}</td>
+                                <td>${announcement.description}</td>
+                                <td>${formattedDate}</td>
+                            </tr>`;
+                        });
+                        generatePagination(page, data.pagination_info.total_pages);
+
+                        function formatDateString(dateString) {
+                            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                            const date = new Date(dateString);
+                            return date.toLocaleDateString('en-US', options);
+                        }
+
+
+                        $("#announcement-table").html(tableRows);
+                        $(".report-row").click(function () {
+                            var announcementId = $(this).data("announcement-id");
+                            showAnnouncementDetails(announcementId);
+                        });
+
+                        currentPage = page;
+
+
+                        paginationData = data.pagination_info; 
+
+                        $("#previous-page").toggleClass("disabled", !paginationData.has_previous);
+                        $("#next-page").toggleClass("disabled", !paginationData.has_next);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching announcements: " + error);
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+
+                loadAnnouncements(currentPage);
+                const announcementsData = [];
+
+                function formatDateString(dateString) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+                    return formattedDate;
+                }
+
+                function filterAnnouncementsByDate(selectedDate) {
+                    console.log("Selected Date:", selectedDate);
+
+                    $.ajax({
+                        url: "{% url 'get_announcements' %}",
+                        method: "GET",
+                        data: { date: selectedDate },
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("Filtered Announcements Data:", data); 
+                            updateAnnouncementsTable(data.announcements);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching announcements: " + error);
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+                function updateAnnouncementsTable(announcements) {
+                    console.log("Announcements to Update Table:", announcements); 
+
+                    const table = $("#announcement-table");
+                    table.empty();
+
+                    if (announcements.length === 0) {
+                        table.append("<tr><td colspan='3'>No announcements for the selected date.</td></tr>");
+                    } else {
+                        announcements.forEach(function (announcement) {
+                            const formattedDate = formatDateString(announcement.date);
+                            console.log("Announcement Date:", announcement.date);
+                            const tableRow = `<tr>
+                                <td>${announcement.subject}</td>
+                                <td>${announcement.description}</td>
+                                <td>${formattedDate}</td>
+                            </tr>`;
+                            table.append(tableRow);
+                        });
+                    }
+                }
+
+                $("#filter-date").change(function () {
+                    const selectedDate = $(this).val();
+                    console.log("Filter Date Change Event - Selected Date:", selectedDate); 
+                    filterAnnouncementsByDate(selectedDate);
+                });
+
+
+                $("#next-page").click(function (e) {
+                    e.preventDefault();
+                    if (paginationData && paginationData.has_next) { 
+                        loadAnnouncements(paginationData.next_page_number);
+                    }
+                });
+
+                $("#previous-page").click(function (e) {
+                    e.preventDefault();
+                    if (paginationData && paginationData.has_previous) {
+                        loadAnnouncements(paginationData.previous_page_number);
+                    }
+                });
+
+                $(document).on("submit", "#subject-search-form", function (e) {
+                e.preventDefault();
+                const subjectQuery = $("#subject-search-input").val();
+                if (subjectQuery) {
+                    searchAnnouncementsBySubject(subjectQuery);
+                }
             });
 
-                $("#announcement-table").html(tableRows);
-                $(".report-row").click(function () {
-                    var announcementId = $(this).data("announcement-id");
-                    showAnnouncementDetails(announcementId);
+            function searchAnnouncementsBySubject(subjectQuery) {
+                $.ajax({
+                    url: "{% url 'get_announcements' %}",
+                    method: "GET",
+                    data: { subject: subjectQuery },
+                    dataType: "json",
+                    success: function (data) {
+                        updateAnnouncementsTable(data.announcements);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error searching announcements by subject: " + error);
+                        console.log(xhr.responseText);
+                    }
                 });
-            },
-            error: function (xhr, status, error) {
-                console.error("Error fetching announcements: " + error);
-                console.log(xhr.responseText);
             }
-        });
+
+            $("#subject-search-input").on("input", function () {
+                const subjectQuery = $(this).val();
+                if (subjectQuery) {
+                    searchAnnouncementsBySubject(subjectQuery);
+                }
+            });
         });
         
 
@@ -225,9 +434,9 @@
                   $("#edit-announcement-description").val(announcement.description);
 
                   const date = new Date(announcement.date);
-                  const formattedDate = date.toISOString().split('T')[0];
+                const formattedDate = date.toISOString().split('T')[0];
 
-                  $("#edit-announcement-date").val(formattedDate);
+                $("#edit-announcement-date").val(formattedDate);
 
                   var checkboxes = "";
 
@@ -262,19 +471,30 @@
                   return null;
               }
           }
+          
 
-          const updatedAnnouncement = {
-              subject: $("#edit-announcement-subject").val(),
-              description: $("#edit-announcement-description").val(),
-              date: $("#edit-announcement-date").val(),
-              barangay: $("input[name='barangays']:checked")
-                  .map(function () {
-                      return $(this).val();
-                  })
-                  .get(),
-          };
+            const dateInputValue = $("#edit-announcement-date").val();
+            console.log("Date input value:", dateInputValue);
 
-          const csrfToken = getCSRFToken();
+            const date = new Date(dateInputValue);
+            const formattedDate = date.toISOString();
+            console.log("Formatted date:", formattedDate);
+
+
+
+            const updatedAnnouncement = {
+                subject: $("#edit-announcement-subject").val(),
+                description: $("#edit-announcement-description").val(),
+                date: formattedDate,
+                barangay: $("input[name='barangays']:checked")
+                    .map(function () {
+                        return $(this).val();
+                    })
+                    .get(),
+            };
+            console.log("Updated Announcement:", updatedAnnouncement);
+
+            const csrfToken = getCSRFToken();
 
           if (csrfToken) {
               $.ajax({
@@ -333,7 +553,9 @@
           }
 
           $("#announcementModal").modal("hide");
+          
       });
+        
 
     </script>
   </body>

@@ -11,7 +11,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.conf.urls.static import static
@@ -21,7 +21,8 @@ import requests
 from django.views.decorators.csrf import csrf_exempt
 import json
 from rest_framework import viewsets
-
+from datetime import datetime
+from django.db.models import Q 
 # INITIAL HOMEPAGE
 
 def index(request):
@@ -375,7 +376,6 @@ def submit_announcement(request):
     if request.method == 'POST':
         serializer = AnnouncementSerializer(data=request.POST)
         if serializer.is_valid():
-            print("Form is valid. Submitting announcement.")
             announcement = serializer.save()
             
             selected_barangay_ids = request.POST.getlist('barangay')
@@ -385,41 +385,89 @@ def submit_announcement(request):
             messages.success(request, 'Announcement submitted successfully.')
             return redirect('add_announcement')
         else:
-            print("Form is not valid. Errors:", serializer.errors)
             messages.error(request, 'Announcement submission failed. Please check your data.')
             return render(request, 'admin/add-announcement.html', {'form': serializer})
     else:
         form = AnnouncementSerializer()
         return render(request, 'admin/add-announcement.html', {'form': form})
 
+
 def get_announcement(request):
     return render(request, 'admin/admin-announcement.html')
 
 def get_announcements(request):
-    announcements = Announcement.objects.all()
+    announcements = Announcement.objects.all().order_by('-date')
+
+    selected_date = request.GET.get('date')
+    selected_subject = request.GET.get('subject')
+
+    if selected_date:
+        try:
+            selected_date = datetime.strptime(selected_date, '%Y-%m-%d')
+            announcements = Announcement.objects.filter(date=selected_date)
+        except ValueError:
+            return JsonResponse({"error": "Invalid date format"}, status=400)
+    else:
+        announcements = Announcement.objects.all().order_by('-date')
+    
+    if selected_subject:
+        announcements = announcements.filter(Q(subject__icontains=selected_subject))
+
+
+    items_per_page = 10
+    paginator = Paginator(announcements, items_per_page)
+
+    page_number = request.GET.get('page')
+    try:
+        announcements = paginator.page(page_number)
+    except PageNotAnInteger:
+        announcements = paginator.page(1)
+    except EmptyPage:
+        announcements = paginator.page(paginator.num_pages)
+
+    total_pages = paginator.num_pages
     data = []
 
     for announcement in announcements:
-        barangays = announcement.barangay.all()  
+        barangays = announcement.barangay.all()
         barangay_names = [barangay.barangay for barangay in barangays]
 
         announcement_data = {
             "id": announcement.id,
             "subject": announcement.subject,
             "description": announcement.description,
-            "date": announcement.date,
+            "date": announcement.date.strftime('%Y-%m-%d'), 
             "barangays": barangay_names,
         }
 
         data.append(announcement_data)
 
-    return JsonResponse(data, safe=False)
+    pagination_info = {
+        "total_pages": paginator.num_pages,
+        "has_previous": announcements.has_previous(),
+        "has_next": announcements.has_next(),
+        "previous_page_number": announcements.previous_page_number() if announcements.has_previous() else None,
+        "next_page_number": announcements.next_page_number() if announcements.has_next() else None,
+    }
+
+    response_data = {
+        "announcements": data,
+        "pagination_info": pagination_info,
+    }
+
+    return JsonResponse(response_data, safe=False)
 
 
 class AnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
 
+    def perform_update(self, serializer):
+        formatted_date = self.request.data.get('date')
+
+        date_object = datetime.strptime(formatted_date, '%Y-%m-%dT%H:%M:%S.%fZ')
+
+        serializer.save(date=date_object)
 
 def view_barangay(request):
     return render(request, 'admin/view_barangay.html')

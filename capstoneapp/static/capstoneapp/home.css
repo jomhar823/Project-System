@@ -388,6 +388,9 @@ footer {
   margin-top: 10px;
 
 }
+.all_announcements{
+  margin-right: 80px;
+}
 .users-dropdown{
   margin-right: 80px;
 }
@@ -476,8 +479,15 @@ tr:nth-child(even) {
   background-color: #f5f5f5; 
 }
 
-
-
+.select-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  width: 100%;
+}
+#subject-search-input:focus {
+  outline: none !important;
+}
 
 /* Responsive Styles */
 
