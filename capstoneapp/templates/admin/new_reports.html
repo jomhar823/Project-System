@@ -1,0 +1,410 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 1em 0;
+        }
+      
+        th, td {
+          border: 1px solid #000;
+          padding: 8px;
+          text-align: left;
+        }
+      
+        th {
+          background-color: #f0f0f0;
+        }
+      
+        th {
+          font-weight: bold;
+        }
+      
+        tr:nth-child(even) {
+          background-color: #f2f2f2;
+        }
+      
+        td:nth-child(2) {
+          text-align: center;
+        }
+        
+        th:nth-child(3),
+        td:nth-child(3),
+        th:nth-child(4),
+        td:nth-child(4),
+        th:nth-child(5),
+        td:nth-child(5) {
+          width: 20%;
+        }
+      </style>
+      
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-light" href="{% url 'adminhomepage' %}">Home </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'preparedness' %}">Preparedness</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+            </li>
+          </ul>
+          <span class="navbar-text ">
+            <li class="dropdown">
+              <div class="dropdown show custom-dropdown no-focus-outline">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg> {{user.email}}           
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
+                </div>
+              </div>
+            </li>
+          </span>
+        </div>
+      </nav>
+    </header>
+    <main>
+      
+      <section class="preparedness">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 style="font-weight: 700;">NEW REPORTS</h1>
+            <h6 id="current-date" class="dateToday" style="font-weight: 400; font-style: italic"></h6>
+
+        </div>
+            <div class="select-date mb-3">
+                    <div class="d-flex flex-row w-100">
+                        <div class="p-1">
+                            <input type="date" class="form-control" id="filter-date" name="filter-date">
+                        </div>
+                        <div class="p-1 w-50">
+                            <form id="subject-search-form" class="input-group">
+                                <input class="form-control" type="search" placeholder="Search by Subject" aria-label="Search" id="subject-search-input">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                          </svg>                                
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>  
+
+            </div> 
+        <table class="table table-bordered" id="mainTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>SUBJECT</th>
+                    <th style="width: 20%;">DATE REPORTED</th>
+                    <th style="width: 20%;">TIME REPORTED</th>
+                    <th style="width: 20%;">BARANGAY</th>
+                </tr>
+            </thead>
+            
+            <tbody id="today-reports-table">
+
+ 
+          </tbody>
+        </table>
+        
+        
+        <nav aria-label="Page navigation">
+            <ul class="pagination  justify-content-center" id="pagination">
+                <li id="previous-page" class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+
+                <li id="next-page" class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        
+        
+                
+        <div class="modal fade" id="announcementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="announcement-subject"></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                          <label for="edit-announcement-subject"><strong>Subject:</strong></label>
+                          <input type="text" class="form-control" id="edit-announcement-subject" />
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-announcement-description"><strong>Description:</strong></label>
+                          <textarea class="form-control" id="edit-announcement-description" rows="4"></textarea>
+                      </div>
+                      <div class="form-group">
+                          <label for="edit-announcement-date"><strong>Date:</strong></label>
+                          <input type="date" class="form-control" id="edit-announcement-date" min="your-minimum-date" />
+                        </div>
+                      <p><strong>Barangays:</strong></p>
+                      <div id="barangay-checkboxes">
+                      </div>
+                  </div>
+                  <div class="modal-footer d-flex">
+                      <button type="button" class="btn btn-primary" id="edit-announcement">Edit</button>
+                      <button type="button" class="btn btn-danger" id="delete-announcement">Delete</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      </section>
+
+
+    </main>
+    <!-- <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer> -->
+    <script>
+        var allBarangays = [];
+
+        $(document).ready(function () {
+            function generatePagination(page, totalPages) {
+                console.log('pages',page)
+                var pagination = $("#pagination");
+                pagination.empty();
+
+                if (totalPages <= 1) {
+                    return;
+                }
+                console.log("Current Page:", currentPage);
+                var prevPage = page - 1;
+                console.log("Previous Page:", prevPage);
+                var nextPage = page + 1;
+                console.log("Next Page:", nextPage);
+
+
+                console.log("Page generation logic:");
+                var prevButton = $("<li/>", { class: "page-item" });
+                var prevLink = $("<a/>", {
+                    class: "page-link",
+                    href: "#",
+                    "aria-label": "Previous",
+                }).append(
+                    $("<span/>", {
+                        ariaHidden: "true",
+                        text: "Previous",
+                    })
+                );
+                if (prevPage <= 0) {
+                    prevButton.addClass("disabled");
+                } else {
+                    prevLink.click(function () {
+                        loadAnnouncements(prevPage);
+                    });
+                }
+                prevButton.append(prevLink);
+                pagination.append(prevButton);
+
+                for (var i = 1; i <= totalPages; i++) {
+                    var pageButton = $("<li/>", { class: "page-item" });
+                    var pageLink = $("<a/>", {
+                        class: "page-link",
+                        href: "#",
+                    }).text(i);
+                    if (i === page) {
+                        pageButton.addClass("active");
+                    }
+                    pageLink.click(function () {
+                        loadAnnouncements($(this).text());
+                    });
+                    pageButton.append(pageLink);
+                    pagination.append(pageButton);
+                }
+
+                var nextButton = $("<li/>", { class: "page-item" });
+                var nextLink = $("<a/>", {
+                    class: "page-link",
+                    href: "#",
+                    "aria-label": "Next",
+                }).append(
+                    $("<span/>", {
+                        ariaHidden: "true",
+                        text: "Next",
+                    })
+                );
+                if (nextPage > totalPages) {
+                    nextButton.addClass("disabled");
+                } else {
+                    nextLink.click(function () {
+                        loadAnnouncements(nextPage);
+                    });
+                }
+                nextButton.append(nextLink);
+                pagination.append(nextButton);
+            }
+
+
+            
+                
+
+                $("#filter-date").change(function () {
+                    const selectedDate = $(this).val();
+                    console.log("Filter Date Change Event - Selected Date:", selectedDate); 
+                    filterAnnouncementsByDate(selectedDate);
+                });
+
+
+                $("#next-page").click(function (e) {
+                    e.preventDefault();
+                    if (paginationData && paginationData.has_next) { 
+                        loadAnnouncements(paginationData.next_page_number);
+                    }
+                });
+
+                $("#previous-page").click(function (e) {
+                    e.preventDefault();
+                    if (paginationData && paginationData.has_previous) {
+                        loadAnnouncements(paginationData.previous_page_number);
+                    }
+                });
+
+                $(document).on("submit", "#subject-search-form", function (e) {
+                e.preventDefault();
+                const subjectQuery = $("#subject-search-input").val();
+                if (subjectQuery) {
+                    searchAnnouncementsBySubject(subjectQuery);
+                }
+            });
+
+            function searchAnnouncementsBySubject(subjectQuery) {
+                $.ajax({
+                    url: "{% url 'get_announcements' %}",
+                    method: "GET",
+                    data: { subject: subjectQuery },
+                    dataType: "json",
+                    success: function (data) {
+                        updateAnnouncementsTable(data.announcements);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error searching announcements by subject: " + error);
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+
+            $("#subject-search-input").on("input", function () {
+                const subjectQuery = $(this).val();
+                if (subjectQuery) {
+                    searchAnnouncementsBySubject(subjectQuery);
+                }
+            });
+        });
+        
+        $(document).ready(function () {
+            loadTodayReports();
+        });
+
+        function loadTodayReports() {
+            $.ajax({
+                url: "{% url 'get_reports_for_today' %}",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    updateReportsTable(data.reports, 'today-reports-table');
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching today's reports: " + error);
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+        function updateReportsTable(reports, tableId) {
+            const table = $(`#${tableId}`);
+            table.empty();
+
+            if (reports.length === 0) {
+                table.append("<tr><td colspan='5'>No reports available.</td></tr>");
+            } else {
+                reports.forEach(function (report) {
+                    const formattedDate = formatDateString(report.date_reported);
+                    const formattedTime = formatTimeString(report.time_reported);
+
+                    const tableRow = `<tr>
+                        <td>${report.id}</td>
+                        <td>${report.subject}</td>
+                        <td>${formattedDate}</td>
+                        <td>${formattedTime}</td>
+                        <td>${report.barangay}</td>
+                    </tr>`;
+                    table.append(tableRow);
+                });
+            }
+        }
+
+        function formatDateString(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', options);
+        }
+        function formatTimeString(timeString) {
+            const options = { hour: '2-digit', minute: '2-digit' };
+            const time = new Date(`2000-01-01T${timeString}`);
+            return time.toLocaleTimeString('en-US', options);
+        }
+
+        $(document).ready(function () {
+            const currentDate = new Date();
+
+            const asOfText = "As of " + formatDate(currentDate);
+
+            $("#current-date").text(asOfText);
+        });
+        
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+
+      
+        
+
+    </script>
+  </body>
+</html>

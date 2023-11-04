@@ -23,6 +23,8 @@ import json
 from rest_framework import viewsets
 from datetime import datetime
 from django.db.models import Q 
+from datetime import date
+
 # INITIAL HOMEPAGE
 
 def index(request):
@@ -456,6 +458,25 @@ def get_announcements(request):
     }
 
     return JsonResponse(response_data, safe=False)
+
+def get_reports(request):
+    return render(request, 'admin/admin_all_reports.html')
+
+def new_reports(request):
+    return render(request, 'admin/new_reports.html')
+
+@api_view(['GET'])
+def get_reports_for_today(request):
+    today = date.today()
+    today_reports = Report.objects.filter(date_reported=today).order_by('-date_reported')
+    serializer = ReportSerializer(today_reports, many=True)
+    return Response({"reports": serializer.data})
+
+@api_view(['GET'])
+def get_all_reports(request):
+    reports = Report.objects.filter(date_reported__lt=date.today()).order_by('-date_reported')
+    serializer = ReportSerializer(reports, many=True)
+    return Response({"reports": serializer.data})
 
 
 class AnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):

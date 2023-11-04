@@ -34,6 +34,10 @@ urlpatterns = [
     path('add_announcement', views.add_announcement, name='add_announcement'),
     path('get_announcement', views.get_announcement, name='get_announcement'),
     path('get_announcements', views.get_announcements, name='get_announcements'),
+    path('get_reports', views.get_reports, name='get_reports'),
+    path('get_reports_for_today', views.get_reports_for_today, name='get_reports_for_today'),
+    path('get_all_reports', views.get_all_reports, name='get_all_reports'),
+    path('new_reports', views.new_reports, name='new_reports'),
 
 
     path('submit_announcement/', views.submit_announcement, name='submit_announcement'),
