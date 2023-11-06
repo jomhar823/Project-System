@@ -19,6 +19,8 @@ urlpatterns = [
     path('reports', views.reports, name="reports"),
     path('add-reports', views.add_report, name='add-reports'),
     path('incident-reports', views.incident_reports, name='incident-reports'),
+    path('get_user_announcements', views.get_user_announcements, name='get_user_announcements'),
+
 
     path('admin_incident_reports', views.admin_incident_reports, name='admin_incident_reports'),
     path('admin_weather', views.admin_weather, name='admin_weather'),

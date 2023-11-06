@@ -24,7 +24,8 @@ from rest_framework import viewsets
 from datetime import datetime
 from django.db.models import Q 
 from datetime import date
-
+from django.views.decorators.cache import cache_control
+from capstoneapp.decorators import mdrrmc_required
 # INITIAL HOMEPAGE
 
 def index(request):
@@ -172,6 +173,7 @@ def flood(request):
 def add_report(request):
     return render(request, 'user/add_reports.html')
 
+
 def incident_reports(request):
     return render(request, 'user/incident_reports.html')
 
@@ -214,12 +216,53 @@ class ReportDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
 
+def get_user_announcements(request):
+    if request.user.user_type == 'barangay':
+        try:
+            announcements = Announcement.objects.filter(barangay=request.user).order_by('-date')
+        except ValueError:
+            return HttpResponse("Invalid barangay object or relationship")
+
+        selected_date = request.GET.get('date')
+        selected_subject = request.GET.get('subject')
+
+        if selected_date:
+            try:
+                selected_date = datetime.strptime(selected_date, '%Y-%m-%d')
+                announcements = announcements.filter(date=selected_date)
+            except ValueError:
+                return HttpResponse("Invalid date format")
+
+        if selected_subject:
+            announcements = announcements.filter(Q(subject__icontains=selected_subject))
+
+        items_per_page = 10
+        paginator = Paginator(announcements, items_per_page)
+
+        page_number = request.GET.get('page')
+        try:
+            announcements = paginator.page(page_number)
+        except PageNotAnInteger:
+            announcements = paginator.page(1)
+        except EmptyPage:
+            announcements = paginator.page(paginator.num_pages)
+
+        context = {
+            'announcements': announcements,
+        }
+        print(context)
+
+        return render(request, 'user/user-announcements.html', context)
+    else:
+        return HttpResponseForbidden("Access Denied")
 
 ###### ADMIN ########
 
+@mdrrmc_required
 def admin_incident_reports(request):
     return render(request, 'admin/admin_incident_reports.html')
 
+@mdrrmc_required
 def admin_weather(request):
     return render(request, 'admin/admin_weather.html')
 
@@ -248,7 +291,8 @@ def register(request):
 
     elif request.method == 'GET':
         return render(request, 'admin/admin_add_account.html')
-    
+
+@mdrrmc_required
 def admin_incident_reports(request):
     subjects = ["Incident Report"]
     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
@@ -265,7 +309,7 @@ def admin_incident_reports(request):
 
     return render(request, 'admin/admin_incident_reports.html', context)
 
-
+@cache_control(no_store=True, must_revalidate=True)
 @api_view(['GET', 'POST'])
 def login_view(request):
     if request.method == 'POST':
@@ -289,7 +333,7 @@ def login_view(request):
 
 # def admin_sit_reports(request):
 #     return render(request, 'admin_sit_reports.html')
-
+@mdrrmc_required
 def admin_sit_reports(request):
     subjects = ["Situational Report"]
     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
@@ -306,7 +350,7 @@ def admin_sit_reports(request):
 
     return render(request, 'admin/admin_sit_reports.html', context)
 
-
+@mdrrmc_required
 def admin_typhoon_reports(request):
     subjects = ["Typhoon Report"]
     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
@@ -323,6 +367,7 @@ def admin_typhoon_reports(request):
 
     return render(request, 'admin/admin_typhoon_reports.html', context)
 
+@mdrrmc_required
 def admin_earthquake_reports(request):
     subjects = ["Earthquake Report"]
     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
@@ -339,6 +384,7 @@ def admin_earthquake_reports(request):
 
     return render(request, 'admin/admin_earthquake_reports.html', context)
 
+@mdrrmc_required
 def admin_landslide_reports(request):
     subjects = ["Landslide Report"]
     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
@@ -355,6 +401,7 @@ def admin_landslide_reports(request):
 
     return render(request, 'admin/admin_landslide_reports.html', context)
 
+@mdrrmc_required
 def admin_flood_reports(request):
     subjects = ["Flood Report"]
     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
@@ -371,17 +418,24 @@ def admin_flood_reports(request):
 
     return render(request, 'admin/admin_flood_reports.html', context)
 
+@mdrrmc_required
 def add_announcement(request):
     return render(request, 'admin/add-announcement.html')
 
+@mdrrmc_required
 def submit_announcement(request):
     if request.method == 'POST':
         serializer = AnnouncementSerializer(data=request.POST)
+        print(request.POST)
         if serializer.is_valid():
             announcement = serializer.save()
             
-            selected_barangay_ids = request.POST.getlist('barangay')
-            selected_barangays = CustomUser.objects.filter(pk__in=selected_barangay_ids, user_type='barangay')
+            if 'all' in request.POST:
+                all_barangays = CustomUser.objects.filter(user_type='barangay')
+                announcement.barangay.set(all_barangays)
+            else:
+                selected_barangay_ids = request.POST.getlist('barangay')
+                selected_barangays = CustomUser.objects.filter(pk__in=selected_barangay_ids, user_type='barangay')
             
             announcement.barangay.set(selected_barangays)
             messages.success(request, 'Announcement submitted successfully.')
@@ -393,10 +447,11 @@ def submit_announcement(request):
         form = AnnouncementSerializer()
         return render(request, 'admin/add-announcement.html', {'form': form})
 
-
+@mdrrmc_required
 def get_announcement(request):
     return render(request, 'admin/admin-announcement.html')
 
+@mdrrmc_required
 def get_announcements(request):
     announcements = Announcement.objects.all().order_by('-date')
 
@@ -459,12 +514,15 @@ def get_announcements(request):
 
     return JsonResponse(response_data, safe=False)
 
+@mdrrmc_required
 def get_reports(request):
     return render(request, 'admin/admin_all_reports.html')
 
+@mdrrmc_required
 def new_reports(request):
     return render(request, 'admin/new_reports.html')
 
+@mdrrmc_required
 @api_view(['GET'])
 def get_reports_for_today(request):
     today = date.today()
@@ -478,6 +536,7 @@ def get_reports_for_today(request):
     serializer = ReportSerializer(today_reports, many=True)
     return Response({"reports": serializer.data})
 
+@mdrrmc_required
 @api_view(['GET'])
 def get_all_reports(request):
     date_param = request.GET.get('date', None)
@@ -512,6 +571,7 @@ class AnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
 
         serializer.save(date=date_object)
 
+@mdrrmc_required
 def view_barangay(request):
     return render(request, 'admin/view_barangay.html')
 
@@ -520,10 +580,11 @@ def download_attachment(request, file_name):
     response = FileResponse(report.attachment)
     return response
 
+@mdrrmc_required
 def get_barangays(request):
     barangays = CustomUser.objects.filter(user_type='barangay').values('barangay', 'id').distinct()
     return JsonResponse(list(barangays), safe=False)
-
+@mdrrmc_required
 def list_of_admin(request):
     barangays = CustomUser.objects.filter(user_type='mdrrmc').values('id','barangay', 'email', 'contact_number').distinct()
     
@@ -532,7 +593,7 @@ def list_of_admin(request):
     }
 
     return render(request, 'admin/view_admin.html', context)
-
+@mdrrmc_required
 def list_of_barangays(request):
     barangays = CustomUser.objects.filter(user_type='barangay').values('id','barangay', 'email', 'contact_number').distinct()
     
@@ -541,7 +602,7 @@ def list_of_barangays(request):
     }
 
     return render(request, 'admin/view_barangay.html', context)
-
+@mdrrmc_required
 @csrf_exempt
 def update_barangay(request):
     if request.method == 'POST':
@@ -561,6 +622,7 @@ def update_barangay(request):
             return JsonResponse({'success': True})
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
+@mdrrmc_required
 @csrf_exempt
 def delete_barangay(request):
     if request.method == 'POST':

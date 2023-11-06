@@ -91,6 +91,9 @@
                   </div>
                     <label for="barangays">Barangay:</label><br>
                     <div id="barangay-checkboxes" class="checkbox-grid">
+                      <input type="checkbox" name="all_barangays" value="all" id="allBarangays">
+                      <label for="allBarangays">All Barangays</label><br>
+
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning text-light btn-submit mt-3">Send Announcement</button>
@@ -106,10 +109,15 @@
                 success: function (data) {
                     var checkboxes = "";
                     data.forEach(function (barangay) {
-                      checkboxes += `<input type="checkbox" name="barangay" value="${barangay.id}" id="barangay${barangay.id}">
-                        <label for="barangay${barangay.id}">${barangay.barangay}</label><br>`;
+                        checkboxes += `<input type="checkbox" name="barangay" value="${barangay.id}" id="barangay${barangay.id}">
+                            <label for="barangay${barangay.id}">${barangay.barangay}</label><br>`;
                     });
-                    $("#barangay-checkboxes").html(checkboxes);
+                    $("#barangay-checkboxes").append(checkboxes);
+        
+                    $("#allBarangays").change(function () {
+                        var allBarangaysChecked = $(this).is(":checked");
+                        $("[name='barangay']").prop("checked", allBarangaysChecked);
+                    });
                 },
                 error: function (xhr, status, error) {
                     console.error("Error fetching barangays: " + error);
@@ -117,6 +125,10 @@
             });
         });
         </script>
+        
+        
+        
+        
     
     
 </body>
