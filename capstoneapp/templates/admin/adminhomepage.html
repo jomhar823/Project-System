@@ -31,18 +31,7 @@
             <li class="nav-item">
               <a class="nav-link text-light" href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
             </li>
-            <li class="dropdown">
-              <div class="dropdown show custom-dropdown no-focus-outline">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Reports              
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="{% url 'get_reports'%}">All Reports</a>
-                  <a class="dropdown-item" href="{% url 'new_reports'%}">New Reports</a>
-                </div>
-              </div>
-              
-            </li>
+            
           </ul>
 
           <span class="navbar-text ">
@@ -149,10 +138,9 @@
                 <a class="dropdown-item" href="{% url 'admin_sit_reports'%}" href="#">Situational Reports</a>
                 <a class="dropdown-item" href="{% url 'admin_incident_reports'%}">Incident Reports</a>
                 <a class="dropdown-item" href="{% url 'get_reports'%}">All Reports</a>
-
+                <a class="dropdown-item" href="{% url 'new_reports'%}">New Reports</a>
               </div>
             </div>
-            
           </li>
         </ul>
       </nav>

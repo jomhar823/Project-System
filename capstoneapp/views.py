@@ -468,13 +468,35 @@ def new_reports(request):
 @api_view(['GET'])
 def get_reports_for_today(request):
     today = date.today()
-    today_reports = Report.objects.filter(date_reported=today).order_by('-date_reported')
+    subject_query = request.GET.get('subject') 
+
+    if subject_query:
+        today_reports = Report.objects.filter(date_reported=today, subject__icontains=subject_query).order_by('-date_reported')
+    else:
+        today_reports = Report.objects.filter(date_reported=today).order_by('-date_reported')
+
     serializer = ReportSerializer(today_reports, many=True)
     return Response({"reports": serializer.data})
 
 @api_view(['GET'])
 def get_all_reports(request):
-    reports = Report.objects.filter(date_reported__lt=date.today()).order_by('-date_reported')
+    date_param = request.GET.get('date', None)
+    subject_param = request.GET.get('subject', None)
+
+    reports = Report.objects.all()
+
+    if date_param:
+        try:
+            selected_date = datetime.strptime(date_param, '%Y-%m-%d').date()
+            reports = reports.filter(date_reported=selected_date)
+        except ValueError:
+            return Response({"error": "Invalid date format"}, status=status.HTTP_400_BAD_REQUEST)
+
+    if subject_param:
+        reports = reports.filter(subject__icontains=subject_param)
+
+    reports = reports.order_by('-date_reported')
+
     serializer = ReportSerializer(reports, many=True)
     return Response({"reports": serializer.data})
 

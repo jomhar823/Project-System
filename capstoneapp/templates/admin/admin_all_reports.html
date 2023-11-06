@@ -36,10 +36,7 @@
         tr:nth-child(even) {
           background-color: #f2f2f2;
         }
-      
-        td:nth-child(2) {
-          text-align: center;
-        }
+    
         
         th:nth-child(3),
         td:nth-child(3),
@@ -98,7 +95,7 @@
             <div class="select-date mb-3">
                 <div class="d-flex flex-row w-100">
                     <div class="p-1">
-                        <input type="date" class="form-control" id="filter-date" name="filter-date">
+                        <input type="date" class="form-control" id="date-filter-input" name="filter-date">
                     </div>
                     <div class="p-1 w-50">
                         <form id="subject-search-form" class="input-group">
@@ -276,9 +273,6 @@
                 nextButton.append(nextLink);
                 pagination.append(nextButton);
             }
-
-
-            
                 
 
                 $("#filter-date").change(function () {
@@ -310,28 +304,52 @@
                 }
             });
 
-            function searchAnnouncementsBySubject(subjectQuery) {
+            $("#date-filter-input").change(function () {
+                const selectedDate = $(this).val();
+                filterReportsByDate(selectedDate);
+            });
+
+
+            $("#subject-search-input").on("input", function () {
+                const subjectQuery = $(this).val();
+                searchReportsBySubject(subjectQuery);
+            });
+
+            function filterReportsByDate(selectedDate) {
+                console.log("Selected date:", selectedDate);
                 $.ajax({
-                    url: "{% url 'get_announcements' %}",
+                    url: "{% url 'get_all_reports' %}",
                     method: "GET",
-                    data: { subject: subjectQuery },
+                    data: { date: selectedDate },
                     dataType: "json",
                     success: function (data) {
-                        updateAnnouncementsTable(data.announcements);
+                        updateReportsTable(data.reports, 'all-reports-table');
                     },
                     error: function (xhr, status, error) {
-                        console.error("Error searching announcements by subject: " + error);
+                        console.error("Error filtering reports by date: " + error);
                         console.log(xhr.responseText);
                     }
                 });
             }
 
-            $("#subject-search-input").on("input", function () {
-                const subjectQuery = $(this).val();
-                if (subjectQuery) {
-                    searchAnnouncementsBySubject(subjectQuery);
-                }
-            });
+
+            function searchReportsBySubject(subjectQuery) {
+                $.ajax({
+                    url: "{% url 'get_all_reports' %}",
+                    method: "GET",
+                    data: { subject: subjectQuery },
+                    dataType: "json",
+                    success: function (data) {
+                        updateReportsTable(data.reports, 'all-reports-table');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error searching reports by subject: " + error);
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+                
+                
         });
         
         $(document).ready(function () {
@@ -345,6 +363,7 @@
                 method: "GET",
                 dataType: "json",
                 success: function (data) {
+                    console.log("Success: Data received:", data);
                     updateReportsTable(data.reports, 'all-reports-table');
                 },
                 error: function (xhr, status, error) {
@@ -355,6 +374,7 @@
         }
 
         function updateReportsTable(reports, tableId) {
+            console.log("Update function called for table ID:", tableId);
             const table = $(`#${tableId}`);
             table.empty();
 
