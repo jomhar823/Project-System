@@ -98,7 +98,11 @@ section {
   background-position: center; 
   height: 100vh; 
 }
-
+.announcement-barangays {
+  list-style: none; 
+  margin: 0; 
+  padding: 0; 
+}
 /* Media queries for responsive design */
 @media (max-width: 768px) {
   header h1 {

@@ -39,6 +39,7 @@ urlpatterns = [
     path('get_reports', views.get_reports, name='get_reports'),
     path('get_reports_for_today', views.get_reports_for_today, name='get_reports_for_today'),
     path('get_all_reports', views.get_all_reports, name='get_all_reports'),
+    path('get_report_details', views.get_report_details, name='get_report_details'),
     path('new_reports', views.new_reports, name='new_reports'),
 
 

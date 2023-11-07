@@ -26,6 +26,8 @@ from django.db.models import Q
 from datetime import date
 from django.views.decorators.cache import cache_control
 from capstoneapp.decorators import mdrrmc_required
+from django.http import Http404
+
 # INITIAL HOMEPAGE
 
 def index(request):
@@ -210,7 +212,7 @@ def submit_report(request):
             return redirect('add-reports')  
         else:
             messages.error(request, 'Report submission failed. Please check your data.')
-    return render(request, 'user/add-reports.html')
+    return render(request, 'user/add_reports.html')
 
 class ReportDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Report.objects.all()
@@ -247,8 +249,12 @@ def get_user_announcements(request):
         except EmptyPage:
             announcements = paginator.page(paginator.num_pages)
 
+        total_barangays_count = CustomUser.objects.filter(user_type='barangay').count()
+
         context = {
             'announcements': announcements,
+            'total_barangays_count': total_barangays_count,
+
         }
         print(context)
 
@@ -285,6 +291,8 @@ def register(request):
                 user.is_superuser = True
                 user.is_staff = True
                 user.save()
+                
+            print(request.data)
 
             return redirect('register')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -526,21 +534,47 @@ def new_reports(request):
 @api_view(['GET'])
 def get_reports_for_today(request):
     today = date.today()
-    subject_query = request.GET.get('subject') 
+    subject_query = request.GET.get('subject')
+    page = request.GET.get('page', 1)
 
+    today_reports = Report.objects.filter(date_reported=today)
+    
     if subject_query:
-        today_reports = Report.objects.filter(date_reported=today, subject__icontains=subject_query).order_by('-date_reported')
-    else:
-        today_reports = Report.objects.filter(date_reported=today).order_by('-date_reported')
+        today_reports = today_reports.filter(subject__icontains=subject_query)
 
-    serializer = ReportSerializer(today_reports, many=True)
-    return Response({"reports": serializer.data})
+    today_reports = today_reports.order_by('-date_reported', '-time_reported')
+
+    items_per_page = 10  
+
+    paginator = Paginator(today_reports, items_per_page)
+
+    try:
+        page_reports = paginator.page(page)
+    except EmptyPage:
+        return Response({"error": "Page not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ReportSerializer(page_reports, many=True)
+
+    pagination_data = {
+        'total_pages': paginator.num_pages,
+        'has_next': page_reports.has_next(),
+        'has_previous': page_reports.has_previous(),
+        'next_page_number': page_reports.next_page_number() if page_reports.has_next() else None,
+        'previous_page_number': page_reports.previous_page_number() if page_reports.has_previous() else None,
+    }
+
+    return Response({
+        "reports": serializer.data,
+        "pagination": pagination_data,
+    })
 
 @mdrrmc_required
 @api_view(['GET'])
 def get_all_reports(request):
     date_param = request.GET.get('date', None)
     subject_param = request.GET.get('subject', None)
+
+    page = request.GET.get('page', 1)
 
     reports = Report.objects.all()
 
@@ -556,9 +590,40 @@ def get_all_reports(request):
 
     reports = reports.order_by('-date_reported')
 
-    serializer = ReportSerializer(reports, many=True)
-    return Response({"reports": serializer.data})
+    items_per_page = 10
 
+    paginator = Paginator(reports, items_per_page)
+
+    try:
+        page_reports = paginator.page(page)
+    except EmptyPage:
+        return Response({"error": "Page not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ReportSerializer(page_reports, many=True)
+
+    pagination_data = {
+        'total_pages': paginator.num_pages,
+        'has_next': page_reports.has_next(),
+        'has_previous': page_reports.has_previous(),
+    }
+
+    return Response({
+        "reports": serializer.data,
+        "pagination": pagination_data,
+    })
+
+def get_report_details(request):
+    report_id = request.GET.get('report_id')
+
+    if not report_id:
+        return JsonResponse({"error": "Report ID is required"}, status=400)
+
+    try:
+        report = Report.objects.get(id=report_id)
+        serializer = ReportSerializer(report)
+        return JsonResponse(serializer.data)
+    except Report.DoesNotExist:
+        raise Http404("Report not found")
 
 class AnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Announcement.objects.all()

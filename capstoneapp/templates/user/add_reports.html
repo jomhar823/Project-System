@@ -75,11 +75,11 @@
                         <label for="barangay">Respondent Name:</label>
                         <input type="text" class="form-control" name="respondent_name"  placeholder="Respondent Name" required><br>
                         <label for="barangay">Barangay:</label>
-                        <input type="text" class="form-control" name="barangay" placeholder="Barangay" required><br>
+                        <input type="text" class="form-control" name="barangay" value="{{user.barangay}}" placeholder="Barangay" readonly><br>
                     </div>
                     <div class="cont-date w-100">
                         <label for="contact_number">Contact Number:</label>
-                        <input type="text" class="form-control" name="contact_number" required><br>
+                        <input type="text" class="form-control" name="contact_number" maxlength="11" required><br>
                         <label for="date_reported">Date Reported:</label>
                         <input type="date" class="form-control" name="date_reported" required><br>
                     </div>
