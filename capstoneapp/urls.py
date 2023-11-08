@@ -20,7 +20,18 @@ urlpatterns = [
     path('add-reports', views.add_report, name='add-reports'),
     path('incident-reports', views.incident_reports, name='incident-reports'),
     path('get_user_announcements', views.get_user_announcements, name='get_user_announcements'),
-
+    path('missionvision', views.missionvision, name='missionvision'),
+    path('barangays', views.barangays, name='barangays'),
+    path('user_contacts', views.user_contacts, name='user_contacts'),
+    path('user_flood', views.user_flood, name='user_flood'),
+    path('user_weather', views.user_weather, name='user_weather'),
+    path('user_typhoon', views.user_typhoon, name='user_typhoon'),
+    path('user_earthquake', views.user_earthquake, name='user_earthquake'),
+    path('user_landslide', views.user_landslide, name='user_landslide'),
+    path('user_sit', views.user_sit, name='user_sit'),
+    path('user_allreports', views.user_allreports, name='user_allreports'),
+    path('get_userreports', views.get_userreports, name='get_userreports'),
+    path('edit_report/<int:report_id>/', views.edit_report, name='edit_report'),
 
     path('admin_incident_reports', views.admin_incident_reports, name='admin_incident_reports'),
     path('admin_weather', views.admin_weather, name='admin_weather'),
@@ -45,8 +56,6 @@ urlpatterns = [
 
     path('submit_announcement/', views.submit_announcement, name='submit_announcement'),
     path('announcement/<int:pk>/', views.AnnouncementDetailView.as_view(), name='announcement-detail'),
-
-
 
 
     path('home_incident_reports', views.home_incident_reports, name='home_incident_reports'),

@@ -45,6 +45,10 @@ header {
 
 .nav-link {
   font-size: 18px;
+  /* font-weight: bold; */
+}
+.gov-link{
+  font-size: 25px;
   font-weight: bold;
 }
 .nav-list {

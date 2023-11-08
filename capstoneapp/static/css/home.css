@@ -103,6 +103,15 @@ section {
   margin: 0; 
   padding: 0; 
 }
+/* .visionmission{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+} */
+.border{
+  border: 1px solid #000 !important;
+}
+
 /* Media queries for responsive design */
 @media (max-width: 768px) {
   header h1 {

@@ -53,6 +53,7 @@ class Report(models.Model):
         ('Earthquake Report', 'Earthquake Report'),
         ('Landslide Report', 'Landslide Report'),
         ('Weather Report', 'Weather Report'),
+        ('Typhoon Report', 'Typhoon Report'),
     )
 
     subject = models.CharField(max_length=50, choices=SUBJECT_CHOICES)

@@ -61,7 +61,6 @@ def reports(request):
 def typhoon(request):
     return render(request, 'typhoon.html')
 
-
 def profile(request):
     return render(request, 'profile.html')
 
@@ -172,6 +171,15 @@ def flood(request):
 
 
 ###### BARANGAY #####
+def missionvision(request):
+    return render(request, 'user/user-missionvision.html')
+
+def barangays(request):
+    return render(request, 'user/user_barangay.html')
+
+def user_contacts(request):
+    return render(request, 'user/user_contacts.html')
+
 def add_report(request):
     return render(request, 'user/add_reports.html')
 
@@ -201,6 +209,149 @@ def incident_reports(request):
     }
 
     return render(request, 'user/incident_reports.html', context)
+
+
+def user_flood(request):
+    subjects = ["Flood Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'user/user_flood.html', context)
+
+def user_typhoon(request):
+    subjects = ["Typhoon Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'user/user_typhoon.html', context)
+
+def user_earthquake(request):
+    subjects = ["Earthquake Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'user/user_earthquake.html', context)
+
+def user_landslide(request):
+    subjects = ["Landslide Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'user/user_landslide.html', context)
+
+def user_sit(request):
+    subjects = ["Situational Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'user/user_sit.html', context)
+
+def get_userreports(request):
+    return render(request, 'user/user_allreports.html')
+@api_view(['GET'])
+def user_allreports(request):
+        date_param = request.GET.get('date', None)
+        subject_param = request.GET.get('subject', None)
+
+        page = request.GET.get('page', 1)
+
+        logged_in_barangay = request.user.barangay 
+        reports = Report.objects.filter(barangay=logged_in_barangay)
+
+        if date_param:
+            try:
+                selected_date = datetime.strptime(date_param, '%Y-%m-%d').date()
+                reports = reports.filter(date_reported=selected_date)
+            except ValueError:
+                return Response({"error": "Invalid date format"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if subject_param:
+            reports = reports.filter(subject__icontains=subject_param)
+
+        reports = reports.order_by('-date_reported', '-time_reported')
+
+        items_per_page = 10
+
+        paginator = Paginator(reports, items_per_page)
+
+        try:
+            page_reports = paginator.page(page)
+        except EmptyPage:
+            return Response({"error": "Page not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ReportSerializer(page_reports, many=True)
+
+        pagination_data = {
+            'total_pages': paginator.num_pages,
+            'has_next': page_reports.has_next(),
+            'has_previous': page_reports.has_previous(),
+        }
+
+        return Response({
+            "reports": serializer.data,
+            "pagination": pagination_data,
+        })
+
+@api_view(['PUT'])
+def edit_report(request, report_id):
+    try:
+        report = Report.objects.get(pk=report_id)
+    except Report.DoesNotExist:
+        return Response({"error": "Report not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ReportSerializer(report, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def user_weather(request):
+    return render(request, 'user/user_weather.html')
 
 def submit_report(request):
     if request.method == 'POST':
@@ -588,7 +739,7 @@ def get_all_reports(request):
     if subject_param:
         reports = reports.filter(subject__icontains=subject_param)
 
-    reports = reports.order_by('-date_reported')
+    reports = reports.order_by('-date_reported', '-time_reported')
 
     items_per_page = 10
 
@@ -645,7 +796,6 @@ def download_attachment(request, file_name):
     response = FileResponse(report.attachment)
     return response
 
-@mdrrmc_required
 def get_barangays(request):
     barangays = CustomUser.objects.filter(user_type='barangay').values('barangay', 'id').distinct()
     return JsonResponse(list(barangays), safe=False)

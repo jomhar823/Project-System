@@ -26,7 +26,7 @@
             <li class="nav-item active">
                 <li class="dropdown">
                     <div class="dropdown show custom-dropdown no-focus-outline">
-                      <a class="btn btn-custom text-light" href="{% url 'brgyhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                      <a class="btn text-light" href="{% url 'brgyhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
                        Home          
                       </a>
                     </div>
@@ -74,9 +74,8 @@
     <main>
       <section class="hero">
         <div class="hero-content">
-          <h1>Welcome to Disaster Risk Management</h1>
+          <h1>MISSION AND VISION</h1>
           <p>Preparing for a safer future.</p>
-          <!-- <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a> -->
         </div>
       </section>
       <nav class="navigation-bar">
@@ -150,7 +149,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{% url 'user_sit'%}" href="#">Situational Reports</a>
                 <a class="dropdown-item" href="{% url 'view-incident-reports'%}">Incident Reports</a>
-                <a class="dropdown-item" href="{% url 'get_userreports'%}">All Reports</a>
+                <a class="dropdown-item" href="{% url 'get_reports'%}">All Reports</a>
                 <a class="dropdown-item" href="{% url 'add-reports'%}">Add New Report</a>
               </div>
             </div>
@@ -159,22 +158,69 @@
       </nav>
 
       <section class="preparedness">
-        <h2>Emergency Preparedness</h2>
-        <p>
-          Learn how to prepare for disasters and emergencies. Get tips,
-          checklists, and resources to keep you and your family safe.
-        </p>
-        <a href="{% url 'preparedness' %}" class="learn-more">Learn More</a>
-      </section>
-      <section class="emergency-contacts">
-        <h2>Emergency Contacts</h2>
-        <p>
-          Find important contact information for local emergency services,
-          shelters, and support organizations in your area.
-        </p>
-        <a href="{% url 'emergency_contacts' %}" class="view-contacts"
-          >View Contacts</a
-        >
+        <div class="visionmission d-flex flex-row justify-content-center align-items-center">
+            <div class="vision text-center border border-dark p-4 rounded mt-3 mr-3 w-100">
+                <h1 style="font-weight: 700;">IBAAN HYMN</h1>
+                <p>
+                    I<br>
+                    Mabuhay, Mabuhay<br>
+                    Ibaan, Bayang minamahal <br>
+                    Bayang masagana<br>
+                    Sa halik ng araw.<br>
+                    II<br>
+                    Pinagmulang kasaysayan<br>
+                    Tunay na marangal<br>
+                    Hangari'y iyong kaunlaran<br>
+                    Bayan naming minamahal.<br>
+                    Kaming mga taga-Ibaan<br>
+                    May ngalang taglay<br>
+                    Diwang bayanihan<br>
+                    Kapag sa ami'y may iniatang<br>
+                    Sabay-sabay kami at ihahakbang, HEY!<br>
+                    (Ulitin ang I, II)<br>
+                    Hangari'y iyong kaunlaran<br>
+                    Bayan naming minamahal.<br>
+                    Hangari'y iyong kaunlaran<br>
+                    Bayan naming minamahal.</p>
+            </div>
+            <div class="d-flex flex-column">
+
+                <div class="vision text-center border border-dark p-4 rounded">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                      </svg>
+                    <h1 style="font-weight: 700;">VISION</h1>
+                    <p>To be a first-class municipality in 2028.</p>
+                </div>
+                <div class="mission text-center border border-dark p-4 rounded mt-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                        <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+                        <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                      </svg>
+                    <h1 style="font-weight: 700;">MISSION</h1>
+                    <p>We are a highly competitive local government unit that shall be known for pioneering innovative programs that improve the quality of life of the constituents. We shall do this through:</p>
+                    <ol>
+                        <li>
+                            Pursuit of excellence in the local government systems.
+                        </li>
+                        <li>
+                            Responsiveness to the pressing needs of the municipality and embedding a strong sense of foresight in all the programs that shall be implemented.
+                        </li>
+                        <li>
+                            Uplifting the pride and well-being of the individuals and societies we serve.
+                        </li>
+                        <li>
+                            Adherence to the mandates of the national government.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            
+        </div>
+        
       </section>
     </main>
     <footer>
