@@ -136,6 +136,22 @@ def home_typhoon_reports(request):
 
     return render(request, 'typhoon.html', context)
 
+def home_flood_reports(request):
+    subjects = ["Flood Report"]
+    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+    reports_per_page = 10
+    paginator = Paginator(reports, reports_per_page)
+
+    page = request.GET.get('page')
+    reports = paginator.get_page(page)
+
+    context = {
+        'reports': reports
+    }
+
+    return render(request, 'typhoon.html', context)
+
 def earthquake(request):
     subjects = ["Earthquake Report"]
     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
@@ -632,7 +648,6 @@ def admin_flood_reports(request):
     context = {
         'reports': reports
     }
-
     return render(request, 'admin/admin_flood_reports.html', context)
 
 @mdrrmc_required

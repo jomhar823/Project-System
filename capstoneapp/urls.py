@@ -74,7 +74,7 @@ urlpatterns = [
     path('home_sit_reports', views.home_sit_reports, name='home_sit_reports'),
     path('home_typhoon_reports', views.home_typhoon_reports, name='home_typhoon_reports'),
     path('home_typhoon_reports', views.home_typhoon_reports, name='home_typhoon_reports'),
-    path('flood', views.flood, name="flood"),
+    path('home_flood_reports', views.home_flood_reports, name="home_flood_reports"),
 
 
     path('download-attachment/<str:file_name>/', views.download_attachment, name='download_attachment'),
