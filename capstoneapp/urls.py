@@ -52,6 +52,7 @@ urlpatterns = [
     path('admin_landslide_reports', views.admin_landslide_reports, name='admin_landslide_reports'),
     path('admin_flood_reports', views.admin_flood_reports, name='admin_flood_reports'),
     path('view_barangay', views.view_barangay, name="view_barangay"),
+    path('list-of-admin', views.list_of_admin, name='list_of_admin'),
     path('list-of-barangays', views.list_of_barangays, name='list_of_barangays'),
     path('update-barangay/', views.update_barangay, name='update_barangay'),
     path('delete_barangay/', views.delete_barangay, name='delete_barangay'),

@@ -147,9 +147,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-# EMAIL_HOST_USER = 'thelipagraceacademytlga@gmail.com'  
-# EMAIL_HOST_PASSWORD = 'goda kvzz ghbp uoel'  
-
+EMAIL_HOST_USER = 'mdrrmcibaanreports@gmail.com'  
+EMAIL_HOST_PASSWORD = 'yvge xuor bzxj bdrs'  
+DEFAULT_FROM_EMAIL = 'mdrrmcibaan@gmail.com'
 
 OPENWEATHERMAP_API_KEY = '074b9e9f93888d463d148580ff82b8dd'
 

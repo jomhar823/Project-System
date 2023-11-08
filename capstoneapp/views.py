@@ -27,6 +27,12 @@ from datetime import date
 from django.views.decorators.cache import cache_control
 from capstoneapp.decorators import mdrrmc_required
 from django.http import Http404
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
 
 # INITIAL HOMEPAGE
 
@@ -387,6 +393,22 @@ def submit_report(request):
             attachment = request.FILES.get('attachment')
             report = serializer.save(attachment=attachment)
             messages.success(request, 'Report submitted successfully.')
+
+            subject = 'New Report Submitted'
+            message = 'A new report has been submitted by a barangay user.'
+            from_email = 'mdrrmcibaanreports@gmail.com'
+            recipient_list = ['mdrrmcibaan@gmail.com']
+
+            # Render the HTML content from a template
+            html_content = get_template('report_notification.html').render({'report': report})
+
+            # Create the email
+            email = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+            email.attach_alternative(html_content, "text/html")
+
+            # Send the email
+            email.send()
+
             return redirect('add-reports')  
         else:
             messages.error(request, 'Report submission failed. Please check your data.')
