@@ -34,40 +34,62 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light ">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link text-light" href="{% url 'adminhomepage' %}">Home </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{% url 'preparedness' %}">Preparedness</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
-            </li>
-          </ul>
-          <span class="navbar-text ">
-            <li class="dropdown">
-              <div class="dropdown show custom-dropdown no-focus-outline">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                  </svg> {{user.email}}           
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
-                    <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
-                </div>
-              </div>
-            </li>
-          </span>
-        </div>
-      </nav>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto align-items-center">
+                <li class="nav-item active">
+                  <a class="nav-link text-light gov-link" href="https://www.gov.ph/">GOV PH</a>
+                </li>
+                <li class="nav-item active">
+                    <li class="dropdown">
+                        <div class="dropdown show custom-dropdown no-focus-outline">
+                          <a class="btn btn-custom text-light" href="{% url 'adminhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                           Home          
+                          </a>
+                        </div>
+                      </li>
+                </li>
+                <li class="nav-item">
+                  <li class="dropdown">
+                    <div class="dropdown show custom-dropdown no-focus-outline">
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        About Us          
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'admin_missionvision' %}">Mission and Vision</a>
+                        <a class="dropdown-item" href="{% url 'admin_barangays' %}" href="#">Barangays</a>
+                      </div>
+                    </div>
+                  </li>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-light" href="{% url 'admin_contact' %}">Contact Us</a>
+                </li>
+                
+              </ul>
+    
+              <span class="navbar-text ">
+                <li class="dropdown">
+                  <div class="dropdown show custom-dropdown no-focus-outline">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                      </svg> {{user.email}}           
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
+                      <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
+                    </div>
+                  </div>
+                </li>
+              </span>
+            </div>
+    
+          </nav>
     </header>
     <main>
       

@@ -40,6 +40,10 @@ urlpatterns = [
     path('edit_report/<int:report_id>/', views.edit_report, name='edit_report'),
     path('delete_report/<int:report_id>/', views.delete_report, name='delete_report'),
 
+    path('admin_missionvision', views.admin_mission, name='admin_missionvision'),
+    path('admin_barangays', views.admin_barangays, name='admin_barangays'),
+    path('admin_contact', views.admin_contact, name='admin_contact'),
+
     path('admin_incident_reports', views.admin_incident_reports, name='admin_incident_reports'),
     path('admin_weather', views.admin_weather, name='admin_weather'),
     path('admin_sit_reports', views.admin_sit_reports, name='admin_sit_reports'),

@@ -442,6 +442,15 @@ def get_user_announcements(request):
 
 ###### ADMIN ########
 
+def admin_mission(request):
+    return render(request, 'admin/admin_missionvision.html')
+
+def admin_barangays(request):
+    return render(request, 'admin/admin_barangays.html')
+
+def admin_contact(request):
+    return render(request, 'admin/admin_contact.html')
+
 @mdrrmc_required
 def admin_incident_reports(request):
     return render(request, 'admin/admin_incident_reports.html')

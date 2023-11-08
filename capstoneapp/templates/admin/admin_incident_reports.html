@@ -22,17 +22,38 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav mr-auto align-items-center">
             <li class="nav-item active">
-              <a class="nav-link text-light" href="{% url 'adminhomepage' %}">Home </a>
+              <a class="nav-link text-light gov-link" href="https://www.gov.ph/">GOV PH</a>
+            </li>
+            <li class="nav-item active">
+                <li class="dropdown">
+                    <div class="dropdown show custom-dropdown no-focus-outline">
+                      <a class="btn btn-custom text-light" href="{% url 'adminhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                       Home          
+                      </a>
+                    </div>
+                  </li>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="{% url 'preparedness' %}">Preparedness</a>
+              <li class="dropdown">
+                <div class="dropdown show custom-dropdown no-focus-outline">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    About Us          
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'admin_missionvision' %}">Mission and Vision</a>
+                    <a class="dropdown-item" href="{% url 'admin_barangays' %}" href="#">Barangays</a>
+                  </div>
+                </div>
+              </li>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="{% url 'emergency_contacts' %}">Emergency Contacts</a>
+              <a class="nav-link text-light" href="{% url 'admin_contact' %}">Contact Us</a>
             </li>
+            
           </ul>
+
           <span class="navbar-text ">
             <li class="dropdown">
               <div class="dropdown show custom-dropdown no-focus-outline">
@@ -50,14 +71,14 @@
             </li>
           </span>
         </div>
+
       </nav>
     </header>
     <main>
       <section class="hero">
         <div class="hero-content">
-          <h1>Welcome to Disaster Risk Management</h1>
+          <h1>INCIDENT REPORTS</h1>
           <p>Preparing for a safer future.</p>
-          <a href="{% url 'preparedness' %}" class="cta-button">Get Prepared</a>
         </div>
       </section>
       <nav class="navigation-bar">
