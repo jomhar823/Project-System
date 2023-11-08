@@ -16,6 +16,10 @@ urlpatterns = [
     path('weather', views.climate, name="weather"),
     path('earthquake', views.earthquake, name="earthquake"),
     path('landslide', views.landslide, name="landslide"),
+    path('home_contact', views.home_contact, name="home_contact"),
+    path('home_mission', views.home_mission, name="home_mission"),
+    path('home_barangays', views.home_barangays, name="home_barangays"),
+
     path('reports', views.reports, name="reports"),
     path('add-reports', views.add_report, name='add-reports'),
     path('incident-reports', views.incident_reports, name='incident-reports'),

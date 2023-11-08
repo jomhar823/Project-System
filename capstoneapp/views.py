@@ -67,6 +67,15 @@ def profile(request):
 def home_incident_reports(request):
     return render(request, 'home_incident_reports.html')
 
+def home_mission(request):
+    return render(request, 'home_mission.html')
+
+def home_contact(request):
+    return render(request, 'home_contact.html')
+
+def home_barangays(request):
+    return render(request, 'home_barangays.html')
+
 def home_incident_reports(request):
     subjects = ["Incident Report"]
     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
