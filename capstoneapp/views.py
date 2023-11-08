@@ -354,11 +354,29 @@ def edit_report(request, report_id):
         return Response({"error": "Report not found"}, status=status.HTTP_404_NOT_FOUND)
 
     serializer = ReportSerializer(report, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def get_subjects(request):
+    subjects = Report.SUBJECT_CHOICES
+    return Response(subjects)
+
+@api_view(['DELETE'])
+def delete_report(request, report_id):
+    try:
+        report = Report.objects.get(pk=report_id)
+        report.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except Report.DoesNotExist:
+        return Response({"error": "Report not found"}, status=status.HTTP_404_NOT_FOUND)
+    
 def user_weather(request):
     return render(request, 'user/user_weather.html')
 

@@ -19,6 +19,8 @@ urlpatterns = [
     path('home_contact', views.home_contact, name="home_contact"),
     path('home_mission', views.home_mission, name="home_mission"),
     path('home_barangays', views.home_barangays, name="home_barangays"),
+    path('subjects', views.get_subjects, name='get_subjects'),
+    path('delete_report/<int:report_id>/', views.delete_report, name='delete_report'),
 
     path('reports', views.reports, name="reports"),
     path('add-reports', views.add_report, name='add-reports'),
@@ -36,6 +38,7 @@ urlpatterns = [
     path('user_allreports', views.user_allreports, name='user_allreports'),
     path('get_userreports', views.get_userreports, name='get_userreports'),
     path('edit_report/<int:report_id>/', views.edit_report, name='edit_report'),
+    path('delete_report/<int:report_id>/', views.delete_report, name='delete_report'),
 
     path('admin_incident_reports', views.admin_incident_reports, name='admin_incident_reports'),
     path('admin_weather', views.admin_weather, name='admin_weather'),

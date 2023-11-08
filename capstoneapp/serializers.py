@@ -19,6 +19,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return user
 
 class ReportSerializer(serializers.ModelSerializer):
+    attachment = serializers.FileField(required=False)
+
     class Meta:
         model = Report
         fields = '__all__'

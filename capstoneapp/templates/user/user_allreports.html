@@ -79,7 +79,6 @@
                       </svg> {{user.barangay}}           
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
                       <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
                     </div>
                   </div>
@@ -87,7 +86,7 @@
               </span>
             </div>
     
-          </nav>
+        </nav>
     </header>
     <main>
       
@@ -169,7 +168,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="editReportForm" class="w-100">
+                        <form id="editReportForm" class="w-100" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="editSubject">Subject</label>
                                 <input type="text" class="form-control" id="editSubject" name="editSubject">
@@ -187,14 +186,33 @@
                                 <textarea class="form-control" id="editDescription" name="editDescription"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="editAttachment">Attachment</label>
-                                <input type="file" class="form-control" id="editAttachment" name="editAttachment">
+                                <label for="editRespondentName">Respondent Name</label>
+                                <input type="text" class="form-control" id="editRespondentName" name="editRespondentName">
                             </div>
+                            <div class="form-group">
+                                <label for="editBarangay">Barangay</label>
+                                <input type="text" class="form-control" id="editBarangay" name="editBarangay" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="editContactNumber">Contact Number</label>
+                                <input type="text" class="form-control" id="editContactNumber" name="editContactNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="editAttachment">Attachment</label>
+                                <input type="file" class="form-control-file" id="editNewAttachment" name="editNewAttachment">
+                                <div id="editAttachment">
+                                    <a href="{{ data.attachment }}" target="_blank">View Attachment</a>
+                                </div>
+                            </div>
+                            
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" id="deleteReportButton">Delete Report</button>
                         <button type="button" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
+
+
                     </div>
                 </div>
             </div>
@@ -296,6 +314,8 @@
                     console.log('id', reportId)
 
                     $("#saveChangesButton").data("report-id", reportId);
+                    $("#deleteReportButton").data("report-id", reportId);
+
                     displayReportDetails(reportId);
             });
            
@@ -309,32 +329,44 @@
                         return null;
                     }
                 }
-          
+
                 const reportId = $(this).data("report-id");
                 const editedSubject = $("#editSubject").val();
                 const editedDateReported = $("#editDateReported").val();
                 const editedTimeReported = $("#editTimeReported").val();
                 const editedDescription = $("#editDescription").val();
+                const editedRespondentName = $("#editRespondentName").val();
+                const editedBarangay = $("#editBarangay").val();
+                const editedContactNumber = $("#editContactNumber").val();
+                const editedAttachment = $("#editNewAttachment")[0].files[0]; 
 
-                const editedReportData = {
-                    subject: editedSubject,
-                    date_reported: editedDateReported,
-                    time_reported: editedTimeReported,
-                    description: editedDescription,
-                };
+                const formData = new FormData();
+                formData.append("subject", editedSubject);
+                formData.append("date_reported", editedDateReported);
+                formData.append("time_reported", editedTimeReported);
+                formData.append("description", editedDescription);
+                formData.append("respondent_name", editedRespondentName);
+                formData.append("barangay", editedBarangay);
+                formData.append("contact_number", editedContactNumber);
+
+                if (editedAttachment) {
+                    formData.append("attachment", editedAttachment); 
+                }
+
                 const csrfToken = getCSRFToken();
 
-                console.log('id', reportId)
                 if (csrfToken) {
                     $.ajax({
                         url: `/edit_report/${reportId}/`,
                         method: "PUT",
-                        data: editedReportData,
-                        dataType: "json",
+                        data: formData, 
+                        processData: false, 
+                        contentType: false, 
                         headers: {
                             "X-CSRFToken": csrfToken
                         },
                         success: function (data) {
+                            console.log('success', data);
                             $("#reportModal").modal("hide");
                         },
                         error: function (xhr, status, error) {
@@ -342,17 +374,51 @@
                             console.log(xhr.responseText);
                         }
                     });
-                }else {
+                } else {
                     console.error("CSRF token not found in cookies.");
                 }
+            });
+
+            $("#deleteReportButton").click(function () {
+                function getCSRFToken() {
+                    const csrfToken = document.cookie.match(/csrftoken=([a-zA-Z0-9]+)/);
+                    if (csrfToken) {
+                        return csrfToken[1];
+                    } else {
+                        return null;
+                    }
+                }
+                const reportId = $(this).data("report-id");
+
+                console.log('report id', reportId)
 
 
+                const csrfToken = getCSRFToken();
+
+                if (csrfToken) {
+                    if (confirm("Are you sure you want to delete this report?")) {
+                        $.ajax({
+                            url: `delete_report/${reportId}/`,
+                            method: "DELETE",
+                            headers: { "X-CSRFToken": csrfToken },
+                            success: function (data) {
+                                console.log("Report deleted successfully");
+                                $(`tr[data-report-id="${reportId}"]`).remove();
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Error deleting report: " + error);
+                                console.log(xhr.responseText);
+                            },
+                        });
+                        $("#reportModal").modal("hide");
+                    }
+                } else {
+                    console.error("CSRF token not found in cookies.");
+                }
             });
         });
 
         function displayReportDetails(reportId) {
-            console.log("Selected report ID:", reportId);
-
             if (!reportId) {
                 console.error("Report ID is required.");
                 return;
@@ -364,10 +430,23 @@
                 data: { report_id: reportId },
                 dataType: "json",
                 success: function (data) {
+                    console.log(data)
                     $("#editSubject").val(data.subject);
                     $("#editDateReported").val(data.date_reported);
                     $("#editDescription").val(data.description);
-                    $("#editAttachment").text(data.attachment);
+                    $("#editRespondentName").val(data.respondent_name);
+                    $("#editBarangay").val(data.barangay);
+                    $("#editContactNumber").val(data.contact_number);
+
+                    $("#deleteReportButton").data("report-id", reportId);
+
+                    if (data.attachment) {
+                        const attachmentLink = `<a href="${data.attachment}" target="_blank">${data.attachment}</a>`;
+                        $("#editAttachment").html(attachmentLink);
+                    } else {
+                        $("#editAttachment").empty();
+                    }
+                    console.log('attachment', data.attachment)
 
                     const timeReportedParts = data.time_reported.split(':');
                     if (timeReportedParts.length >= 2) {
@@ -532,6 +611,7 @@
                         <td>${formattedDate}</td>
                         <td>${formattedTime}</td>
                         <td>${report.barangay}</td>
+                        
                     </tr>`;
                     table.append(tableRow);
                 });
@@ -545,10 +625,13 @@
         }
 
         function formatTimeString(timeString) {
-    const options = { hour: '2-digit', minute: '2-digit' };
-    const time = new Date(`2000-01-01T${timeString}`);
-    return time.toLocaleTimeString('en-US', options);
-}
+            const options = { hour: '2-digit', minute: '2-digit' };
+            const time = new Date(`2000-01-01T${timeString}`);
+            return time.toLocaleTimeString('en-US', options);
+        }
+
+        
+          
 
         
         
