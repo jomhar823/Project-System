@@ -22,6 +22,7 @@ urlpatterns = [
     path('subjects', views.get_subjects, name='get_subjects'),
     path('delete_report/<int:report_id>/', views.delete_report, name='delete_report'),
 
+    path('userflood_basics', views.userflood_basics, name="userflood_basics"),
     path('reports', views.reports, name="reports"),
     path('add-reports', views.add_report, name='add-reports'),
     path('incident-reports', views.incident_reports, name='incident-reports'),
@@ -75,6 +76,10 @@ urlpatterns = [
     path('home_typhoon_reports', views.home_typhoon_reports, name='home_typhoon_reports'),
     path('home_typhoon_reports', views.home_typhoon_reports, name='home_typhoon_reports'),
     path('home_flood_reports', views.home_flood_reports, name="home_flood_reports"),
+    path('homeflood_basics', views.homeflood_basics, name="homeflood_basics"),
+    path('hometyph_basics', views.hometyph_basics, name="hometyph_basics"),
+    path('homeearthquake_basics', views.homeearthquake_basics, name="homeearthquake_basics"),
+    path('homelandslide_basics', views.homelandslide_basics, name="homelandslide_basics"),
 
 
     path('download-attachment/<str:file_name>/', views.download_attachment, name='download_attachment'),

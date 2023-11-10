@@ -1,0 +1,501 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700;800&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <style type="text/css">
+            .article-header {
+                font-weight: bold;
+                color: #f8f8f8;
+                font-size: 24px;
+                line-height: 45px;
+                background: #afc019;
+                border-radius: 3px;
+            }
+            .learning-tools-flood-page {
+                font-size: 15px;
+            }
+
+            .learning-tools-flood-page b {
+                color: #afc019 !important;
+            }
+
+            .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .quote {
+                padding: 10px;
+                border-width: 1px;
+                border-color: rgb(0, 0, 0);
+                border-style: solid;
+            }
+            .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .definition .container {
+                position: relative;  
+                text-align: center; 
+                max-width: 1000px; 
+                margin: 0 auto;
+            }
+
+            .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .definition .container .flood-desc{
+                position: absolute; 
+                width: 100%; 
+                padding: 10px; 
+                top: 50%; 
+                left: 50%; 
+                transform: translate(-50%, -50%);
+            } 
+
+            .learning-tools-flood-page .causes-and-types .causes-and-types-content .flood-types {
+                width: 100%;
+                height: auto;
+                background-image: url(/themes/hiraia/assets/images/learning_tools/flood/types.png);
+                background-attachment: scroll;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .table {
+            background: #f8f8f8 !important;
+            color: #22313f;
+            font-size: 14px;
+            }
+
+            .table thead tr > th {
+            border-bottom: none;
+            border-top: none;
+            }
+            .row {
+                margin-right: -15px;
+                margin-left: -15px;
+            }
+            .panel {
+                border: 0px;
+                color: #22313f;
+                border-radius: 0px;
+                -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+                        box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+                }
+
+                .panel .panel-heading {
+                margin-bottom: 10px;
+                padding: 0px;
+                position: relative;
+                font-size: 24px;
+                font-weight: bold;
+                color: #22313f;
+                }
+
+                .panel .panel-heading h5 {
+                font-size: 14px;
+                color: #22313f;
+                font-weight: bold;
+                }
+
+                .panel .panel-heading .pull-right {
+                position: absolute;
+                float: right !important;
+                bottom: 0px;
+                right: 0px;
+                }
+
+                .panel .panel-body {
+                font-size: 14px;
+                background: #f8f8f8;
+                }
+
+                .panel .panel-body p {
+                margin: 0px;
+                }
+
+                .panel-pagasa {
+                border-radius: 0px;
+                border: 0px;
+                }
+
+                .panel-pagasa .panel-pagasa-heading {
+                padding: 0px;
+                border-radius: 0px;
+                font-size: 16px;
+                background: #f8f8f8;
+                color: #22313f;
+                }
+
+                .panel-pagasa .panel-pagasa-heading a {
+                padding: 10px 15px;
+                display: block;
+                color: #22313f;
+                }
+
+                .panel-pagasa .panel-pagasa-heading a:focus {
+                text-decoration: none;
+                color: #22313f;
+                }
+
+                .panel-pagasa .panel-pagasa-heading a:hover {
+                text-decoration: none;
+                color: #f8f8f8;
+                }
+
+                .panel-pagasa .panel-pagasa-heading:hover {
+                background: #22313f;
+                color: #f8f8f8;
+                cursor: pointer;
+                }
+
+                .panel-pagasa .panel-pagasa-active {
+                background: #22313f;
+                color: #f8f8f8;
+                }
+
+                .panel-pagasa .panel-pagasa-active a:focus {
+                color: #f8f8f8;
+                }
+
+                .text-nowrap {
+                white-space: nowrap;
+                }
+
+                .text-middle {
+                vertical-align: middle !important;
+                }
+
+                .table {
+                background: #f8f8f8 !important;
+                color: #22313f;
+                font-size: 14px;
+                }
+
+                .table thead tr > th {
+                border-bottom: none;
+                border-top: none;
+                }
+
+
+                .table td {
+                border-top: 3px solid #ffffff !important;
+                border-left: 3px solid #ffffff !important;
+                }
+
+                .info-title {
+                cursor: pointer;
+                }
+                h3 {
+                font-size: 24px;
+                color: #22313f;
+                font-weight: bold;
+                }
+                .panel-group .panel+.panel {
+                    margin-top: 5px;
+                }
+
+
+
+    </style>
+    <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto align-items-center">
+            <li class="nav-item active">
+              <a class="nav-link text-light gov-link" href="https://www.gov.ph/">GOV PH</a>
+            </li>
+            <li class="nav-item active">
+                <li class="dropdown">
+                    <div class="dropdown show custom-dropdown no-focus-outline">
+                      <a class="btn btn-custom text-light" href="{% url 'index' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                       Home          
+                      </a>
+                    </div>
+                  </li>
+            </li>
+            <li class="nav-item">
+              <li class="dropdown">
+                <div class="dropdown show custom-dropdown no-focus-outline">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    About Us          
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'home_mission' %}">Mission and Vision</a>
+                    <a class="dropdown-item" href="{% url 'home_barangays' %}" href="#">Barangays</a>
+                  </div>
+                </div>
+              </li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'home_contact' %}">Contact Us</a>
+            </li>
+            
+          </ul>
+
+          <span class="navbar-text ">
+            <li class="dropdown">
+              <div class="dropdown show custom-dropdown no-focus-outline">
+                <a class="btn text-light" href="{% url 'login' %}" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg> Login          
+                </a>
+              </div>
+            </li>
+          </span>
+        </div>
+
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>TYPHOON BASICS</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+      
+      <nav class="navigation-bar">
+        <ul class="nav-list">
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Flood              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_flood_reports' %}" href="#">Flood Reports</a>
+                <a class="dropdown-item" href="{% url 'homeflood_basics' %}">Flood Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a class="btn btn-custom text-light" href="{% url 'weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
+              Weather Situation              
+            </a>
+            <div id="imageDropdown" class="dropdown-content">
+              
+            </div>
+
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Typhoon              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_typhoon_reports' %}" href="#">Typhoon Reports</a>
+                <a class="dropdown-item" href="{% url 'hometyph_basics' %}">Typhoon Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Earthquake              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'earthquake' %}" href="#">Earthquake Reports</a>
+                <a class="dropdown-item" href="{% url 'homeearthquake_basics' %}">Earthquake Basics</a>
+
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Landslide              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'landslide' %}">Landslide Reports</a>
+                <a class="dropdown-item" href="{% url 'homelandslide_basics' %}">Landslide Basics</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reports              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_sit_reports'%}" href="#">Situational Reports</a>
+                <a class="dropdown-item" href="{% url 'home_incident_reports'%}">Incident Reports</a>
+              </div>
+            </div>
+            
+          </li>
+        </ul>
+      </nav>
+      <section class="calendar d-flex justify-content-center align-items-center mt-3 mb-5">
+        <div class="roww learning-tools-flood-page w-100">
+
+            <div class=" w-100">
+                <div class="col-md-12 article-header" id="climate-change">
+                    Typhoon Safety Tips
+                </div>
+                <div class="col-md-12 article-content">
+                    <div class="col-md-12">
+                        
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#flood-safety-rules">What to Do Before a Typhoon: Things to Prepare and Plan</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="flood-safety-rules" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="col-md-6 col-md-offset-1">
+                                                <h3 style="text-align: center;"> <b>PREPARE AN EMERGENCY GO BAG</b></h3>
+                                                <p class="mb-2" style="text-align: right; text-align: justify;text-justify: inter-word; font-size: 15px;">A go bag is a simple, low-cost emergency kit that's easy to bring when you need to leave your home, office, or car to evacuate because of a typhoon, fire, earthquake, or any emergency. This is why it's also called a grab-and-go bag, lifeline kit, or emergency survival kit.
+                                                    The importance of an emergency go bag can't be stressed enough. Having a typhoon emergency kit will help you survive for several days until your food, electricity, and water supplies normalize after a calamity.
+                                                    Emergency Go Bag Checklist in the Philippines: What to Pack for Survival
+                                                </p>
+                                                    
+                                                <ul>
+                                                    <li>Ready-to-eat food (such as canned goods and chocolate bars)</li>
+                                                    <li>Bottled water (Up to 1 gallon per person)</li>
+                                                    <li>Face masks</li>
+                                                    <li>Alcohol</li>
+                                                    <li>Extra clothes, rain gear, and blankets</li>
+                                                    <li>Cellphones and power banks</li>
+                                                    <li>Battery-operated radio</li>
+                                                    <li>Flashlight</li>
+                                                    <li>First-aid kit (for injuries and maintenance medicines)</li>
+                                                    <li>Important documents</li>
+                                                    <li>Extra cash (in case ATMs become offline)</li>
+                                                </ul>
+                                            </div>
+        
+                                            <div class="col-md-6">
+                                                <h3 style="text-align: center;"><b>SECURE YOUR LOVED ONES AND PROPERTIES</b></h3>
+                                                <p class="mb-2" style="text-align: right; text-align: justify;text-justify: inter-word; font-size: 15px;">
+                                                    Here's a checklist of the things you need to do when there's an upcoming typhoon in the Philippines:
+                                                </p>
+                                                <ul>
+                                                    <li>Monitor weather reports and don't ignore rainfall warning alerts you receive through text.</li>
+                                                    <li>Ensure you have enough food and water supply.</li>
+                                                    <li>Keep the following items handy in case of a power outage: battery-operated radio, flashlights, spare batteries, rechargeable lamps, and candles.</li>
+                                                    <li>Check your home for anything that needs to be fixed or secured, such as a leaky roof and trees that need to be trimmed.</li>
+                                                    <li>Park your car in a higher place (like in a mall's parking space) if you live in a low-lying area.                                                    </li>
+                                                    <li>Secure your pets in a safe place.</li>
+                                                    <li>Evacuate immediately and calmly—if there's an order from your local government unit or if you live near a body of water or mountainsides—to avoid flash floods and landslides. Close all windows and switch off your main power supply.</li>
+                                                    <li>Make a plan for staying in touch with your family during a typhoon. Have a designated place for the family to gather in case some members get separated.</li>
+                                                    <li>Keep your phones charged.</li>
+                                                    <li>
+                                                        <ul>Prepare a list of emergency hotlines to call:
+                                                            <li class="ml-5">National Emergency Hotline: 911</li>
+                                                            <li class="ml-5">NDRRMC: (02) 911-5061 to 65</li>
+                                                            <li class="ml-5">Red Cross: 143 / (02) 790-2300</li>
+                                                            <li class="ml-5">MMDA: 136 / (02) 882-4151 to 77</li>
+                                                            <li class="ml-5">PNP: 117 / (02) 723-0401</li>
+                                                        </ul>
+                                                    </li>
+                                                
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#monitoring-and-prediction">What to Do During a Typhoon: 10 Things to Remember
+                                        </a>
+                                    </h4>
+                                </div>
+        
+                                <div id="monitoring-and-prediction" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="">
+                                                <br>
+                                                <p style="text-align: justify;text-justify: inter-word;">What should you do during a typhoon? Be alert, have the presence of mind, and don't panic.
+                                                    To ensure your family’s safety and survival during a typhoon, here are the things to do and not to do. Make sure to include these safety tips in your emergency preparedness checklist:
+                                                </p>
+                                                <ul  class="mt-3">
+                                                    <li class="ml-5">Stay at home or in a safe place. If you really have to leave, avoid areas that are prone to flooding or landslides. Watch out also for flying objects and debris.</li>
+                                                    <li class="ml-5">Cancel all travel and outdoor activities. Practice safe driving during a typhoon if you really have to go somewhere.</li>
+                                                    <li class="ml-5">Wear dry and warm clothes.</li>
+                                                    <li class="ml-5">Keep yourself updated on the latest weather news.</li>
+                                                    <li class="ml-5">Don't wade through the flood to avoid leptospirosis and other water-borne diseases, as well as electrocution.</li>
+                                                    <li class="ml-5">Keep children from playing in the rain or swimming in the flood.</li>
+                                                    <li class="ml-5">Keep all food and water containers covered and sealed.</li>
+                                                    <li class="ml-5">Keep lit candles and gas lamps out of reach of children and pets.</li>
+                                                    <li class="ml-5">Consult a doctor right away when you or a family member is sick or has symptoms of a disease.</li>
+                                                </ul>
+
+                                            </div>
+        
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#preparation-of-flood-forecast">What to Do After a Typhoon: 5 Things to Watch Out For
+                                        </a>
+                                    </h4>
+                                </div>
+        
+                                <div id="preparation-of-flood-forecast" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+        
+                                        <div class="row">
+                                            <div class="">
+                                                <br>
+                                                <p style="text-align: justify;text-justify: inter-word;">Your preparedness for a typhoon extends until after the storm. You still have to watch out for any risks or dangers even when the worst is over. 
+
+                                                    According to the Red Cross, it’s crucial to be self-reliant during the first three days following a disaster. This is when water, electricity, and communication lines are usually non-existent. 
+                                                    
+                                                    Here's a checklist of safety precautions you can refer to during the aftermath of a typhoon in the Philippines:</p>
+                                                <ul class="mt-3">
+                                                    <li class="ml-5">Leave the evacuation area only when the authorities declare that it's safe to return home.</li>
+                                                    <li class="ml-5">Assess the risk. If your home was ruined by the typhoon, check first if it's safe and stable before entering. Report any damaged electric posts and cables to the authorities. Watch out for live wires or outlets submerged in water. Also, don't plug in and use appliances and other electrical devices that have been flooded.</li>
+                                                    <li class="ml-5">Remove water in containers, cans, tires, and pots to keep mosquitos from breeding.</li>
+                                                    <li class="ml-5">Inspect your vehicle for any damage caused by flooding.</li>
+                                                    <li class="ml-5">Keep monitoring the news for any new typhoon in the Philippines.</li>
+                                                   
+                                                </ul>
+
+                                            </div>
+        
+                                            
+                                        </div>
+        
+                                        
+        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,894 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700;800&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <style type="text/css">
+            .article-header {
+                font-weight: bold;
+                color: #f8f8f8;
+                font-size: 24px;
+                line-height: 45px;
+                background: #afc019;
+                border-radius: 3px;
+            }
+            .learning-tools-flood-page {
+                font-size: 15px;
+            }
+
+            .learning-tools-flood-page b {
+                color: #afc019 !important;
+            }
+
+            .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .quote {
+                padding: 10px;
+                border-width: 1px;
+                border-color: rgb(0, 0, 0);
+                border-style: solid;
+            }
+            .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .definition .container {
+                position: relative;  
+                text-align: center; 
+                max-width: 1000px; 
+                margin: 0 auto;
+            }
+
+            .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .definition .container .flood-desc{
+                position: absolute; 
+                width: 100%; 
+                padding: 10px; 
+                top: 50%; 
+                left: 50%; 
+                transform: translate(-50%, -50%);
+            } 
+
+            .learning-tools-flood-page .causes-and-types .causes-and-types-content .flood-types {
+                width: 100%;
+                height: auto;
+                background-image: url(/themes/hiraia/assets/images/learning_tools/flood/types.png);
+                background-attachment: scroll;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .table {
+            background: #f8f8f8 !important;
+            color: #22313f;
+            font-size: 14px;
+            }
+
+            .table thead tr > th {
+            border-bottom: none;
+            border-top: none;
+            }
+            .row {
+                margin-right: -15px;
+                margin-left: -15px;
+            }
+            .panel {
+                border: 0px;
+                color: #22313f;
+                border-radius: 0px;
+                -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+                        box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+                }
+
+                .panel .panel-heading {
+                margin-bottom: 10px;
+                padding: 0px;
+                position: relative;
+                font-size: 24px;
+                font-weight: bold;
+                color: #22313f;
+                }
+
+                .panel .panel-heading h5 {
+                font-size: 14px;
+                color: #22313f;
+                font-weight: bold;
+                }
+
+                .panel .panel-heading .pull-right {
+                position: absolute;
+                float: right !important;
+                bottom: 0px;
+                right: 0px;
+                }
+
+                .panel .panel-body {
+                font-size: 14px;
+                background: #f8f8f8;
+                }
+
+                .panel .panel-body p {
+                margin: 0px;
+                }
+
+                .panel-pagasa {
+                border-radius: 0px;
+                border: 0px;
+                }
+
+                .panel-pagasa .panel-pagasa-heading {
+                padding: 0px;
+                border-radius: 0px;
+                font-size: 16px;
+                background: #f8f8f8;
+                color: #22313f;
+                }
+
+                .panel-pagasa .panel-pagasa-heading a {
+                padding: 10px 15px;
+                display: block;
+                color: #22313f;
+                }
+
+                .panel-pagasa .panel-pagasa-heading a:focus {
+                text-decoration: none;
+                color: #22313f;
+                }
+
+                .panel-pagasa .panel-pagasa-heading a:hover {
+                text-decoration: none;
+                color: #f8f8f8;
+                }
+
+                .panel-pagasa .panel-pagasa-heading:hover {
+                background: #22313f;
+                color: #f8f8f8;
+                cursor: pointer;
+                }
+
+                .panel-pagasa .panel-pagasa-active {
+                background: #22313f;
+                color: #f8f8f8;
+                }
+
+                .panel-pagasa .panel-pagasa-active a:focus {
+                color: #f8f8f8;
+                }
+
+                .text-nowrap {
+                white-space: nowrap;
+                }
+
+                .text-middle {
+                vertical-align: middle !important;
+                }
+
+                .table {
+                background: #f8f8f8 !important;
+                color: #22313f;
+                font-size: 14px;
+                }
+
+                .table thead tr > th {
+                border-bottom: none;
+                border-top: none;
+                }
+
+
+                .table td {
+                border-top: 3px solid #ffffff !important;
+                border-left: 3px solid #ffffff !important;
+                }
+
+                .info-title {
+                cursor: pointer;
+                }
+                h3 {
+                font-size: 24px;
+                color: #22313f;
+                font-weight: bold;
+                }
+                .panel-group .panel+.panel {
+                    margin-top: 5px;
+                }
+
+
+
+    </style>
+    <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto align-items-center">
+            <li class="nav-item active">
+              <a class="nav-link text-light gov-link" href="https://www.gov.ph/">GOV PH</a>
+            </li>
+            <li class="nav-item active">
+                <li class="dropdown">
+                    <div class="dropdown show custom-dropdown no-focus-outline">
+                      <a class="btn btn-custom text-light" href="{% url 'index' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                       Home          
+                      </a>
+                    </div>
+                  </li>
+            </li>
+            <li class="nav-item">
+              <li class="dropdown">
+                <div class="dropdown show custom-dropdown no-focus-outline">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    About Us          
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'home_mission' %}">Mission and Vision</a>
+                    <a class="dropdown-item" href="{% url 'home_barangays' %}" href="#">Barangays</a>
+                  </div>
+                </div>
+              </li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'home_contact' %}">Contact Us</a>
+            </li>
+            
+          </ul>
+
+          <span class="navbar-text ">
+            <li class="dropdown">
+              <div class="dropdown show custom-dropdown no-focus-outline">
+                <a class="btn text-light" href="{% url 'login' %}" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg> Login          
+                </a>
+              </div>
+            </li>
+          </span>
+        </div>
+
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>FLOOD BASICS</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+      
+      <nav class="navigation-bar">
+        <ul class="nav-list">
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Flood              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_flood_reports' %}" href="#">Flood Reports</a>
+                <a class="dropdown-item" href="{% url 'homeflood_basics' %}">Flood Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a class="btn btn-custom text-light" href="{% url 'weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
+              Weather Situation              
+            </a>
+            <div id="imageDropdown" class="dropdown-content">
+              
+            </div>
+
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Typhoon              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_typhoon_reports' %}" href="#">Typhoon Reports</a>
+                <a class="dropdown-item" href="{% url 'hometyph_basics' %}">Typhoon Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Earthquake              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'earthquake' %}" href="#">Earthquake Reports</a>
+                <a class="dropdown-item" href="{% url 'homeearthquake_basics' %}">Earthquake Basics</a>
+
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Landslide              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'landslide' %}">Landslide Reports</a>
+                <a class="dropdown-item" href="{% url 'homelandslide_basics' %}">Landslide Basics</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reports              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'home_sit_reports'%}" href="#">Situational Reports</a>
+                <a class="dropdown-item" href="{% url 'home_incident_reports'%}">Incident Reports</a>
+              </div>
+            </div>
+            
+          </li>
+        </ul>
+      </nav>
+      <section class="calendar d-flex justify-content-center align-items-center">
+        <div class="roww learning-tools-flood-page w-100">
+
+            <div class=" w-100">
+                <div class="col-md-12 article-header" id="climate-change">
+                    Floods
+                </div>
+                <div class="col-md-12 article-content">
+                    <div class="col-md-12">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default panel-pagasa causes-and-types">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#causes-and-types">Causes and Types</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="causes-and-types" class="panel-collapse collapse causes-and-types-content">
+                                    <div class="panel-body p-5">
+                                        <h3 style="text-align: center;"> <b>FLOOD: CAUSES</b></h3>
+                                        <div class="row">
+                                            <br>
+                                            <div class="col-md-6 col-md-offset-1">
+                                                <table class="table ">
+                                                    <thead>
+                                                        <tr>
+                                                            <td style="text-align: center; vertical-align: middle;" colspan="2" ><strong>NATURAL</strong></td>
+                                                        </tr>  
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align: middle;">
+                                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/met.png" class="img-responsive " alt="" height="auto">
+                                                            </td> 
+                                                            <td>
+                                                                <p><b>Meteorological Events</b></p>
+                                                                <p> - an intense and prolonged rainfall spells</p>
+                                                                <p> - unusually high coastal and estuarine waters due to storm surges, seiches, etc.</p>
+                                                            </td>  
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: middle;">
+                                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/seismic.png" class="img-responsive " alt="">
+                                                            </td>
+                                                            <td>
+                                                                <p><b>Seismic Activities</b></p>
+                                                                <p> - tsunamis (seismic sea waves)</p>
+                                                                <p> - sinking of land due to earthquakes reduces the elevation of land areas</p>
+                                                                <p> - uplifting of lake and river beds from seismic causes sometime results in the overflowing of these bodies of water</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: middle;">
+                                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/astro.png" class="img-responsive " alt="">
+                                                            </td>
+                                                            <td>
+                                                                <p><b>Atronomically-Influenced Phenomena</b></p>
+                                                                <p> - high tides coinciding with the occurrence of heavy rainfall</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>                                    
+                                            </div>
+                                            <div class="col-md-6">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <td style="text-align: center; vertical-align: middle;" colspan="2" ><strong>ARTIFICIAL</strong></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align: middle;">
+                                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/blasting.png" class="img-responsive " alt="">
+                                                            </td>
+                                                            <td>
+                                                                <p><b>Blasting</b></p>
+                                                                <p> - causes landslides in the slopes of hills and mountains which may result in the unintentional damming of rivers and streams</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: middle;">
+                                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/construction.png" class="img-responsive " alt="">
+                                                            </td>
+                                                            <td>
+                                                                <p><b>Construction of temporary dams</b></p>
+                                                                <p> - produces an impediment to the flow of a river or stream which then results in an overflow</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: middle;">
+                                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/failure.png" class="img-responsive " alt="">
+                                                            </td>
+                                                            <td>
+                                                                <p><b>Failure of hydraulic and other control structures</b></p>
+                                                                <p> - accidents like the breaking of a dike result in the entry of an enormous quantity of water in a protected area</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: middle;">
+                                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/mismanagement.png" class="img-responsive " alt="">
+                                                            </td>
+                                                            <td>
+                                                                <p><b>Mismanagement of hydraulic structures</b></p>
+                                                                <p> - may necessitate an untimely and sudden release of large amounts of excess water</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: middle;">
+                                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/denudation.png" class="img-responsive " alt="">
+                                                            </td>
+                                                            <td>
+                                                                <p><b>Denudation of forest and watershed areas</b></p>
+                                                                <p> - alter the ecological system in a river basin will have an impact on the hydrology of the catchment</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+        
+                                        <div class="d-flex flex-row justify-content-between flood-types">
+                                            <div class="col-md-12">
+                                                <br><br>
+                                                <h3 style="text-align: center;"> <b>FLOOD: TYPES</b></h3>
+                                                <div class="flood-types-minor-content">
+                                                    <p ><strong>MINOR FLOODING</strong></p>
+                                                    <p> - Inundation may or may not be due to overbanking</p>
+                                                    <p> - When there is no bank overflow, flooding is simply due to the accumulation of excessive surface run-off in low lying flat areas</p>
+                                                    <p> - Floodwaters are usually confined to the flood plain of the river along the channel, on random low-lying areas and depressions in the terrain</p>
+                                                    <p> - Floodwater is usually shallow and there may not be a perceptible flow</p>
+                                                </div> 
+        
+                                                <div class="flood-types-major-content">
+                                                    <br><br>
+                                                    <p ><strong>MAJOR FLOODING</strong></p>
+                                                    <p> - Flooding is caused by the over­flowing of rivers and lakes; by serious breaks in dikes, levees, dams and other protective structures; by uncontrollable releases of impounded water in reservoirs and by the accumulation of excessive runoff</p>
+                                                    <p> - Floodwaters cover a wide contiguous area and spread rapidly to adjoining areas of relatively lower elevation</p>
+                                                    <p> - Flooding is relatively deep in most parts of the stricken areas</p>
+                                                    <p> - There is a highly perceptible current as the flood spreads to other areas</p>
+                                                </div> 
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row justify-content-between flood-types">
+                                            <div class="col-md-12">
+                                            <br><br>
+                                            <h3 style="text-align: center;"> <b>FLASH FLOOD</b></h3>
+                                            <center><p style="text-align: justify;text-justify: inter-word;">While floods take some time, usually from 12 to 24 hours or even longer, to develop after the occurrence of intense rainfall, there is a particular type which develops after no more than six hours and, frequently, after an even less time. These are what are known as <b>"flash floods"</b>.</p></center>
+                                            <br>
+                                            <br>
+                                            <p style="text-align: justify;text-justify: inter-word;">Flash floods develop in hilly and mountainous terrains where the slope of the river is rather steep. The rapid development of the flood is due to the extremely short concentration time of the drainage catchment. This means that precipitation falling on a point in the catchment farthest from the river takes only a short time to reach the river channel and become part of streamflow. Thus, the amount of streamflow rapidly increases and, consequently, the rise in water level. When the flow capacity of the stream is exceeded, the channel overflows and the result is a flash flood.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#cascading-effects">Cascading Effects</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="cascading-effects" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <br><br>
+                                                <p style="text-align: right; text-align: justify;text-justify: inter-word;">Floods are among the most destructive calamities man has to cope with. Even the most minor flooding poses some inconveniences. A really big flood can result in millions even billions of pesos of damages to roads and bridges, buildings and other economic infrastructure, in the loss of agricultural crops and livestocks, loss of productivity in industry, commerce and trade. To this is added the incalculable loss of human lives directly attributable to floods as well as the hardship and attendant socioeconomic problems of forced human displacement and the emotional impact on those affected by floods.</p>
+                                            </div>
+                                            <div class="col-md-offset-4 col-md-offset-1">
+                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/crops_damage.png" class="img-responsive" alt="Crops Damaged">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/flood_fx.png" class="img-responsive" alt="Flooding">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <br><br><br>
+                                                <p style="text-align: justify;text-justify: inter-word;">Aside from the direct damages brought by a flood there are also those cascading effects which follow in the wake of the calamity. Among the immediate problems caused by flood are the lack of basic utilities and essential necessities, particularly, food and potable water. Flood also disrupts the sanitary regime in a community. This almost always results in the contamination of the water supply. Thus, in a flood-stricken area an epidemic of gastro-intestinal diseases frequently breaks out. Respiratory ailments due to exposure are also quite common.  </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#monitoring-and-prediction">Monitoring and Prediction</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="monitoring-and-prediction" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <br>
+                                                <p style="text-align: justify;text-justify: inter-word;">For obviously practical reasons, man has always preferred a riverine environment. Almost always naturally fertile and, therefore, able to provide him with an abundance of his needs, flood plains have always attracted man as a place to settle down. The river or a lake, in addition to being a source of his livelihood, also serves as a convenient means of communications, an avenue for trade and commerce.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">However, a river is not always placid, serenely flowing along. It has its moods. And it changes its moods, quite regularly. When it does, man comes face to face with the phenomenon of the flood.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">But man is also a resourceful creature. Knowing that he cannot prevent the recurrence of floods and because he has to live with it, man has learned to cope. He tried to understand the nature, behavior and the causes of floods.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">In some primitive ways, he had learned to relate the vagaries of the weather to the behavior of the river. In doing so, he established a <b>"forecasting procedure"</b> which has persisted up to our times and which remains practically unchanged.</p>
+                                            </div>
+        
+                                            <div class="col-md-6">
+                                                <br>
+                                                <p style="text-align: justify;text-justify: inter-word;">Modern flood forecasting is now based on the standard procedure of monitoring and analysing the hydrological and meteorological conditions in a river basin. While the tools and methods of monitoring may have been modernized with the use of sensitive, telemeterized gauging instruments to effect better observation and faster transmission of data, it is still basically an attempt to paint a bread picture of what is currently happening, hydrologically and meteorologically, in a river basin.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">The simple method of associating the weather to the behaviour of the river has given way to the more modern sophisticated analytical methods aided by the computerized flood forecasting models. With further evaluation of the results of the various analysis, hydrologists are able to come up with a prediction of the future state of the river.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">If anything new is added to modern flood forecasting, it is the more extensive reliance of hydrologists on the scientific principles of hydrology rather than on mere intuition.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#preparation-of-flood-forecast">Preparation of Flood Forecast</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="preparation-of-flood-forecast" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+        
+                                        <div class="row">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p style="text-align: justify;text-justify: inter-word;">The preparation, issuance and dissemination of an adequate and timely warning is the ultimate purpose of flood forecasting. Timeliness is an essential requirement for a flood warning. A sufficient lead time enables the ultimate user to take the necessary precautionary countermeasures.</p>
+        
+                                                    <p style="text-align: justify;text-justify: inter-word;">The hydrological and meteorological conditions in a river basin and the consequent state of its river system is never constant. The behavior of the river itself is the resultant of the interaction of all hydrological processes and conditions in the river basin.</p>
+        
+                                                    <br>
+        
+                                                    <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/flood2.png'    class="img-responsive"/>
+        
+                                                    <br>
+                                                </div>
+        
+                                                <div class="col-md-6">
+                                                    <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/flood1.png'    class="img-responsive"/>
+        
+                                                    <br>
+        
+                                                    <p style="text-align: justify;text-justify: inter-word;">A flooding situation is not a daily occurrence. However, flood forecasting operations must, of necessity, be a continuous activity. It is carried out from day to day even when the possibility of a flood is highly improbable. This mode of operation enables flood forecasters to pinpoint the beginning of a potential flood-generating situation.</p>
+        
+                                                    <p style="text-align: justify;text-justify: inter-word;">Like storm bulletins which are issued only during the presence of tropical cyclones, flood forecast and warning bulletins are prepared only when a potential flooding situation is definitely present. They are issued regularly at specified hours of the day for the duration of the flooding period until the flood recedes or when all hazards and dangers associated with the phenomenon are no longer present.</p>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="row">
+                                            <div class="row">
+                                                <div class="col-md-12">
+        
+                                                    <p><b>The prevailing hydrometeorological situation in a given river basin defines the operational environment under which flood forecasting and warning operations are carried out. Conviniently categorized into: </b></p>
+        
+                                                    <br>
+                                                </div>
+        
+                                                <div class="row col-md-12 align-items-center">
+                                                    <div class="col-md-4 text-center">
+                                                        <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/normal.png'    class="img-responsive"/>
+        
+                                                        <br>
+        
+                                                        <strong>Normal Situation</strong>
+                                                    </div>
+        
+                                                    <div class="col-md-4 text-center">
+                                                        <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/alert.png'    class="img-responsive"/>
+        
+                                                        <br>
+        
+                                                        <strong>Alert Phase</strong>
+                                                    </div>
+        
+                                                    <div class="col-md-4 text-center">
+                                                        <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/warning.png'    class="img-responsive"/>
+        
+                                                        <br>
+        
+                                                        <strong>Warning Phase</strong>
+                                                    </div>  
+                                                </div>
+        
+                                                <div class="col-md-12">
+                                                    <br>
+                                                    <p style="text-align: justify;text-justify: inter-word;">These operational situations are dependent for their implementation on the behavior and state of the river with respecr to a set of criteria known as flood assessment levels.</p>
+        
+                                                    <p style="text-align: justify;text-justify: inter-word;">In practice, flood bulletins are issued as soon as the development of a flooding exists. The initital bulletin serves merely to alert the people in the threatened basin to the possibility of a flood. It is never intended to categorically state that there will be flooding but only of the possibility. The initial bulletin is issued as soon as the operational situation passes fro the alert to the warning phase. The transition from one operational status to another is based on the pre-determined criteria.</p>
+                                                </div>
+        
+                                            </div>
+                                        </div>
+        
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <br>
+                                                <center><p ><b>A flood forecasting operation consists of the following:</b></p></center>
+                                                <br>
+                                            </div>
+                                        </div>
+        
+                                        <div class="row col-md-12 col-md-offset-1 ">
+                                            <div class="col-md-3 ">
+                                                <br>
+                                                <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/monitoring.png'    class="img-responsive"/>
+        
+                                                <br>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;"><b>Monitoring.</b>&nbsp; This requires the collection, at regular interval, of the real-time data on rainfall, water level and other information that affect the hydrological condition of the river basin and the state of the river system. This provides a broad picture of the current situation in a river basin.</p>
+                                            </div>
+        
+                                            <div class="col-md-1 text-center">
+                                                <br><br>
+                                                <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/arrow.png'    class="img-responsive"/>
+                                            </div>
+        
+                                            <div class="col-md-3">
+                                                <br>
+                                                <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/analysis.png'    class="img-responsive"/>
+        
+                                                <br>
+                                                <p style="text-align: justify;text-justify: inter-word;"><b>Analysis.</b> &nbsp; The data are analysed and related to other available information such as storm data from radar and satellite observation. The general objective here is to deduce the probable development in the hydrological situation in the river basin in the near future. This part of the operation involves a variety of hydrological analyses as well as the use of flood forecasting models to provide an objective estimate of the fore­cast situation.</p>
+                                            </div>
+        
+                                            <div class="col-md-1 text-center">
+                                                <br><br>
+                                                <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/arrow.png'    class="img-responsive"/>
+                                            </div>
+        
+                                            <div class="col-md-3">
+                                                <br>
+                                                <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/preparation.png'    class="img-responsive"/>
+        
+                                                <br>
+                                                <p style="text-align: justify;text-justify: inter-word;"><b>Preparation of the forecast and warning.</b> &nbsp; Upon receipt of the coded messages, they are decoded and each set of observations is plotted in symbols or numbers on weather charts over the respective areas or regions.  Observations made over land and sea are plotted on the surface or mean sea level charts which are prepared four times a day.  Radiosonde, theodolite, aircraft and satellite wind observations are plotted on upper level charts which are prepared twice daily.</p>
+                                            </div>
+                                        </div>
+        
+                                        <div class="row col-md-12 col-md-offset-1 mt-4">
+        
+                                            <div class="col-md-1 text-center">
+                                                <br><br>
+                                                <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/arrow.png'    class="img-responsive"/>
+                                            </div>
+        
+                                            <div class="col-md-3">
+                                                <br>
+                                                <img src=' http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/dissemination.png'    class="img-responsive"/>
+        
+                                                <br>
+                                                <p style="text-align: justify;text-justify: inter-word;"><b>Dissemination of the flood forecast and warning.</b> &nbsp; Flood forecasts are completed in time for release at regular preset time of issuance. Dissemination is made through dissemi­nating agencies such as the <b>OCD, DSWD, NDCC</b>, and thru the mass media, particularly <b>radio</b> and <b>television</b>.</p>
+                                            </div>
+        
+                                            <div class="col-md-6">
+                                                <p style="text-align: justify;text-justify: inter-word;">There are three categories of flood information intended for the general public. All are issued under the general title of "Flood Bulletin". A distinct series of bulletins is issued for each threatened river basin where the forecasting and warning service is already extended and operational. As already stated, bulletins are issued only when conditions, i.e., there is a potential flooding situation, so warrant their issuance.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">When required, flood bulletins are prepared twice daily. They are completed and readied for issuance and dissemination at 5 a.rn. and 5 p.rn., respectively, when it is deemed early enough to provide vital information for concerned users to take necessary countermeasures before they leave for work in the morning or before they retire at night.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">A series of bulletins for a given affected river basin is ideally initiated by a Flood Outlook. As the category implies, the bulletin merely states the present hydrological situation and alerts the people in a basin to the possibility of a deteriorating condition, e.g., a gradual and continuous rise in the water level.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">Subsequent bulletins could be of any one of the three categories. Normally, for a given affected basin, one bulletin is followed by another of the same in the next higher category depending on the development in the hydrological condition and the forecast situation. Hence, an Outlook is followed by another Outlook or by a Flood Advisory; or by a Flood Warning.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">When the situation had clearly reached its worst such that, at most the condition or, at best, improvement can be expected, subsequent bulletins are of the same or by a next lower category than the proceeding.</p>
+                                            </div>
+                                        </div>
+        
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#countermeasures-and-mitigations">Countermeasures and Mitigations of Flood Damage</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="countermeasures-and-mitigations" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p style="text-align: justify;text-justify: inter-word;">A <b>"Flood Advisory"</b> is a warning that <b>states the imminence of a flood situation</b>. Thus, it also contains suggested necessary actions that may have to be taken by the residents and the community in the threatened basin. An advisory is issued when the <b>hydrological situation deteriorates further</b>. It is also issued when condition is definitely <b>improving but caution is still necessary</b>.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">A <b>"Flood Warning"</b> is issued when a flooding situation is a <b>definite reality at least 24 hours before actual flooding occurs</b>. This category is maintained in succeeding bulletins as long as the affected areas are inundated and the attendant dangers are present. Aside from the forecast, a warning states the necessary precautionary measures and actions residents as well as the affected community must take.</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;"><b>Flood bulletins</b> are specifically directed to the public. They are intended to apprise the people in the threatened area of the present situation and of the expected development. It suggests the appropriate actions the community may have to take to prevent or mitigate the disastrous effects of a flood.</p>
+                                            </div>
+                                        </div>
+        
+                                        <div class="row countermeasures-and-mitigations mt-5">
+                                            <div class="col-md-6  before-and-during-a-flood">
+                                                <p style="text-align: justify;text-justify: inter-word;"> As in any kind of disaster, the best countermeasures for flood damage prevention and mitigation are those which are community efforts. </p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;"><b>Floods cannot be prevented. To a large extent, however, they can be controlled effectively. By this is meant keeping the river from overflowing. There are a number of ways of accomplishing this before and during a flood:</b></p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">A. Increasing the flow capacity of a river by cleaning the channel of debris, by dredging, by straightening of channels, etc.;</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">B. Construction of dikes and levees; and</p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">C. Sandbagging during floods.</p>
+                                            </div>
+        
+                                            <div class="col-md-6 precautionary-measures">
+                                                <p style="text-align: justify;text-justify: inter-word;" ><b>Individually and collectively, people in a flood-stricken area must take precautionary measures to ensure personnel safety and health:</b></p>
+        
+                                                <p style="text-align: justify;text-justify: inter-word;">A. People, particularly children, should avoid wading in floodwaters.</p>
+                                                <p style="text-align: justify;text-justify: inter-word;">B. Where houses are expected to be flooded, people should move to higher places.</p>
+                                                <p style="text-align: justify;text-justify: inter-word;">C. Electrically operated appliances should be transferred to upper storeys of buildings.</p>
+                                                <p style="text-align: justify;text-justify: inter-word;">D. When electrical fines and outlets will be submerged in floodwater, power should be switched off.<p>
+                                                <p style="text-align: justify;text-justify: inter-word;">E. Flood damage mitigation and protection is a concern not only during the disaster. It should be practiced before, during and after the occurrence of a flood.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#flood-safety-rules">Flood Safety Rules</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="flood-safety-rules" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="col-md-6 col-md-offset-1">
+                                                <h3 style="text-align: center;"> <b>BEFORE THE FLOOD</b></h3>
+        
+                                                <ul>
+                                                    <li>Find out how often your location is likely to be flooded.</li>
+                                                    <li>Know the flood warning system in your community and be sure your family knows it.</li>
+                                                    <li>Keep informed of daily weather condition.</li>
+                                                    <li>Designate an evacuation area for the family and livestock.</li>
+                                                    <li>Assign family members instructions and responsibilities according to an evacuation plan.</li>
+                                                    <li>Keep a stock of food which requires little cooking and refrigeration; electric power may be interrupted.</li>
+                                                    <li>Keep a transistorized radio and flashlight with spare batteries, emergency cooking equipment, candies, matches and first aid kit handy in case of emergency.</li>
+                                                    <li>Store supplies and other household effects above expected flood water level.</li>
+                                                    <li>Securely anchor weak dwellings and items.</li>
+                                                </ul>
+                                            </div>
+        
+                                            <div class="col-md-6">
+                                                <h3 style="text-align: center;"><b>WHEN WARNED OF FLOOD</b></h3>
+        
+                                                <ul>
+                                                    <li>Watch for rapidly rising flood waters.</li>
+                                                    <li>Listen to your radio for emergency instructions.</li>
+                                                    <li>If you find it necessary to evacuate, move to a safe area before access is cut off by flood waters.</li>
+                                                    <li>Store drinking water in containers, water service may be interrupted.</li>
+                                                    <li>Move household belongings to upper levels.</li>
+                                                    <li>Get livestock to higher ground.</li>
+                                                    <li>Turn off electricity at the main switch in the building before evacuating and also lock your house.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+        
+                                        <div class="row">
+                                            <div class="col-md-6 col-md-offset-1">
+                                                <h3 style="text-align: center;"><b>DURING THE FLOOD</b></h3>
+        
+                                                <ul>
+                                                    <li>Avoid areas subject to sudden flooding.</li>
+                                                    <li>Do not attempt to cross rivers of flowing streams where water is above the knee.</li>
+                                                    <li>Beware of water-covered roads and bridges.</li>
+                                                    <li>Avoid unnecessary exposure to the elements.</li>
+                                                    <li>Do not go swimming or boating in swollen rivers.</li>
+                                                    <li>Eat only well-cooked food. Protect leftovers against contamination.</li>
+                                                    <li>Drink clean or preferably boiled water ONLY.</li>
+                                                </ul>
+                                            </div>
+        
+                                            <div class="col-md-6">
+                                                <h3 style="text-align: center;"><b>AFTER THE FLOOD</b></h3>
+        
+                                                <ul>
+                                                    <li>Re-enter the dwellings with caution using flashlights, not lanterns or torchers. Flammables may be inside.</li>
+                                                    <li>Be alert for fire hazards like broken wires.</li>
+                                                    <li>Do not eat food and drink water until they have been checked for flood water contamination.</li>
+                                                    <li>Report broken utility lines (electricity, water, gas and telephone) to appropriate agencies authorities.</li>
+                                                    <li>Do not turn on the main switch or use appliances and other equipment until they have been checked by a competent electrician.</li>
+                                                    <li>Consult health authorities for immunization requirements.</li>
+                                                    <li>Do not go in disaster areas. Your presence might hamper rescue and other emergency operations.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+        
+                                        <div class="row">
+                                            <div class="col-md-12 col-md-offset-1">
+                                                <p>Flood are aggravated by factors resulting from the carelessness and indifference of people usually before floods occur.</p>
+        
+                                                <h3 class="mt-4"><b>THINGS ONE CAN DO TO MITIGATE FLOODS</b></h3>
+        
+                                                <ul>
+                                                    <li>Regulate cutting of trees.</li>
+                                                    <li>Report illegal loggers and kaingeros.</li>
+                                                    <li>Report illegal construction of fishponds and other establishments in waterways.</li>
+                                                    <li>Do not throw garbage in esteros and rivers.</li>
+                                                    <li>Help clean the neighborhood.</li>
+                                                    <li>Support community activities intended to lessen the occurrence of floods.</li>
+                                                    <li>Avoid throwing anything like plastic wrappers anywhere which may clog or block the drainage system.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#socioeconomic-impact">Socio-Economic Impact of Floods</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="socioeconomic-impact" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p  style="text-align: justify;text-justify: inter-word;">It is easy to say, and admittedly, floods have a tremendous socio-economic impact. Its main effect is to retard development. A flood-stricken area must first be restored to normal before any development activity can be carried out. Restoration can take time. The social and emotional trauma inflicted on the people usually have a short-term inhibiting effect on the community's drive. Hence, a little time can elapse before any concerted move for normalization can take place.</p>
+        
+                                                <center><img src="http://www.pagasa.dost.gov.ph/themes/hiraia/assets/images/learning_tools/flood/market and stranded people.png" class="img-responsive"></center>
+        
+                                                <p class="mt-3" style="text-align: justify;text-justify: inter-word;">Flood damage is incalculable. Assessment of damage attributable to floods alone is difficult. Floods usually occur in association with other natural destructive phenomena such as tropical cyclones. Except in rare cases such as the Angat River disaster of the late 70's where loss of lives and property is identifiably due to the flood alone, it is difficult to segregate damages caused by a flood and those which resulted from the associated phenomenon. Therefore, precise quantifiable damage is always difficult to estimate. In addition to the directly determinable losses may be added the indirect potential losses. These results from unproductivity in many areas - in business, in trade, in commerce, etc. All these losses can wipe out whatever gains that may have been achieved in economic development.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer>
+  </body>
+</html>

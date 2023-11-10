@@ -70,6 +70,18 @@ def typhoon(request):
 def profile(request):
     return render(request, 'profile.html')
 
+def homeflood_basics(request):
+    return render(request, 'flood_basics.html')
+
+def hometyph_basics(request):
+    return render(request, 'typhoon_basics.html')
+
+def homeearthquake_basics(request):
+    return render(request, 'earthquake_basics.html')
+
+def homelandslide_basics(request):
+    return render(request, 'landslide_basics.html')
+
 def home_incident_reports(request):
     return render(request, 'home_incident_reports.html')
 
@@ -202,6 +214,9 @@ def flood(request):
 
 
 ###### BARANGAY #####
+def userflood_basics(request):
+    return render(request, 'user/userflood_basics.html')
+
 def missionvision(request):
     return render(request, 'user/user-missionvision.html')
 
