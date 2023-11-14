@@ -23,6 +23,9 @@ urlpatterns = [
     path('delete_report/<int:report_id>/', views.delete_report, name='delete_report'),
 
     path('userflood_basics', views.userflood_basics, name="userflood_basics"),
+    path('usertyphoon_basics', views.usertyph_basics, name="usertyphoon_basics"),
+    path('userearthquake_basics', views.userearthquake_basics, name="userearthquake_basics"),
+    path('userlandslide_basics', views.userlandslide_basics, name="userlandslide_basics"),
     path('reports', views.reports, name="reports"),
     path('add-reports', views.add_report, name='add-reports'),
     path('incident-reports', views.incident_reports, name='incident-reports'),

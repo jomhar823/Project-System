@@ -214,8 +214,19 @@ def flood(request):
 
 
 ###### BARANGAY #####
+
 def userflood_basics(request):
     return render(request, 'user/userflood_basics.html')
+
+def usertyph_basics(request):
+    return render(request, 'user/usertyphoon_basics.html')
+
+def userearthquake_basics(request):
+    return render(request, 'user/userearthquake_basics.html')
+
+def userlandslide_basics(request):
+    return render(request, 'user/userlandslide_basics.html')
+    
 
 def missionvision(request):
     return render(request, 'user/user-missionvision.html')

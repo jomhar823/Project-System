@@ -204,58 +204,61 @@
     </style>
     <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light ">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto align-items-center">
-            <li class="nav-item active">
-              <a class="nav-link text-light gov-link" href="https://www.gov.ph/">GOV PH</a>
-            </li>
-            <li class="nav-item active">
-                <li class="dropdown">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto align-items-center">
+                <li class="nav-item active">
+                  <a class="nav-link text-light gov-link" href="https://www.gov.ph/">GOV PH</a>
+                </li>
+                <li class="nav-item active">
+                    <li class="dropdown">
+                        <div class="dropdown show custom-dropdown no-focus-outline">
+                          <a class="btn btn-custom text-light" href="{% url 'brgyhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                           Home          
+                          </a>
+                        </div>
+                      </li>
+                </li>
+                <li class="nav-item">
+                  <li class="dropdown">
                     <div class="dropdown show custom-dropdown no-focus-outline">
-                      <a class="btn btn-custom text-light" href="{% url 'index' %}" role="button" aria-haspopup="true" aria-expanded="false">
-                       Home          
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        About Us          
                       </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'missionvision' %}">Mission and Vision</a>
+                        <a class="dropdown-item" href="{% url 'barangays' %}" href="#">Barangays</a>
+                      </div>
                     </div>
                   </li>
-            </li>
-            <li class="nav-item">
-              <li class="dropdown">
-                <div class="dropdown show custom-dropdown no-focus-outline">
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    About Us          
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'home_mission' %}">Mission and Vision</a>
-                    <a class="dropdown-item" href="{% url 'home_barangays' %}" href="#">Barangays</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-light" href="{% url 'user_contacts' %}">Contact Us</a>
+                </li>
+                
+              </ul>
+    
+              <span class="navbar-text ">
+                <li class="dropdown">
+                  <div class="dropdown show custom-dropdown no-focus-outline">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                      </svg> {{user.barangay}}           
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
+                    </div>
                   </div>
-                </div>
-              </li>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{% url 'home_contact' %}">Contact Us</a>
-            </li>
-            
-          </ul>
-
-          <span class="navbar-text ">
-            <li class="dropdown">
-              <div class="dropdown show custom-dropdown no-focus-outline">
-                <a class="btn text-light" href="{% url 'login' %}" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                  </svg> Login          
-                </a>
-              </div>
-            </li>
-          </span>
-        </div>
-
-      </nav>
+                </li>
+              </span>
+            </div>
+    
+          </nav>
     </header>
     <main>
       <section class="hero">
@@ -269,23 +272,29 @@
         <ul class="nav-list">
           <li class="dropdown">
             <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-custom text-light" href="{% url 'get_user_announcements' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                Announcement              
+              </a>
+              
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Flood              
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'home_flood_reports' %}" href="#">Flood Reports</a>
-                <a class="dropdown-item" href="{% url 'homeflood_basics' %}">Flood Basics</a>
+                <a class="dropdown-item" href="{% url 'user_flood' %}" href="#">Flood Reports</a>
+                <a class="dropdown-item" href="{% url 'userflood_basics' %}">Flood Basics</a>
               </div>
             </div>
           </li>
           <li class="dropdown">
-            <a class="btn btn-custom text-light" href="{% url 'weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-custom text-light" href="{% url 'user_weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
               Weather Situation              
             </a>
             <div id="imageDropdown" class="dropdown-content">
-              
             </div>
-
           </li>
           <li class="dropdown">
             <div class="dropdown show custom-dropdown no-focus-outline">
@@ -293,8 +302,8 @@
                 Typhoon              
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'home_typhoon_reports' %}" href="#">Typhoon Reports</a>
-                <a class="dropdown-item" href="#">Typhoon Basics</a>
+                <a class="dropdown-item" href="{% url 'user_typhoon' %}" href="#">Typhoon Reports</a>
+                <a class="dropdown-item" href="{% url 'usertyphoon_basics' %}">Typhoon Basics</a>
               </div>
             </div>
           </li>
@@ -304,8 +313,8 @@
                 Earthquake              
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'earthquake' %}" href="#">Earthquake Reports</a>
-                <a class="dropdown-item" href="#">Earthquake Basics</a>
+                <a class="dropdown-item" href="{% url 'user_earthquake' %}" href="#">Earthquake Reports</a>
+                <a class="dropdown-item" href="{% url 'userearthquake_basics' %}">Earthquake Basics</a>
 
               </div>
             </div>
@@ -316,8 +325,8 @@
                 Landslide              
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'landslide' %}">Landslide Reports</a>
-                <a class="dropdown-item" href="#">Landslide Basics</a>
+                <a class="dropdown-item" href="{% url 'user_landslide' %}">Landslide Reports</a>
+                <a class="dropdown-item" href="{% url 'userlandslide_basics' %}">Landslide Basics</a>
               </div>
             </div>
           </li>
@@ -328,11 +337,12 @@
                 Reports              
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'home_sit_reports'%}" href="#">Situational Reports</a>
-                <a class="dropdown-item" href="{% url 'home_incident_reports'%}">Incident Reports</a>
+                <a class="dropdown-item" href="{% url 'user_sit'%}" href="#">Situational Reports</a>
+                <a class="dropdown-item" href="{% url 'view-incident-reports'%}">Incident Reports</a>
+                <a class="dropdown-item" href="{% url 'get_userreports'%}">All Reports</a>
+                <a class="dropdown-item" href="{% url 'add-reports'%}">Add New Report</a>
               </div>
             </div>
-            
           </li>
         </ul>
       </nav>
