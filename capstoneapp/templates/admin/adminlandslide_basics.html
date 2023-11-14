@@ -1,0 +1,523 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style type="text/css">
+        .article-header {
+            font-weight: bold;
+            color: #f8f8f8;
+            font-size: 24px;
+            line-height: 45px;
+            background: #afc019;
+            border-radius: 3px;
+        }
+        .learning-tools-flood-page {
+            font-size: 15px;
+        }
+
+        .learning-tools-flood-page b {
+            color: #afc019 !important;
+        }
+
+        .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .quote {
+            padding: 10px;
+            border-width: 1px;
+            border-color: rgb(0, 0, 0);
+            border-style: solid;
+        }
+        .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .definition .container {
+            position: relative;  
+            text-align: center; 
+            max-width: 1000px; 
+            margin: 0 auto;
+        }
+
+        .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .definition .container .flood-desc{
+            position: absolute; 
+            width: 100%; 
+            padding: 10px; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+        } 
+
+        .learning-tools-flood-page .causes-and-types .causes-and-types-content .flood-types {
+            width: 100%;
+            height: auto;
+            background-image: url(/themes/hiraia/assets/images/learning_tools/flood/types.png);
+            background-attachment: scroll;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .table {
+        background: #f8f8f8 !important;
+        color: #22313f;
+        font-size: 14px;
+        }
+
+        .table thead tr > th {
+        border-bottom: none;
+        border-top: none;
+        }
+        .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .panel {
+            border: 0px;
+            color: #22313f;
+            border-radius: 0px;
+            -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+                    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+            }
+
+            .panel .panel-heading {
+            margin-bottom: 10px;
+            padding: 0px;
+            position: relative;
+            font-size: 24px;
+            font-weight: bold;
+            color: #22313f;
+            }
+
+            .panel .panel-heading h5 {
+            font-size: 14px;
+            color: #22313f;
+            font-weight: bold;
+            }
+
+            .panel .panel-heading .pull-right {
+            position: absolute;
+            float: right !important;
+            bottom: 0px;
+            right: 0px;
+            }
+
+            .panel .panel-body {
+            font-size: 14px;
+            background: #f8f8f8;
+            }
+
+            .panel .panel-body p {
+            margin: 0px;
+            }
+
+            .panel-pagasa {
+            border-radius: 0px;
+            border: 0px;
+            }
+
+            .panel-pagasa .panel-pagasa-heading {
+            padding: 0px;
+            border-radius: 0px;
+            font-size: 16px;
+            background: #f8f8f8;
+            color: #22313f;
+            }
+
+            .panel-pagasa .panel-pagasa-heading a {
+            padding: 10px 15px;
+            display: block;
+            color: #22313f;
+            }
+
+            .panel-pagasa .panel-pagasa-heading a:focus {
+            text-decoration: none;
+            color: #22313f;
+            }
+
+            .panel-pagasa .panel-pagasa-heading a:hover {
+            text-decoration: none;
+            color: #f8f8f8;
+            }
+
+            .panel-pagasa .panel-pagasa-heading:hover {
+            background: #22313f;
+            color: #f8f8f8;
+            cursor: pointer;
+            }
+
+            .panel-pagasa .panel-pagasa-active {
+            background: #22313f;
+            color: #f8f8f8;
+            }
+
+            .panel-pagasa .panel-pagasa-active a:focus {
+            color: #f8f8f8;
+            }
+
+            .text-nowrap {
+            white-space: nowrap;
+            }
+
+            .text-middle {
+            vertical-align: middle !important;
+            }
+
+            .table {
+            background: #f8f8f8 !important;
+            color: #22313f;
+            font-size: 14px;
+            }
+
+            .table thead tr > th {
+            border-bottom: none;
+            border-top: none;
+            }
+
+
+            .table td {
+            border-top: 3px solid #ffffff !important;
+            border-left: 3px solid #ffffff !important;
+            }
+
+            .info-title {
+            cursor: pointer;
+            }
+            h3 {
+            font-size: 24px;
+            color: #22313f;
+            font-weight: bold;
+            }
+            .panel-group .panel+.panel {
+                margin-top: 5px;
+            }
+
+
+
+</style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto align-items-center">
+            <li class="nav-item active">
+              <a class="nav-link text-light gov-link" href="https://www.gov.ph/">GOV PH</a>
+            </li>
+            <li class="nav-item active">
+                <li class="dropdown">
+                    <div class="dropdown show custom-dropdown no-focus-outline">
+                      <a class="btn btn-custom text-light" href="{% url 'adminhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                       Home          
+                      </a>
+                    </div>
+                  </li>
+            </li>
+            <li class="nav-item">
+              <li class="dropdown">
+                <div class="dropdown show custom-dropdown no-focus-outline">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    About Us          
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'admin_missionvision' %}">Mission and Vision</a>
+                    <a class="dropdown-item" href="{% url 'admin_barangays' %}" href="#">Barangays</a>
+                  </div>
+                </div>
+              </li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'admin_contact' %}">Contact Us</a>
+            </li>
+            
+          </ul>
+
+          <span class="navbar-text ">
+            <li class="dropdown">
+              <div class="dropdown show custom-dropdown no-focus-outline">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg> {{user.email}}           
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'add_earthquakereport' %}">Add Report</a>
+                  <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
+                </div>
+              </div>
+            </li>
+          </span>
+        </div>
+
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>LANDSLIDE BASICS</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+      <nav class="navigation-bar">
+        <ul class="nav-list">
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Announcement              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'add_announcement' %}" href="#">Add Announcement</a>
+                <a class="dropdown-item" href="{% url 'get_announcement' %}">View All Announcements</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Flood              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_flood_reports' %}" href="#">Flood Reports</a>
+                <a class="dropdown-item" href="{% url 'adminflood_basics' %}">Flood Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a class="btn btn-custom text-light" href="{% url 'admin_weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
+              Weather Situation              
+            </a>
+            <div id="imageDropdown" class="dropdown-content">
+              
+            </div>
+
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Typhoon              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_typhoon_reports' %}" href="#">Typhoon Reports</a>
+                <a class="dropdown-item" href="{% url 'admintyph_basics' %}">Typhoon Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Earthquake              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_earthquake_reports' %}" href="#">Earthquake Reports</a>
+                <a class="dropdown-item" href="{% url 'adminearthquake_basics' %}">Earthquake Basics</a>
+
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Landslide              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_landslide_reports' %}">Landslide Reports</a>
+                <a class="dropdown-item" href="{% url 'adminlandslide_basics' %}">Landslide Basics</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reports              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_sit_reports'%}" href="#">Situational Reports</a>
+                <a class="dropdown-item" href="{% url 'admin_incident_reports'%}">Incident Reports</a>
+                <a class="dropdown-item" href="{% url 'get_reports'%}">All Reports</a>
+                <a class="dropdown-item" href="{% url 'new_reports'%}">New Reports</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <section class="calendar d-flex justify-content-center align-items-center mt-3 mb-5">
+        <div class="roww learning-tools-flood-page w-100">
+
+            <div class=" w-100">
+                <div class="col-md-12 article-header" id="climate-change">
+                    Landslide
+                </div>
+                <div class="col-md-12 article-content">
+                    <div class="col-md-12">
+                        
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#flood-safety-rules">What are landslides?</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="flood-safety-rules" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class=" col-md-offset-1">
+                                                <!-- <h3 style="text-align: center;"> <b>PREPARE AN EMERGENCY GO BAG</b></h3> -->
+                                                <p class="mb-2" style="text-align: right; text-align: justify;text-justify: inter-word; font-size: 15px;">A landslide is the mass movement of rock, soil, and debris down a slope due to gravity. It occurs when the driving force is greater than the resisting force.It is a natural process that occurs in steep slopes. The movement may range from very slow to rapid. It can affect areas both near and far from the source.
+                                                </p>
+                                                <br>
+                                                <p class="mb-2" style="text-align: right; text-align: justify;text-justify: inter-word; font-size: 15px;">Landslide materials may include:
+                                                </p>
+                                                <ul>
+                                                    <li class="ml-5">Soil</li>
+                                                    <li class="ml-5">Debris</li>
+                                                    <li class="ml-5">Rock</li>
+                                                    <li class="ml-5">Garbage</li>
+                                                   
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#monitoring-and-prediction">Landslide Triggers
+                                        </a>
+                                    </h4>
+                                </div>
+        
+                                <div id="monitoring-and-prediction" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="">
+                                                <br>
+                                                <!-- <p style="text-align: justify;text-justify: inter-word;">What should you do during a typhoon? Be alert, have the presence of mind, and don't panic.
+                                                    To ensure your family’s safety and survival during a typhoon, here are the things to do and not to do. Make sure to include these safety tips in your emergency preparedness checklist:
+                                                </p> -->
+                                                <ul  class="mt-3">
+                                                    <li class="ml-5">Natural triggers</li>
+                                                    <li class="ml-5">Intense rainfall</li>
+                                                    <li class="ml-5">Weathering of rocks</li>
+                                                    <li class="ml-5">Ground vibrations created during earthquakes</li>
+                                                    <li class="ml-5">Volcanic activity</li>
+                                                    <li class="ml-5">Man-made triggers</li>
+                                                </ul>
+
+                                            </div>
+        
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#preparation-of-flood-forecast">Landslide triggering conditions 
+                                        </a>
+                                    </h4>
+                                </div>
+        
+                                <div id="preparation-of-flood-forecast" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+        
+                                        <div class="row">
+                                            <div class="">
+                                                <br>
+                                                <!-- <p style="text-align: justify;text-justify: inter-word;">Your preparedness for a typhoon extends until after the storm. You still have to watch out for any risks or dangers even when the worst is over. 
+
+                                                    According to the Red Cross, it’s crucial to be self-reliant during the first three days following a disaster. This is when water, electricity, and communication lines are usually non-existent. 
+                                                    
+                                                    Here's a checklist of safety precautions you can refer to during the aftermath of a typhoon in the Philippines:</p> -->
+                                                <ul class="mt-3">
+                                                    <li class="ml-5">Steep Slopes</li>
+                                                    <li class="ml-5">Weakening of slope material</li>
+                                                    <li class="ml-5">Weathering of rocks</li>
+                                                    <li class="ml-5">Overloading on the slope</li>
+                                                </ul>
+
+                                            </div>
+        
+                                            
+                                        </div>
+        
+                                        
+        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#cascading-effects">Modes of Failure</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="cascading-effects" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12">
+                                                <p class="mb-2" style="text-align: center;">Movement can occur in many ways. It can be a <b>fall,</b> <b>topple,</b> <b>slide,</b> <b>spread,</b> or <b>flow.</b>
+                                                </p>
+                                                
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/landslide/fall.JPG" class="img-responsive w-50 mt-3" ></center>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-12 mt-5">
+                                               
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/landslide/topple.JPG" class="img-responsive w-50 mt-3" ></center>
+
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-12 mt-5">
+                                               
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/landslide/slide.JPG" class="img-responsive w-50 mt-3" ></center>
+                                                
+                                            </div>
+                                            <div class="col-md-12 mt-5">
+                                               
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/landslide/spread.JPG" class="img-responsive w-50 mt-3" ></center>
+                                                
+                                                </p>
+                                            </div>
+                                            <div class="col-md-12 mt-5">
+                                               
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/landslide/flow.JPG" class="img-responsive w-50 mt-3" ></center>
+                                                
+                                                </p>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer>
+  </body>
+</html>

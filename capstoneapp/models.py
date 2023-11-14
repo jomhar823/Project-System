@@ -49,11 +49,11 @@ class Report(models.Model):
     SUBJECT_CHOICES = (
         ('Situational Report', 'Situational Report'),
         ('Incident Report', 'Incident Report'),
-        ('Flood Report', 'Flood Report'),
-        ('Earthquake Report', 'Earthquake Report'),
-        ('Landslide Report', 'Landslide Report'),
-        ('Weather Report', 'Weather Report'),
-        ('Typhoon Report', 'Typhoon Report'),
+        # ('Flood Report', 'Flood Report'),
+        # ('Earthquake Report', 'Earthquake Report'),
+        # ('Landslide Report', 'Landslide Report'),
+        # ('Weather Report', 'Weather Report'),
+        # ('Typhoon Report', 'Typhoon Report'),
     )
 
     subject = models.CharField(max_length=50, choices=SUBJECT_CHOICES)
@@ -73,6 +73,32 @@ class Announcement(models.Model):
     description = models.TextField()
     date = models.DateTimeField(null=True, blank=True)  
     barangay = models.ManyToManyField(CustomUser, related_name='announcements')
+
+    def __str__(self):
+        return self.subject
+
+class AdminReport(models.Model):
+    subject = models.CharField(max_length=255)
+    description = models.TextField()
+    date = models.DateField()
+    time = models.TimeField()
+    origin = models.CharField(max_length=50)
+
+
+class AdminNaturalReport(models.Model):
+    SUBJECT_CHOICES = (
+        ('Flood Report', 'Flood Report'),
+        ('Earthquake Report', 'Earthquake Report'),
+        ('Landslide Report', 'Landslide Report'),
+        ('Weather Report', 'Weather Report'),
+        ('Typhoon Report', 'Typhoon Report'),
+    )
+
+    subject = models.CharField(max_length=50, choices=SUBJECT_CHOICES)
+    description = models.TextField()
+    attachment = models.FileField(upload_to='report_attachments/', blank=True, null=True)
+    date_reported = models.DateField()
+    time_reported = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         return self.subject

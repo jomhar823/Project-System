@@ -1,0 +1,472 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disaster Risk Management</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style type="text/css">
+        .article-header {
+            font-weight: bold;
+            color: #f8f8f8;
+            font-size: 24px;
+            line-height: 45px;
+            background: #afc019;
+            border-radius: 3px;
+        }
+        .learning-tools-flood-page {
+            font-size: 15px;
+        }
+
+        .learning-tools-flood-page b {
+            color: #afc019 !important;
+        }
+
+        .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .quote {
+            padding: 10px;
+            border-width: 1px;
+            border-color: rgb(0, 0, 0);
+            border-style: solid;
+        }
+        .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .definition .container {
+            position: relative;  
+            text-align: center; 
+            max-width: 1000px; 
+            margin: 0 auto;
+        }
+
+        .learning-tools-flood-page .definition-and-nature .definition-and-nature-content .definition .container .flood-desc{
+            position: absolute; 
+            width: 100%; 
+            padding: 10px; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+        } 
+
+        .learning-tools-flood-page .causes-and-types .causes-and-types-content .flood-types {
+            width: 100%;
+            height: auto;
+            background-image: url(/themes/hiraia/assets/images/learning_tools/flood/types.png);
+            background-attachment: scroll;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .table {
+        background: #f8f8f8 !important;
+        color: #22313f;
+        font-size: 14px;
+        }
+
+        .table thead tr > th {
+        border-bottom: none;
+        border-top: none;
+        }
+        .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .panel {
+            border: 0px;
+            color: #22313f;
+            border-radius: 0px;
+            -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+                    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+            }
+
+            .panel .panel-heading {
+            margin-bottom: 10px;
+            padding: 0px;
+            position: relative;
+            font-size: 24px;
+            font-weight: bold;
+            color: #22313f;
+            }
+
+            .panel .panel-heading h5 {
+            font-size: 14px;
+            color: #22313f;
+            font-weight: bold;
+            }
+
+            .panel .panel-heading .pull-right {
+            position: absolute;
+            float: right !important;
+            bottom: 0px;
+            right: 0px;
+            }
+
+            .panel .panel-body {
+            font-size: 14px;
+            background: #f8f8f8;
+            }
+
+            .panel .panel-body p {
+            margin: 0px;
+            }
+
+            .panel-pagasa {
+            border-radius: 0px;
+            border: 0px;
+            }
+
+            .panel-pagasa .panel-pagasa-heading {
+            padding: 0px;
+            border-radius: 0px;
+            font-size: 16px;
+            background: #f8f8f8;
+            color: #22313f;
+            }
+
+            .panel-pagasa .panel-pagasa-heading a {
+            padding: 10px 15px;
+            display: block;
+            color: #22313f;
+            }
+
+            .panel-pagasa .panel-pagasa-heading a:focus {
+            text-decoration: none;
+            color: #22313f;
+            }
+
+            .panel-pagasa .panel-pagasa-heading a:hover {
+            text-decoration: none;
+            color: #f8f8f8;
+            }
+
+            .panel-pagasa .panel-pagasa-heading:hover {
+            background: #22313f;
+            color: #f8f8f8;
+            cursor: pointer;
+            }
+
+            .panel-pagasa .panel-pagasa-active {
+            background: #22313f;
+            color: #f8f8f8;
+            }
+
+            .panel-pagasa .panel-pagasa-active a:focus {
+            color: #f8f8f8;
+            }
+
+            .text-nowrap {
+            white-space: nowrap;
+            }
+
+            .text-middle {
+            vertical-align: middle !important;
+            }
+
+            .table {
+            background: #f8f8f8 !important;
+            color: #22313f;
+            font-size: 14px;
+            }
+
+            .table thead tr > th {
+            border-bottom: none;
+            border-top: none;
+            }
+
+
+            .table td {
+            border-top: 3px solid #ffffff !important;
+            border-left: 3px solid #ffffff !important;
+            }
+
+            .info-title {
+            cursor: pointer;
+            }
+            h3 {
+            font-size: 24px;
+            color: #22313f;
+            font-weight: bold;
+            }
+            .panel-group .panel+.panel {
+                margin-top: 5px;
+            }
+
+
+
+</style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto align-items-center">
+            <li class="nav-item active">
+              <a class="nav-link text-light gov-link" href="https://www.gov.ph/">GOV PH</a>
+            </li>
+            <li class="nav-item active">
+                <li class="dropdown">
+                    <div class="dropdown show custom-dropdown no-focus-outline">
+                      <a class="btn btn-custom text-light" href="{% url 'adminhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                       Home          
+                      </a>
+                    </div>
+                  </li>
+            </li>
+            <li class="nav-item">
+              <li class="dropdown">
+                <div class="dropdown show custom-dropdown no-focus-outline">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    About Us          
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'admin_missionvision' %}">Mission and Vision</a>
+                    <a class="dropdown-item" href="{% url 'admin_barangays' %}" href="#">Barangays</a>
+                  </div>
+                </div>
+              </li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'admin_contact' %}">Contact Us</a>
+            </li>
+            
+          </ul>
+
+          <span class="navbar-text ">
+            <li class="dropdown">
+              <div class="dropdown show custom-dropdown no-focus-outline">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg> {{user.email}}           
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'add_earthquakereport' %}">Add Report</a>
+                  <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
+                </div>
+              </div>
+            </li>
+          </span>
+        </div>
+
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>EARTHQUAKE BASICS</h1>
+          <p>Preparing for a safer future.</p>
+        </div>
+      </section>
+      <nav class="navigation-bar">
+        <ul class="nav-list">
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Announcement              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'add_announcement' %}" href="#">Add Announcement</a>
+                <a class="dropdown-item" href="{% url 'get_announcement' %}">View All Announcements</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Flood              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_flood_reports' %}" href="#">Flood Reports</a>
+                <a class="dropdown-item" href="{% url 'adminflood_basics' %}">Flood Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a class="btn btn-custom text-light" href="{% url 'admin_weather' %}" role="button"  aria-haspopup="true" aria-expanded="false">
+              Weather Situation              
+            </a>
+            <div id="imageDropdown" class="dropdown-content">
+              
+            </div>
+
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Typhoon              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_typhoon_reports' %}" href="#">Typhoon Reports</a>
+                <a class="dropdown-item" href="{% url 'admintyph_basics' %}">Typhoon Basics</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Earthquake              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_earthquake_reports' %}" href="#">Earthquake Reports</a>
+                <a class="dropdown-item" href="{% url 'adminearthquake_basics' %}">Earthquake Basics</a>
+
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Landslide              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_landslide_reports' %}">Landslide Reports</a>
+                <a class="dropdown-item" href="{% url 'adminlandslide_basics' %}">Landslide Basics</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <div class="dropdown show custom-dropdown no-focus-outline">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reports              
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'admin_sit_reports'%}" href="#">Situational Reports</a>
+                <a class="dropdown-item" href="{% url 'admin_incident_reports'%}">Incident Reports</a>
+                <a class="dropdown-item" href="{% url 'get_reports'%}">All Reports</a>
+                <a class="dropdown-item" href="{% url 'new_reports'%}">New Reports</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <section class="calendar d-flex justify-content-center align-items-center mb-5">
+        <div class="roww learning-tools-flood-page w-100">
+
+            <div class=" w-100">
+                <div class="col-md-12 article-header" id="climate-change">
+                    EARTHQUAKE
+                </div>
+                <div class="col-md-12 article-content">
+                    <div class="col-md-12">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default panel-pagasa causes-and-types">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#causes-and-types">Introduction</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="causes-and-types" class="panel-collapse collapse causes-and-types-content">
+                                    <div class="panel-body p-5">
+                                        <h3 style="text-align: center;"> <b>WHAT IS AN EARTHQUAKE?</b></h3>
+                                        <div class="row">
+                                            <br>
+                                            <p style="text-align: justify;text-justify: inter-word;">An earthquake is a weak to violent shaking of the ground produced by the sudden movement of rock materials below the earth’s surface.</p>
+                                            <br>
+                                            <p style="text-align: justify;text-justify: inter-word;">The earthquakes originate in tectonic plate boundary. The focus is point inside the earth where the earthquake started, sometimes called the <b>hypocenter</b> and the point on the surface of the earth directly above the focus is called the <b>epicenter.</b></p>
+                                            <br>
+                                            <p style="text-align: justify;text-justify: inter-word;">There are two ways by which we can measure the strength of an earthquake: magnitude and intensity. Magnitude is proportional to the energy released by an earthquake at the focus. It is calculated from earthquakes recorded by an instrument called seismograph. It is represented by Arabic Numbers (e.g. 4.8, 9.0). Intensity on the other hand, is the strength of an earthquake as perceived and felt by people in a certain locality. It is a numerical rating based on the relative effects to people, objects, environment, and structures in the surrounding. The intensity is generally higher near the epicenter. It is represented by Roman Numerals (e.g. II, IV, IX). In the Philippines, the intensity of an earthquake is determined using the PHIVOLCS Earthquake Intensity Scale (PEIS).</p>
+                                            
+                                        </div>
+                                        <div class="mt-5">
+                                            <h3 style="text-align: center;"> <b>TYPES OF EARTHQUAKE</b></h3>
+                                            <div class="row">
+                                                <p style="text-align: justify;text-justify: inter-word;">There are two types of earthquakes: tectonic and volcanic earthquakes. <b>Tectonic earthquakes</b> are produced by sudden movement along faults and plate boundaries. Earthquakes induced by rising lava or magma beneath active volcanoes is called <b>volcanic earthquakes.</b></p>                                                
+                                            </div>
+                                        </div>
+                                        <div class="mt-5">
+                                            <h3 style="text-align: center;"> <b>EARTHQUAKE MONITORING SYSTEM</b></h3>
+                                            <div class="row">
+                                                <p style="text-align: justify;text-justify: inter-word;">At present, PHIVOLCS operates 108 (as of December 2020) seismic monitoring stations all over the Philippines. These stations are equipped with seismometers that detect and record earthquakes. Data is sent to the PHIVOLCS Data Receiving Center (DRC) to determine earthquake parameters such as magnitude, depth of focus and epicenter. Together with reported felt intensities in the area (if any), earthquake information is released once these data are determined.</b></p>                                                
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="panel panel-default panel-pagasa ">
+                                <div class="panel-heading panel-pagasa-heading  panel-pagasa-list">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#cascading-effects">Earthquake Hazards</a>
+                                    </h4>
+                                </div>
+        
+                                <div id="cascading-effects" class="panel-collapse collapse ">
+                                    <div class="panel-body p-5">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h3 style="text-align: center;"> <b>GROUND RAPTURE</b></h3>
+                                                <p  style="text-align: center">Deformation on the ground that marks, the intersection of the fault with the earth’s surface.                                                </p>
+                                                <p  style="text-align: center"><b>Effects:</b> fissuring, displacement of the ground due to movement of the fault</p>
+        
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/earthquake/bohol-earthquake-2013/GR_nipa%20house.JPG" class="img-responsive w-50 mt-3" ></center>
+                                                <center><p class="mt-3" style="text-align: center">A continuous fault scarp of the North Bohol Fault in Brgy. Anonang, Inabanga, Bohol</center>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-12 mt-5">
+                                                <h3 style="text-align: center;"> <b>GROUND SHAKING</b></h3>
+                                                <p  style="text-align: center">Disruptive up, down and sideways vibration of the ground during an earthquake. </p>
+                                                <center><p  style="text-align: center"><b>Effects:</b> ground shaking are damage or collapse of structure; may consequently cause hazards such as liquefaction and landslide</p></center>
+        
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/earthquake/luzon-earthquake-1990/Hyatt%2016%20July%201990%20EQ%20Baguio%20City-54.jpg" class="img-responsive w-50 mt-3" ></center>
+                                                <center><p class="mt-3" style="text-align: center">Hyatt Terraces Hotel  in  Baguio City  collapsed during the  16 July 1990  Luzon Earthquake.
+
+                                                </center>
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-12 mt-5">
+                                                <h3 style="text-align: center;"> <b>LIQUEFACTION</b></h3>
+                                                <p  style="text-align: center">Phenomenon wherein sediments, especially near bodies of water, behave like liquid similar to a quicksand.</p>
+                                                <center><p  style="text-align: center"><b>Effects:</b> sinking and/ or tilting of structure above it; sandboil; fissuring</p></center>
+        
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/earthquake/luzon-earthquake-1990/1990%20Luzon%20eq-%20Dagupan.jpg" class="img-responsive w-50 mt-3" ></center>
+                                                <center><p class="mt-3" style="text-align: center">Gasoline tank pops out in Dagupan City due to 'liquefaction'</center>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-12 mt-5">
+                                                <h3 style="text-align: center;"> <b>TSUNAMI</b></h3>
+                                                <p  style="text-align: center">Series of waves caused commonly by an earthquake under the sea.</p>
+                                                <center><p  style="text-align: center"><b>Effects:</b> flooding; coastal erosion; drowning of people and damage to properties</p></center>
+        
+                                                <center><img src="https://www.phivolcs.dost.gov.ph/vault/images/news/photo-moro-gulf-1976.jpg" class="img-responsive w-50 mt-3" ></center>
+                                                <center><p class="mt-3" style="text-align: center">Damaged jeep due to tsunami during the 1976 Moro Gulf earthquake
+                                                </center>
+                                                </p>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+        
+                            
+        
+                            
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <nav class="footer">
+        <p>&copy; 2023 Disaster Risk Management</p>
+      </nav>
+    </footer>
+  </body>
+</html>

@@ -32,3 +32,12 @@ class AnnouncementSerializer(serializers.ModelSerializer):
         model = Announcement
         fields = ['subject', 'description', 'date', 'barangay']
 
+class AdminReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminReport
+        fields = '__all__'
+
+class AdminNaturalReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminNaturalReport
+        fields = '__all__'

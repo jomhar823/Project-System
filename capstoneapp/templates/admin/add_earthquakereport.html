@@ -23,7 +23,7 @@
             <li class="nav-item active">
                 <li class="dropdown">
                     <div class="dropdown show custom-dropdown no-focus-outline">
-                      <a class="btn btn-custom text-light" href="{% url 'brgyhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                      <a class="btn btn-custom text-light" href="{% url 'adminhomepage' %}" role="button" aria-haspopup="true" aria-expanded="false">
                        Home          
                       </a>
                     </div>
@@ -36,14 +36,14 @@
                     About Us          
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'missionvision' %}">Mission and Vision</a>
-                    <a class="dropdown-item" href="{% url 'barangays' %}" href="#">Barangays</a>
+                    <a class="dropdown-item" href="{% url 'admin_missionvision' %}">Mission and Vision</a>
+                    <a class="dropdown-item" href="{% url 'admin_barangays' %}" href="#">Barangays</a>
                   </div>
                 </div>
               </li>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="{% url 'user_contacts' %}">Contact Us</a>
+              <a class="nav-link text-light" href="{% url 'admin_contact' %}">Contact Us</a>
             </li>
             
           </ul>
@@ -55,9 +55,11 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" v style="vertical-align: middle;"iewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                     <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                  </svg> {{user.barangay}}           
+                  </svg> {{user.email}}           
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'add_earthquakereport' %}">Add Report</a>
+                  <a class="dropdown-item" href="{% url 'register' %}">Add Account</a>
                   <a class="dropdown-item" href="{% url 'logout' %}" href="#">Logout</a>
                 </div>
               </div>
@@ -67,6 +69,7 @@
 
       </nav>
       </header>
+
       <section>
         <div class="report-container">
             <h1 class="h1-report">ADD REPORT</h1>
@@ -78,44 +81,76 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            
         {% endfor %}
         
-        
         <div class="container-form align-items-center d-flex justify-content-center flex-column">
-            <form method="POST" enctype="multipart/form-data" action="{% url 'submit_report' %}">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'admin_submit_report' %}">
                 {% csrf_token %}
+                
+                <label for="subject">Subject</label>
+                <select class="form-control w-100 mb-3" name="subject" id="subjectSelect" required>
+                    <option value="" disabled selected>Subject</option>
+                    <option value="Flood Report">Flood Report</option>
+                    <option value="Earthquake Report">Earthquake Report</option>
+                    <option value="Landslide Report">Landslide Report</option>
+                    <!-- <option value="Weather Report">Weather Report</option> -->
+                    <option value="Typhoon Report">Typhoon Report</option>
+                </select>
+                
                 <div class="desc-div">
-                        <select class="form-control w-100" name="subject" required>
-                            <option value="" disabled selected>Subject</option>
-                            <option value="Situational Report">Situational Report</option>
-                            <option value="Incident Report">Incident Report</option>
-                            
-                        </select><br>
-                    <textarea name="description"class="form-control"  placeholder="Description" required ></textarea><br>
-                    <label for="attachment">Attachment:</label>
-                    <input type="file" class="form-control-file" name="attachment"><br>
-                </div>
-                <div class="parent-container d-flex flex-row justify-content-between">
-                    <div class="resp-brgy w-100 mr-3">
-                        <label for="barangay">Respondent Name:</label>
-                        <input type="text" class="form-control" name="respondent_name"  placeholder="Respondent Name" required><br>
-                        <label for="barangay">Barangay:</label>
-                        <input type="text" class="form-control" name="barangay" value="{{user.barangay}}" placeholder="Barangay" readonly><br>
+                    <textarea type="text" class="form-control mb-3" name="description" placeholder="Description" required></textarea>
+                    
+                    <div id="earthquakeFields" hidden>
+                      <input type="date" class="form-control" name="date" placeholder="Date"><br>
+                      <input type="time" class="form-control" name="time" placeholder="Time"><br>
+                      <label for="origin">Origin</label>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="origin" id="tectonic" value="Tectonic">
+                          <label class="form-check-label" for="tectonic">Tectonic</label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="origin" id="volcanic" value="Volcanic">
+                          <label class="form-check-label" for="volcanic">Volcanic</label>
+                      </div>
                     </div>
-                    <div class="cont-date w-100">
-                        <label for="contact_number">Contact Number:</label>
-                        <input type="text" class="form-control" name="contact_number" maxlength="11" required><br>
-                        <label for="date_reported">Date Reported:</label>
-                        <input type="date" class="form-control" name="date_reported" required><br>
+                    
+                    <div id="otherFields" hidden>
+                        <input type="date" class="form-control" name="date_reported" placeholder="Date Reported" required><br>
+                        <input type="time" class="form-control" name="time_reported" placeholder="Time Reported" required><br>
+                        <input type="file" class="form-control" name="attachment" placeholder="Attachment"><br>
+
                     </div>
                 </div>
-                <button type="submit" class="btn btn-warning text-light btn-submit">Submit Report</button>
+                
+                <button type="submit" class="btn btn-warning text-light btn-submit mt-3">Submit Report</button>
             </form>
         </div>
-      </section>
-    
-    
-    
+        
+        <script>
+          document.getElementById('subjectSelect').addEventListener('change', function() {
+              var selectedSubject = this.value;
+              document.getElementById('earthquakeFields').hidden = (selectedSubject === 'Earthquake Report') ? false : true;
+              document.getElementById('otherFields').hidden = (selectedSubject === 'Earthquake Report') ? true : false;
+
+              // Iterate over elements in earthquakeFields and set required attribute
+              document.getElementById('earthquakeFields').querySelectorAll('[name]').forEach(function(el) {
+                  if (el.type !== 'file') {
+                      el.required = (selectedSubject === 'Earthquake Report');
+                  }
+              });
+
+              // Iterate over elements in otherFields and set required attribute
+              document.getElementById('otherFields').querySelectorAll('[name]').forEach(function(el) {
+                  if (el.type !== 'file') {
+                      el.required = (selectedSubject !== 'Earthquake Report');
+                  }
+              });
+             
+          });
+
+      </script>
+    </section>
 </body>
 </html>
+    
+

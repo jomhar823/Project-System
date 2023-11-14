@@ -164,12 +164,7 @@
             <div class="select-date d-flex flex-row justify-content-between w-100 mr-3">
               <input type="date" class="form-control" id="filter-date" name="filter-date">
             </div>
-            <div class="select-brgy w-100 d-flex flex-row justify-content-between  mr-3">
-              <select class="form-control select-brgy-input" id="filter-barangay" name="filter-barangay">
-                <option value="" disabled selected>SELECT BARANGAY</option>
-                <!-- <option value="">All Barangays</option> -->
-              </select>
-            </div>
+
             <div class="button-div w-100">
               <button class="btn btn-primary" id="apply-filter">Apply Filter</button>
             </div>
@@ -181,12 +176,11 @@
                     <th>SUBJECT</th>
                     <th style="width: 20%;">DATE REPORTED</th>
                     <th style="width: 20%;">TIME REPORTED</th>
-                    <th style="width: 20%;">BARANGAY</th>
                 </tr>
             </thead>
             <tbody>
               {% for report in reports %}
-              <tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="{{ report.subject }}" data-description="{{ report.description }}" data-attachment="{{ report.attachment }}" data-date-reported="{{ report.date_reported|date:'F j, Y' }}" data-time-reported="{{ report.time_reported|date:'H:i' }}" data-barangay="{{ report.barangay }}">
+              <tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="{{ report.subject }}" data-description="{{ report.description }}" data-attachment="{{ report.attachment }}" data-date-reported="{{ report.date_reported|date:'F j, Y' }}" data-time-reported="{{ report.time_reported|date:'H:i' }}" data-barangay="{{ report.barangay }}" data-respondent-name="{{ report.respondent_name }}" data-contact-number="{{ report.contact_number }}">
                   <td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                     <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
@@ -194,7 +188,6 @@
                   <td>{{ report.subject }}</td>
                   <td>{{ report.date_reported|date:'F j, Y' }}</td>
                   <td>{{ report.time_reported|date:'H:i' }}</td>
-                  <td>{{ report.barangay }}</td>
               </tr>
               {% endfor %}
           </tbody>
@@ -254,21 +247,19 @@
                                   <th>TIME REPORTED</th>
                                   <td><span id="modalTimeReported"></span></td>
                               </tr>
-                              <tr>
-                                  <th>BARANGAY</th>
-                                  <td><span id="modalBarangay"></span></td>
-                              </tr>
+                             
                               <tr>
                                 <th>DESCRIPTION</th>
                                 <td><span id="modalDescription"></span></td>
                             </tr>
+                            
+                            
                             <tr>
                               <th>ATTACHMENT</th>
                               <td><span id="modalAttachment"></span></td>
                           </tr>
                           </tbody>
                       </table>
-                      <!-- <a href="#" id="exportPdfButton" class="btn btn-primary">Export to PDF</a> -->
 
                   </div>
                   <div class="modal-footer">
@@ -317,7 +308,7 @@
     
           $("#modalDateReported").text(report.date_reported);
           $("#modalTimeReported").text(report.time_reported);
-          $("#modalBarangay").text(report.barangay);
+
         }
     
         function openReportModal(reportData) {
@@ -332,10 +323,10 @@
             attachment: $(this).data("attachment"),
             date_reported: $(this).data("date-reported"),
             time_reported: $(this).data("time-reported"),
-            barangay: $(this).data("barangay"),
+
           };
           selectedReport = report;
-
+          console.log('report', report)
           openReportModal(report);
         });
     
@@ -365,9 +356,7 @@
               console.log("Received filtered reports data: ", data);
               
               $("#mainTable tbody").empty();
-
-    
-              if (data.length === 0) {
+                if (data.length === 0) {
                 var noReportRow = '<tr><td colspan="5">No incident report found</td></tr>';
                 $("#mainTable tbody").append(noReportRow);
               } else {
@@ -381,12 +370,12 @@
                     day: "numeric",
                   });
     
-                  var newRow = '<tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="' + report.subject + '" data-description="' + report.description + '" data-attachment="' + report.attachment + '" data-date-reported="' + report.date_reported + '" data-time-reported="' + report.time_reported + '" data-barangay="' + report.barangay + '">';
+                  var newRow = '<tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="' + report.subject + '" data-description="' + report.description + '" data-attachment="' + report.attachment + '" data-date-reported="' + report.date_reported + '" data-time-reported="' + report.time_reported + '" data-barangay="' + report.barangay + '" data-respondent="' + report.respondent_name + '" data-contact="' + report.contact_number + '">';
                   newRow += '<td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg></td>';
                   newRow += '<td>' + report.subject + '</td>';
                   newRow += '<td>' + formattedDate + '</td>';
                   newRow += '<td>' + report.time_reported + '</td>';
-                  newRow += '<td>' + report.barangay + '</td>';
+                  
                   newRow += '</tr>';
                   $("#mainTable tbody").append(newRow);
                 }
@@ -412,51 +401,48 @@
           },
         });
         $("#exportPdfButton").on("click", function () {
-            if (selectedReport) {
-              var doc = new jsPDF();
-              var logoUrl = "{% static 'capstoneapp/ibaanlogo1.png' %}";
-              doc.addImage(logoUrl, 'PNG', 10, 10, 30, 30);
+          if (selectedReport) {
+            var doc = new jsPDF();
+            var logoUrl = "{% static 'capstoneapp/ibaanlogo1.png' %}";
+            doc.addImage(logoUrl, 'PNG', 10, 10, 30, 30);
 
-              var headerText = selectedReport.subject;
-              doc.setFontSize(18);
-              var textWidth = doc.getStringUnitWidth(headerText) * doc.internal.getFontSize();
-              var pageWidth = doc.internal.pageSize.width;
-              var textX = (pageWidth - textWidth) / 2;
-              doc.text(headerText, pageWidth / 2, 20, 'center'); 
+            var headerText = selectedReport.subject;
+            doc.setFontSize(18);
+            var textWidth = doc.getStringUnitWidth(headerText) * doc.internal.getFontSize();
+            var pageWidth = doc.internal.pageSize.width;
+            var textX = (pageWidth - textWidth) / 2;
+            doc.text(headerText, pageWidth / 2, 20, 'center'); 
 
-              var columns = ["Field", "Details"];
-              var data = [
-                ["Subject", selectedReport.subject],
-                ["Date Reported", selectedReport.date_reported],
-                ["Time Reported", selectedReport.time_reported],
-                ["Barangay", selectedReport.barangay],
-                ["Description", selectedReport.description],
-                // ["Respondent Name", selectedReport.respondent_name],
-                // ["Contact Number", selectedReport.contact_number],
-              ];
-
-              var columnWidths = [50, 100]; 
-              var columnStyles = {
-                0: { cellWidth: 50, halign: "left" },
-                1: { cellWidth: 130, halign: "left" },
-              };
-
-              doc.autoTable({
-                head: [columns],
-                body: data,
-                theme: "striped",
-                columnStyles: columnStyles,
-                margin: { top: 50 },              
+            var columns = ["Field", "Details"];
+            var data = [
+              ["Subject", selectedReport.subject],
+              ["Date Reported", selectedReport.date_reported],
+              ["Time Reported", selectedReport.time_reported],
+              ["Description", selectedReport.description],
               
-            });
+            ];
 
-              doc.save("report.pdf");
-            }
+            var columnWidths = [50, 100]; 
+            var columnStyles = {
+              0: { cellWidth: 50, halign: "left" },
+              1: { cellWidth: 130, halign: "left" },
+            };
+
+            doc.autoTable({
+              head: [columns],
+              body: data,
+              theme: "striped",
+              columnStyles: columnStyles,
+              margin: { top: 50 },              
+            
           });
+
+            doc.save("report.pdf");
+          }
+        });
+
       });
 
-      
-    
     </script>
     
   

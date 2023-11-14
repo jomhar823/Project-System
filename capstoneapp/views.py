@@ -134,7 +134,7 @@ def home_typhoon_reports(request):
 
 def home_typhoon_reports(request):
     subjects = ["Typhoon Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -150,7 +150,7 @@ def home_typhoon_reports(request):
 
 def home_flood_reports(request):
     subjects = ["Flood Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -166,7 +166,7 @@ def home_flood_reports(request):
 
 def earthquake(request):
     subjects = ["Earthquake Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminReport.objects.filter(subject__in=subjects).order_by('-date')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -182,7 +182,7 @@ def earthquake(request):
 
 def landslide(request):
     subjects = ["Landslide Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -198,7 +198,7 @@ def landslide(request):
 
 def flood(request):
     subjects = ["Flood Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -259,7 +259,7 @@ def incident_reports(request):
 
 def user_flood(request):
     subjects = ["Flood Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -275,7 +275,7 @@ def user_flood(request):
 
 def user_typhoon(request):
     subjects = ["Typhoon Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -291,7 +291,7 @@ def user_typhoon(request):
 
 def user_earthquake(request):
     subjects = ["Earthquake Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -307,7 +307,7 @@ def user_earthquake(request):
 
 def user_landslide(request):
     subjects = ["Landslide Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -430,14 +430,11 @@ def submit_report(request):
             from_email = 'mdrrmcibaanreports@gmail.com'
             recipient_list = ['mdrrmcibaan@gmail.com']
 
-            # Render the HTML content from a template
             html_content = get_template('report_notification.html').render({'report': report})
 
-            # Create the email
             email = EmailMultiAlternatives(subject, message, from_email, recipient_list)
             email.attach_alternative(html_content, "text/html")
 
-            # Send the email
             email.send()
 
             return redirect('add-reports')  
@@ -494,6 +491,22 @@ def get_user_announcements(request):
         return HttpResponseForbidden("Access Denied")
 
 ###### ADMIN ########
+
+def adminflood_basics(request):
+    return render(request, 'admin/adminflood_basics.html')
+
+def admintyph_basics(request):
+    return render(request, 'admin/admintyphoon_basics.html')
+
+def adminearthquake_basics(request):
+    return render(request, 'admin/adminearthquake_basics.html')
+
+def adminlandslide_basics(request):
+    return render(request, 'admin/adminlandslide_basics.html')
+    
+
+def add_earthquakereport(request):
+    return render(request, 'admin/add_earthquakereport.html')
 
 def admin_mission(request):
     return render(request, 'admin/admin_missionvision.html')
@@ -601,7 +614,7 @@ def admin_sit_reports(request):
 @mdrrmc_required
 def admin_typhoon_reports(request):
     subjects = ["Typhoon Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -615,27 +628,42 @@ def admin_typhoon_reports(request):
 
     return render(request, 'admin/admin_typhoon_reports.html', context)
 
+# def admin_earthquake_reports(request):
+#     subjects = ["Earthquake Report"]
+#     reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+
+#     reports_per_page = 10
+#     paginator = Paginator(reports, reports_per_page)
+
+#     page = request.GET.get('page')
+#     reports = paginator.get_page(page)
+
+#     context = {
+#         'reports': reports
+#     }
+
+#     return render(request, 'admin/admin_earthquake_reports.html', context)
 @mdrrmc_required
+
 def admin_earthquake_reports(request):
-    subjects = ["Earthquake Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    admin_reports_list = AdminReport.objects.all()
 
-    reports_per_page = 10
-    paginator = Paginator(reports, reports_per_page)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(admin_reports_list, 10)
 
-    page = request.GET.get('page')
-    reports = paginator.get_page(page)
+    try:
+        admin_reports = paginator.page(page)
+    except PageNotAnInteger:
+        admin_reports = paginator.page(1)
+    except EmptyPage:
+        admin_reports = paginator.page(paginator.num_pages)
 
-    context = {
-        'reports': reports
-    }
-
-    return render(request, 'admin/admin_earthquake_reports.html', context)
+    return render(request, 'admin/admin_earthquake_reports.html', {'reports': admin_reports})
 
 @mdrrmc_required
 def admin_landslide_reports(request):
     subjects = ["Landslide Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -652,7 +680,7 @@ def admin_landslide_reports(request):
 @mdrrmc_required
 def admin_flood_reports(request):
     subjects = ["Flood Report"]
-    reports = Report.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminNaturalReport.objects.filter(subject__in=subjects).order_by('-date_reported')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -992,91 +1020,180 @@ def get_filtered_reports_sit(request):
 
 def get_filtered_reports_flood(request):
     selected_date = request.GET.get('date')
-    selected_barangay = request.GET.get('barangay')
 
-    reports = Report.objects.filter(date_reported=selected_date, subject='Flood Report')
-
-    if selected_barangay:
-        reports = reports.filter(barangay = selected_barangay)
+    reports = AdminNaturalReport.objects.filter(date_reported=selected_date, subject='Flood Report')
     
     report_data = []
     for report in reports:
         report_data.append({
+            'id': report.id,
             'subject': report.subject,
             'description': report.description,
             'attachment': report.attachment.url if report.attachment else '',
             'date_reported': report.date_reported.strftime('%Y-%m-%d'),
             'time_reported': report.time_reported.strftime('%H:%M'),
-            'barangay': report.barangay 
         })
 
     return JsonResponse(report_data, safe=False)
 
 def get_filtered_reports_typhoon(request):
     selected_date = request.GET.get('date')
-    selected_barangay = request.GET.get('barangay')
 
-    reports = Report.objects.filter(date_reported=selected_date, subject='Typhoon Report')
-
-    if selected_barangay:
-        reports = reports.filter(barangay = selected_barangay)
+    reports = AdminNaturalReport.objects.filter(date_reported=selected_date, subject='Typhoon Report')
     
     report_data = []
     for report in reports:
         report_data.append({
+            'id': report.id,
             'subject': report.subject,
             'description': report.description,
             'attachment': report.attachment.url if report.attachment else '',
             'date_reported': report.date_reported.strftime('%Y-%m-%d'),
             'time_reported': report.time_reported.strftime('%H:%M'),
-            'barangay': report.barangay 
         })
 
     return JsonResponse(report_data, safe=False)
 
 def get_filtered_reports_earthquake(request):
     selected_date = request.GET.get('date')
-    selected_barangay = request.GET.get('barangay')
+    reports = AdminReport.objects.filter(date=selected_date, subject='Earthquake Report')
 
-    reports = Report.objects.filter(date_reported=selected_date, subject='Earthquake Report')
-
-    if selected_barangay:
-        reports = reports.filter(barangay = selected_barangay)
     
     report_data = []
     for report in reports:
         report_data.append({
+            'id': report.id,
             'subject': report.subject,
             'description': report.description,
-            'attachment': report.attachment.url if report.attachment else '',
-            'date_reported': report.date_reported.strftime('%Y-%m-%d'),
-            'time_reported': report.time_reported.strftime('%H:%M'),
-            'barangay': report.barangay 
+            'date': report.date.strftime('%Y-%m-%d'),
+            'time': report.time.strftime('%H:%M'),
         })
 
     return JsonResponse(report_data, safe=False)
 
 def get_filtered_reports_landslide(request):
     selected_date = request.GET.get('date')
-    selected_barangay = request.GET.get('barangay')
 
-    reports = Report.objects.filter(date_reported=selected_date, subject='Landslide Report')
-
-    if selected_barangay:
-        reports = reports.filter(barangay = selected_barangay)
+    reports = AdminNaturalReport.objects.filter(date_reported=selected_date, subject='Landslide Report')
     
     report_data = []
     for report in reports:
         report_data.append({
+            'id': report.id,
             'subject': report.subject,
             'description': report.description,
             'attachment': report.attachment.url if report.attachment else '',
             'date_reported': report.date_reported.strftime('%Y-%m-%d'),
             'time_reported': report.time_reported.strftime('%H:%M'),
-            'barangay': report.barangay 
         })
 
     return JsonResponse(report_data, safe=False)
+
+from django.shortcuts import render
+
+@api_view(['POST'])
+def admin_submit_report(request):
+    subject = request.data.get('subject')
+    description = request.data.get('description')
+
+    if subject == 'Earthquake Report':
+        serializer = AdminReportSerializer(data=request.data)
+    else:
+        serializer = AdminNaturalReportSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        messages.success(request, 'Report submitted successfully.')  
+        return render(request, 'admin/add_earthquakereport.html')
+    
+    messages.error(request, 'Error submitting report. Please check the form.')
+    return render(request, 'admin/add_earthquakereport.html', {'serializer': serializer})  
+
+@api_view(['PUT'])
+def edit_admin_report(request, report_id):
+    try:
+        report = AdminNaturalReport.objects.get(pk=report_id)
+    except AdminNaturalReport.DoesNotExist:
+        return Response({"error": "Report not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = AdminNaturalReportSerializer(report, data=request.data)
+    try:
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_admin_subjects(request):
+    subjects = AdminNaturalReport.SUBJECT_CHOICES
+    return Response(subjects)
+
+@api_view(['DELETE'])
+def delete_admin_report(request, report_id):
+    try:
+        report = AdminNaturalReport.objects.get(pk=report_id)
+        report.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except AdminNaturalReport.DoesNotExist:
+        return Response({"error": "Report not found"}, status=status.HTTP_404_NOT_FOUND)
+
+def get_admin_report_details(request):
+    report_id = request.GET.get('report_id')
+
+    if not report_id:
+        return JsonResponse({"error": "Report ID is required"}, status=400)
+
+    try:
+        report = AdminNaturalReport.objects.get(id=report_id)
+        serializer = AdminNaturalReportSerializer(report)
+        return JsonResponse(serializer.data)
+    except AdminNaturalReport.DoesNotExist:
+        raise Http404("Report not found")
+    
+def get_earthquake_admin_report_details(request):
+    report_id = request.GET.get('report_id')
+
+    if not report_id:
+        return JsonResponse({"error": "Report ID is required"}, status=400)
+
+    try:
+        report = AdminReport.objects.get(id=report_id)
+        serializer = AdminReportSerializer(report)
+        return JsonResponse(serializer.data)
+    except AdminReport.DoesNotExist:
+        raise Http404("Report not found")
+
+@api_view(['PUT'])
+def edit_earthquake_report(request, report_id):
+    try:
+        report = AdminReport.objects.get(pk=report_id)
+    except AdminReport.DoesNotExist:
+        return Response({"error": "Report not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = AdminReportSerializer(report, data=request.data)
+    try:
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['DELETE'])
+def delete_earthquake_report(request, report_id):
+    try:
+        report = AdminReport.objects.get(pk=report_id)
+        report.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except AdminReport.DoesNotExist:
+        return Response({"error": "Report not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+def add_adminreport(request):
+    return render(request, 'admin/add_earthquakereport.html')
 
 # INITIAL HOMEPAGE
 

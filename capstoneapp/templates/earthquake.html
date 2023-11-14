@@ -156,12 +156,6 @@
             <div class="select-date d-flex flex-row justify-content-between w-100 mr-3">
               <input type="date" class="form-control" id="filter-date" name="filter-date">
             </div>
-            <div class="select-brgy w-100 d-flex flex-row justify-content-between  mr-3">
-              <select class="form-control select-brgy-input" id="filter-barangay" name="filter-barangay">
-                <option value="" disabled selected>SELECT BARANGAY</option>
-                <!-- <option value="">All Barangays</option> -->
-              </select>
-            </div>
             <div class="button-div w-100">
               <button class="btn btn-primary" id="apply-filter">Apply Filter</button>
             </div>
@@ -173,20 +167,18 @@
                     <th>SUBJECT</th>
                     <th style="width: 20%;">DATE REPORTED</th>
                     <th style="width: 20%;">TIME REPORTED</th>
-                    <th style="width: 20%;">BARANGAY</th>
                 </tr>
             </thead>
             <tbody>
               {% for report in reports %}
-              <tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="{{ report.subject }}" data-description="{{ report.description }}" data-attachment="{{ report.attachment }}" data-date-reported="{{ report.date_reported|date:'F j, Y' }}" data-time-reported="{{ report.time_reported|date:'H:i' }}" data-barangay="{{ report.barangay }}">
-                  <td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+              <tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="{{ report.subject }}" data-description="{{ report.description }}" data-attachment="{{ report.attachment }}" data-date="{{ report.date|date:'F j, Y' }}" data-time="{{ report.time|date:'H:i' }}" data-origin="{{ report.origin }}">
+                <td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                     <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
                   </svg></td>
                   <td>{{ report.subject }}</td>
-                  <td>{{ report.date_reported|date:'F j, Y' }}</td>
-                  <td>{{ report.time_reported|date:'H:i' }}</td>
-                  <td>{{ report.barangay }}</td>
+                  <td>{{ report.date|date:'F j, Y' }}</td>
+                  <td>{{ report.time|date:'H:i' }}</td>
               </tr>
               {% endfor %}
           </tbody>
@@ -246,21 +238,19 @@
                                   <th>TIME REPORTED</th>
                                   <td><span id="modalTimeReported"></span></td>
                               </tr>
-                              <tr>
-                                  <th>BARANGAY</th>
-                                  <td><span id="modalBarangay"></span></td>
-                              </tr>
+
                               <tr>
                                 <th>DESCRIPTION</th>
                                 <td><span id="modalDescription"></span></td>
                             </tr>
+
                             <tr>
-                              <th>ATTACHMENT</th>
-                              <td><span id="modalAttachment"></span></td>
+                              <th>ORIGIN</th>
+                              <td><span id="modalOrigin"></span></td>
                           </tr>
+
                           </tbody>
                       </table>
-                      <!-- <a href="#" id="exportPdfButton" class="btn btn-primary">Export to PDF</a> -->
 
                   </div>
                   <div class="modal-footer">
@@ -275,9 +265,9 @@
         </div>
 
       </section>
-      
-    </main>
 
+
+    </main>
     <footer>
       <nav class="footer">
         <p>&copy; 2023 Disaster Risk Management</p>
@@ -286,124 +276,121 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>
     <script>
-      $(document).ready(function () {
-        window.jsPDF = window.jspdf.jsPDF;
+        $(document).ready(function () {
+          window.jsPDF = window.jspdf.jsPDF;
+          var modalData = null;
+          var selectedReport = null;
+      
+          function updateModalContent(report) {
+            $("#modalSubject").text(report.subject);
+            $("#modalDescription").text(report.description);
+            $("#modalAttachment").html("");
+      
+            if (report.attachment) {
+              var attachmentLink = $("<a>")
+                .attr("href", report.attachment)
+                .attr("target", "_blank")
+                .text("View Attachment");
+              $("#modalAttachment").append(attachmentLink);
+            } else {
+              $("#modalAttachment").text("No attachment available");
+            }
+      
+            $("#modalDateReported").text(report.date);
+            $("#modalTimeReported").text(report.time);
+            $("#modalOrigin").text(report.origin);
 
-        var modalData = null;
-        var selectedReport = null;
-    
-        function updateModalContent(report) {
-          $("#modalSubject").text(report.subject);
-          $("#modalDescription").text(report.description);
-          $("#modalAttachment").html("");
-    
-          if (report.attachment) {
-            var attachmentLink = $("<a>")
-              .attr("href", report.attachment)
-              .attr("target", "_blank")
-              .text("View Attachment");
-            $("#modalAttachment").append(attachmentLink);
-          } else {
-            $("#modalAttachment").text("No attachment available");
           }
-    
-          $("#modalDateReported").text(report.date_reported);
-          $("#modalTimeReported").text(report.time_reported);
-          $("#modalBarangay").text(report.barangay);
-        }
-    
-        function openReportModal(reportData) {
-          updateModalContent(reportData);
-          $('#reportModal').modal('show');
-        }
-    
-        $("table").on("click", ".report-row", function () {
-          var report = {
-            subject: $(this).data("subject"),
-            description: $(this).data("description"),
-            attachment: $(this).data("attachment"),
-            date_reported: $(this).data("date-reported"),
-            time_reported: $(this).data("time-reported"),
-            barangay: $(this).data("barangay"),
-          };
-          selectedReport = report;
+      
+          function openReportModal(reportData) {
+            updateModalContent(reportData);
+            $('#reportModal').modal('show');
+          }
+      
+          $("table").on("click", ".report-row", function () {
+            var report = {
+              subject: $(this).data("subject"),
+              description: $(this).data("description"),
+              attachment: $(this).data("attachment"),
+              date: $(this).data("date"),
+              time: $(this).data("time"),
+              origin: $(this).data("origin"),
 
-          openReportModal(report);
-        });
-    
-        function clearClickedRows() {
-          $(".report-row").removeClass("clicked");
-        }
-    
-        $("#reportModal").on("hidden.bs.modal", function () {
-          clearClickedRows();
-        });
-    
-        $("#apply-filter").on("click", function () {
-          console.log("Apply filter button clicked");
-          var selectedDate = $("#filter-date").val();
-          var selectedBarangay = $("#filter-barangay").val();
-          console.log("Selected Date: " + selectedDate);
-          console.log("Selected Barangay: " + selectedBarangay);
-    
-          $.ajax({
-            url: "{% url 'get_filtered_reports_earthquake' %}",
-            type: "GET",
-            data: {
-              date: selectedDate,
-              barangay: selectedBarangay,
-            },
-            success: function (data) {
-              console.log("Received filtered reports data: ", data);
-              
-              $("#mainTable tbody").empty();
+            };
+            selectedReport = report;
 
-    
-              if (data.length === 0) {
-                var noReportRow = '<tr><td colspan="5">No incident report found</td></tr>';
-                $("#mainTable tbody").append(noReportRow);
-              } else {
-                for (var i = 0; i < data.length; i++) {
-                  var report = data[i];
-    
-                  var jsDate = new Date(report.date_reported);
-                  var formattedDate = jsDate.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  });
-    
-                  var newRow = '<tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="' + report.subject + '" data-description="' + report.description + '" data-attachment="' + report.attachment + '" data-date-reported="' + report.date_reported + '" data-time-reported="' + report.time_reported + '" data-barangay="' + report.barangay + '">';
-                  newRow += '<td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg></td>';
-                  newRow += '<td>' + report.subject + '</td>';
-                  newRow += '<td>' + formattedDate + '</td>';
-                  newRow += '<td>' + report.time_reported + '</td>';
-                  newRow += '<td>' + report.barangay + '</td>';
-                  newRow += '</tr>';
-                  $("#mainTable tbody").append(newRow);
+            openReportModal(report);
+          });
+      
+          function clearClickedRows() {
+            $(".report-row").removeClass("clicked");
+          }
+      
+          $("#reportModal").on("hidden.bs.modal", function () {
+            clearClickedRows();
+          });
+      
+          $("#apply-filter").on("click", function () {
+            console.log("Apply filter button clicked");
+            var selectedDate = $("#filter-date").val();
+          
+      
+            $.ajax({
+              url: "{% url 'get_filtered_reports_earthquake' %}",
+              type: "GET",
+              data: {
+                date: selectedDate,
+              },
+              success: function (data) {
+                console.log("Received filtered reports data: ", data);
+                
+                $("#mainTable tbody").empty();
+  
+      
+                if (data.length === 0) {
+                  var noReportRow = '<tr><td colspan="5">No incident report found</td></tr>';
+                  $("#mainTable tbody").append(noReportRow);
+                } else {
+                  for (var i = 0; i < data.length; i++) {
+                    var report = data[i];
+      
+                    var jsDate = new Date(report.date);
+                    var formattedDate = jsDate.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    });
+      
+                    var newRow = '<tr class="report-row" data-toggle="modal" data-target="#reportModal" data-subject="' + report.subject + '" data-description="' + report.description + '" data-attachment="' + report.attachment + '" data-date="' + report.date + '" data-time="' + report.time + '" data-barangay="' + report.barangay + '" data-respondent="' + report.respondent_name + '" data-contact="' + report.contact_number + '">';
+                    newRow += '<td class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg></td>';
+                    newRow += '<td>' + report.subject + '</td>';
+                    newRow += '<td>' + formattedDate + '</td>';
+                    newRow += '<td>' + report.time + '</td>';
+                    newRow += '</tr>';
+                    $("#mainTable tbody").append(newRow);
+                  }
                 }
+              },
+            });
+          });
+      
+          $.ajax({
+            url: "{% url 'get_barangays' %}",
+            type: "GET",
+            success: function (data) {
+              console.log("Received barangays data: ", data);
+              var dropdown = $("#filter-barangay");
+              dropdown.empty();
+              dropdown.append('<option value="" disabled selected>SELECT BARANGAY</option>');
+      
+              for (var i = 0; i < data.length; i++) {
+                dropdown.append(
+                  '<option value="' + data[i].barangay + '">' + data[i].barangay + "</option>"
+                );
               }
             },
           });
-        });
-    
-        $.ajax({
-          url: "{% url 'get_barangays' %}",
-          type: "GET",
-          success: function (data) {
-            console.log("Received barangays data: ", data);
-            var dropdown = $("#filter-barangay");
-            dropdown.empty();
-            dropdown.append('<option value="" disabled selected>SELECT BARANGAY</option>');
-    
-            for (var i = 0; i < data.length; i++) {
-              dropdown.append(
-                '<option value="' + data[i].barangay + '">' + data[i].barangay + "</option>"
-              );
-            }
-          },
-        });
-        $("#exportPdfButton").on("click", function () {
+          $("#exportPdfButton").on("click", function () {
             if (selectedReport) {
               var doc = new jsPDF();
               var logoUrl = "{% static 'capstoneapp/ibaanlogo1.png' %}";
@@ -419,12 +406,11 @@
               var columns = ["Field", "Details"];
               var data = [
                 ["Subject", selectedReport.subject],
-                ["Date Reported", selectedReport.date_reported],
-                ["Time Reported", selectedReport.time_reported],
-                ["Barangay", selectedReport.barangay],
+                ["Date Reported", selectedReport.date],
+                ["Time Reported", selectedReport.time],
                 ["Description", selectedReport.description],
-                // ["Respondent Name", selectedReport.respondent_name],
-                // ["Contact Number", selectedReport.contact_number],
+                ["Origin", selectedReport.origin],
+
               ];
 
               var columnWidths = [50, 100]; 
@@ -445,12 +431,10 @@
               doc.save("report.pdf");
             }
           });
-      });
-
-      
-    
-    </script>
-    
+        });
   
+        
+      
+      </script>
   </body>
 </html>

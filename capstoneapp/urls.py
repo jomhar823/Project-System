@@ -44,6 +44,11 @@ urlpatterns = [
     path('admin_missionvision', views.admin_mission, name='admin_missionvision'),
     path('admin_barangays', views.admin_barangays, name='admin_barangays'),
     path('admin_contact', views.admin_contact, name='admin_contact'),
+    path('add_earthquakereport', views.add_earthquakereport, name='add_earthquakereport'),
+    path('adminflood_basics', views.adminflood_basics, name="adminflood_basics"),
+    path('admintyph_basics', views.admintyph_basics, name="admintyph_basics"),
+    path('adminearthquake_basics', views.adminearthquake_basics, name="adminearthquake_basics"),
+    path('adminlandslide_basics', views.adminlandslide_basics, name="adminlandslide_basics"),
 
     path('admin_incident_reports', views.admin_incident_reports, name='admin_incident_reports'),
     path('admin_weather', views.admin_weather, name='admin_weather'),
@@ -65,7 +70,15 @@ urlpatterns = [
     path('get_all_reports', views.get_all_reports, name='get_all_reports'),
     path('get_report_details', views.get_report_details, name='get_report_details'),
     path('new_reports', views.new_reports, name='new_reports'),
-
+    path('admin_submit_report', views.admin_submit_report, name='admin_submit_report'),
+    path('add_adminreport', views.add_adminreport, name='add_adminreport'),
+    path('edit_admin_report/<int:report_id>/', views.edit_admin_report, name='edit_admin_report'),
+    path('delete_admin_report/<int:report_id>/', views.delete_admin_report, name='delete_admin_report'),
+    path('adminreportsubjects', views.get_admin_subjects, name='get_admin_subjects'),
+    path('get_admin_report_details', views.get_admin_report_details, name='get_admin_report_details'),
+    path('edit_earthquake_report/<int:report_id>/', views.edit_earthquake_report, name='edit_earthquake_report'),
+    path('delete_earthquake_report/<int:report_id>/', views.delete_earthquake_report, name='delete_earthquake_report'),
+    path('get_earthquake_admin_report_details', views.get_earthquake_admin_report_details, name='get_earthquake_admin_report_details'),
 
     path('submit_announcement/', views.submit_announcement, name='submit_announcement'),
     path('announcement/<int:pk>/', views.AnnouncementDetailView.as_view(), name='announcement-detail'),
