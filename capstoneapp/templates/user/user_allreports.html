@@ -12,6 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.0.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
     <style>
         
         tr:nth-child(even) {
@@ -197,6 +200,8 @@
                                 <label for="editContactNumber">Contact Number</label>
                                 <input type="text" class="form-control" id="editContactNumber" name="editContactNumber">
                             </div>
+                            <label>Location</label>
+                            <div id="map" style="height: 300px;"></div>
                             <div class="form-group">
                                 <label for="editAttachment">Attachment</label>
                                 <input type="file" class="form-control-file" id="editNewAttachment" name="editNewAttachment">
@@ -204,6 +209,14 @@
                                     <a href="{{ data.attachment }}" target="_blank">View Attachment</a>
                                 </div>
                             </div>
+                            <div class="mb-3" id="locationFields" style="display: none;">
+                                <input type="hidden" type="text" class="form-control" id="editLatitude" name="editLatitude" readonly>
+                            </div>
+                            <div class="mb-3" id="locationFields" style="display: none;">
+                                <input type="hidden" type="text" class="form-control" id="editLongitude" name="editLongitude" readonly>
+                            </div>
+                            
+
                             
                         </form>
                     </div>
@@ -232,6 +245,8 @@
         var allBarangays = [];
         var currentPage = 1;
         var paginationData = null;
+        var map = null;
+
         $(document).ready(function () {
                 $("#filter-date").change(function () {
                     const selectedDate = $(this).val();
@@ -337,6 +352,8 @@
                 const editedBarangay = $("#editBarangay").val();
                 const editedContactNumber = $("#editContactNumber").val();
                 const editedAttachment = $("#editNewAttachment")[0].files[0]; 
+                const editedLatitude = $("#editLatitude").val();
+                const editedLongitude = $("#editLongitude").val();
 
                 const formData = new FormData();
                 formData.append("subject", editedSubject);
@@ -346,7 +363,8 @@
                 formData.append("respondent_name", editedRespondentName);
                 formData.append("barangay", editedBarangay);
                 formData.append("contact_number", editedContactNumber);
-
+                formData.append("latitude", editedLatitude);
+                formData.append("longitude", editedLongitude);
                 if (editedAttachment) {
                     formData.append("attachment", editedAttachment); 
                 }
@@ -415,7 +433,7 @@
                 }
             });
         });
-
+        let marker;
         function displayReportDetails(reportId) {
             if (!reportId) {
                 console.error("Report ID is required.");
@@ -428,6 +446,7 @@
                 data: { report_id: reportId },
                 dataType: "json",
                 success: function (data) {
+                    
                     console.log(data)
                     $("#editSubject").val(data.subject);
                     $("#editDateReported").val(data.date_reported);
@@ -444,8 +463,38 @@
                     } else {
                         $("#editAttachment").empty();
                     }
+                    
                     console.log('attachment', data.attachment)
+                    const latitude = data.latitude;
+                    const longitude = data.longitude;
 
+                    const map = L.map('map').setView([latitude, longitude], 20);
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    const marker = L.marker([latitude, longitude], { draggable: true }).addTo(map);
+                    marker.bindPopup('Location').openPopup();
+
+                    function showLocationFields() {
+                        $("#locationFields").show();
+                    }
+
+                    marker.on('dragend', function (e) {
+                        const newLatLng = e.target.getLatLng();
+                        $("#editLatitude").val(newLatLng.lat);
+                        $("#editLongitude").val(newLatLng.lng);
+                        showLocationFields(); 
+                    });
+
+                    map.on('click', function (e) {
+                        const newLatLng = e.latlng;
+                        marker.setLatLng(newLatLng);
+                        $("#editLatitude").val(newLatLng.lat);
+                        $("#editLongitude").val(newLatLng.lng);
+                        showLocationFields(); 
+                    });
                     const timeReportedParts = data.time_reported.split(':');
                     if (timeReportedParts.length >= 2) {
                         const hours = timeReportedParts[0].padStart(2, '0');
@@ -457,7 +506,25 @@
                         $("#editTimeReported").val("Invalid Time Format");
                     }
 
-                    $("#reportModal").modal("show");
+
+                    $('#reportModal').on('shown.bs.modal', function () {
+                        if (map !== null) {
+                        map.invalidateSize();
+                        }            
+                    });
+
+                    $('#reportModal').on('hidden.bs.modal', function () {
+                        const mapContainer = L.DomUtil.get('map');
+                        if (mapContainer !== null) {
+                            mapContainer._leaflet_id = null;
+                        }
+
+                        if (map !== null) {
+                            map.remove(); 
+                            map = null; 
+                        }
+                    });
+
                 },
                 error: function (xhr, status, error) {
                     console.error("Error fetching report details: " + error);

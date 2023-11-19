@@ -157,6 +157,8 @@
                 <a class="dropdown-item" href="{% url 'admin_incident_reports'%}">Incident Reports</a>
                 <a class="dropdown-item" href="{% url 'get_reports'%}">All Reports</a>
                 <a class="dropdown-item" href="{% url 'new_reports'%}">New Reports</a>
+                <a class="dropdown-item" href="{% url 'add_earthquakereport' %}">Add Report</a>
+
               </div>
             </div>
           </li>
@@ -375,6 +377,7 @@
             date_reported: $(this).data("date-reported"),
             time_reported: $(this).data("time-reported"),
 
+
           };
           selectedReport = report;
           console.log('report', report)
@@ -416,7 +419,23 @@
               
             });
 
+             if (selectedReport.attachment) {
+            var img = new Image();
+            img.onload = function () {
+              var imgWidth = 100;
+              var imgHeight = (img.naturalHeight * imgWidth) / img.naturalWidth;
+              var imgX = 10;
+              var imgY = doc.autoTable.previous.finalY + 10;
+              doc.setFontSize(12);
+              doc.text('Attachment:', imgX, imgY - 1);
+              doc.addImage(img, 'PNG', imgX, imgY, imgWidth, imgHeight);
+
               doc.save("report.pdf");
+            };
+            img.src = selectedReport.attachment;
+          } else {
+            doc.save("report.pdf");
+          } 
             }
           });
           $(document).on("click", "tr[data-toggle='modal']", function () {

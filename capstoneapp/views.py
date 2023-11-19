@@ -302,7 +302,7 @@ def user_typhoon(request):
 
 def user_earthquake(request):
     subjects = ["Earthquake Report"]
-    reports = AdminReport.objects.filter(subject__in=subjects).order_by('-date_reported')
+    reports = AdminReport.objects.filter(subject__in=subjects).order_by('-date')
 
     reports_per_page = 10
     paginator = Paginator(reports, reports_per_page)
@@ -433,7 +433,9 @@ def submit_report(request):
         serializer = ReportSerializer(data=request.POST)
         if serializer.is_valid():
             attachment = request.FILES.get('attachment')
-            report = serializer.save(attachment=attachment)
+            latitude = request.POST.get('latitude')
+            longitude = request.POST.get('longitude')
+            report = serializer.save(attachment=attachment, latitude=latitude, longitude=longitude)
             messages.success(request, 'Report submitted successfully.')
 
             subject = 'New Report Submitted'
@@ -450,6 +452,7 @@ def submit_report(request):
 
             return redirect('add-reports')  
         else:
+            print(serializer.errors)
             messages.error(request, 'Report submission failed. Please check your data.')
     return render(request, 'user/add_reports.html')
 
@@ -1001,7 +1004,9 @@ def get_filtered_reports(request):
             'attachment': report.attachment.url if report.attachment else '',
             'date_reported': report.date_reported.strftime('%Y-%m-%d'),
             'time_reported': report.time_reported.strftime('%H:%M'),
-            'barangay': report.barangay 
+            'barangay': report.barangay,
+            'longitude': report.longitude,
+            'latitude': report.latitude
         })
 
     return JsonResponse(report_data, safe=False)
@@ -1023,7 +1028,10 @@ def get_filtered_reports_sit(request):
             'attachment': report.attachment.url if report.attachment else '',
             'date_reported': report.date_reported.strftime('%Y-%m-%d'),
             'time_reported': report.time_reported.strftime('%H:%M'),
-            'barangay': report.barangay 
+            'barangay': report.barangay,
+            'longitude': report.longitude,
+            'latitude': report.latitude
+
         })
 
     return JsonResponse(report_data, safe=False)
