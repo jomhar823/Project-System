@@ -52,6 +52,7 @@ urlpatterns = [
     path('admintyph_basics', views.admintyph_basics, name="admintyph_basics"),
     path('adminearthquake_basics', views.adminearthquake_basics, name="adminearthquake_basics"),
     path('adminlandslide_basics', views.adminlandslide_basics, name="adminlandslide_basics"),
+    path('get_announcement_details/', views.get_announcement_details, name='get_announcement_details'),
 
     path('admin_incident_reports', views.admin_incident_reports, name='admin_incident_reports'),
     path('admin_weather', views.admin_weather, name='admin_weather'),

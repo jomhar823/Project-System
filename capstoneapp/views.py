@@ -504,6 +504,26 @@ def get_user_announcements(request):
     else:
         return HttpResponseForbidden("Access Denied")
 
+
+def get_announcement_details(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == 'GET':
+        announcement_id = request.GET.get('announcement_id')
+        try:
+            announcement = Announcement.objects.get(pk=announcement_id)
+            total_barangays_count = CustomUser.objects.filter(user_type='barangay').count()
+
+            data = {
+                'subject': announcement.subject,
+                'date': announcement.date.strftime('%Y-%m-%d'),
+                'description': announcement.description,
+                'barangays': list(announcement.barangay.values('barangay')),
+                'total_barangays_count': total_barangays_count
+            }
+            return JsonResponse(data)
+        except Announcement.DoesNotExist:
+            return JsonResponse({'error': 'Announcement not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)
 ###### ADMIN ########
 
 def adminflood_basics(request):
